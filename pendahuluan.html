@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendahuluan - Dimas DK Portfolio</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="nav-buttons.css">
+
+    <style>
+        :root {
+            --bg-dark: #05070a;
+            --bg-navy: #0b1220;
+            --accent: #2b6cb0;
+            --text: #e6eaf0;
+            --muted: #9aa4b2;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--bg-dark), var(--bg-navy));
+            color: var(--text);
+            padding: 60px 20px;
+        }
+
+        /* MAIN */
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            background: rgba(10, 15, 30, .65);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 160px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, .7);
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+        }
+
+        .divider {
+            width: 90px;
+            height: 4px;
+            background: linear-gradient(to right, var(--accent), transparent);
+            margin: 20px 0 30px;
+        }
+
+        p {
+            color: var(--muted);
+            line-height: 1.9;
+            font-size: 1.05rem;
+        }
+
+        /* PROJECT BOX */
+        .project-boxes {
+            margin-top: 50px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 26px;
+        }
+
+        .project-box {
+            background: rgba(255, 255, 255, .05);
+            border-radius: 20px;
+            padding: 34px;
+            cursor: pointer;
+            transition: .4s ease;
+        }
+
+        .project-box:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, .1);
+        }
+
+        .project-box i {
+            font-size: 32px;
+            color: var(--accent);
+            margin-bottom: 14px;
+        }
+
+        .project-box h3 {
+            margin-bottom: 10px
+        }
+
+        /* FULLSCREEN MODAL */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, var(--bg-dark), var(--bg-navy));
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(1.05);
+            transition: opacity .5s ease, transform .5s ease;
+            z-index: 9999;
+        }
+
+        .modal.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: scale(1);
+        }
+
+        .modal-content {
+            height: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .modal-text {
+            padding: 90px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            animation: slideLeft .6s ease;
+        }
+
+        .modal-text h2 {
+            font-size: 2.4rem;
+            margin-bottom: 20px;
+        }
+
+        .modal-text ul {
+            margin-top: 20px;
+            padding-left: 20px;
+            color: var(--muted);
+            line-height: 1.8;
+        }
+
+        .modal-image {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: slideRight .6s ease;
+        }
+
+        .modal-image img {
+            max-width: 90%;
+            border-radius: 20px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, .6);
+        }
+
+        .close {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--muted);
+        }
+
+        @keyframes slideLeft {
+            from {
+                transform: translateX(-40px);
+                opacity: 0
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1
+            }
+        }
+
+        @keyframes slideRight {
+            from {
+                transform: translateX(40px);
+                opacity: 0
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1
+            }
+        }
+
+        @media(max-width:768px) {
+            .modal-content {
+                grid-template-columns: 1fr
+            }
+
+            .modal-image {
+                display: none
+            }
+
+            .modal-text {
+                padding: 50px
+            }
+
+            .approach-grid,
+            .skills-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 20px;
+            }
+
+            .outcome-list {
+                gap: 15px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        /* Additional Sections Styles */
+        .approach-section,
+        .skills-section,
+        .outcome-section {
+            margin-top: 60px;
+        }
+
+        .approach-grid,
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .approach-item,
+        .skill-item {
+            background: rgba(255, 255, 255, .05);
+            border-radius: 20px;
+            padding: 30px;
+            transition: .4s ease;
+            text-align: center;
+        }
+
+        .approach-item:hover,
+        .skill-item:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, .1);
+        }
+
+        .approach-item i,
+        .skill-item i {
+            font-size: 32px;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        .approach-item h4,
+        .skill-item h4 {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .approach-item p,
+        .skill-item p {
+            color: var(--muted);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .outcome-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .outcome-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, .05);
+            border-radius: 15px;
+            transition: .3s ease;
+        }
+
+        .outcome-item:hover {
+            background: rgba(255, 255, 255, .1);
+            transform: translateX(10px);
+        }
+
+        .outcome-item i {
+            color: var(--accent);
+            font-size: 20px;
+        }
+
+        .outcome-item span {
+            color: var(--text);
+            font-size: 1rem;
+        }
+
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 40px;
+        }
+
+        .footer-bottom p {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container" data-aos="fade-up">
+        <h1>Pendahuluan</h1>
+        <div class="divider"></div>
+
+        <p>
+            Sebagai bentuk kesiapan dan penguasaan kompetensi, saya telah menyiapkan
+            <strong>tiga proyek utama</strong> yang dirancang untuk menunjukkan kemampuan
+            dalam desain visual, pengembangan web, dan komunikasi publik secara efektif.
+            Setiap proyek memiliki tujuan, pendekatan, dan hasil yang terukur.
+        </p>
+
+        <p>
+            Setiap proyek ini tidak hanya menampilkan kemampuan teknis, tetapi juga mencerminkan
+            pemahaman mendalam tentang kebutuhan audiens, prinsip desain yang efektif,
+            dan implementasi teknologi yang tepat. Dari konsep awal hingga hasil akhir,
+            setiap tahap dilakukan dengan pertimbangan matang untuk menciptakan karya
+            yang tidak hanya menarik secara visual, tetapi juga fungsional dan berdampak.
+        </p>
+
+        <p>
+            Proses pengembangan setiap proyek melibatkan riset mendalam, perencanaan strategis,
+            dan iterasi berkelanjutan untuk memastikan hasil yang optimal. Saya percaya bahwa
+            desain yang baik adalah perpaduan sempurna antara estetika, fungsionalitas,
+            dan pesan yang jelas yang dapat diterima dengan baik oleh target audiens.
+        </p>
+
+        <div class="project-boxes">
+            <div class="project-box" onclick="openModal('poster')">
+                <i class="fa-solid fa-image"></i>
+                <h3>Poster</h3>
+                <p>Eksplorasi visual dan pesan singkat.</p>
+            </div>
+            <div class="project-box" onclick="openModal('website')">
+                <i class="fa-solid fa-globe"></i>
+                <h3>Website</h3>
+                <p>Struktur digital dan interaksi pengguna.</p>
+            </div>
+            <div class="project-box" onclick="openModal('iklan')">
+                <i class="fa-solid fa-bullhorn"></i>
+                <h3>Iklan Layanan Masyarakat</h3>
+                <p>Penyampaian pesan edukatif.</p>
+            </div>
+        </div>
+
+        <div class="approach-section">
+            <h2>Pendekatan & Metodologi</h2>
+            <div class="divider"></div>
+            <p>
+                Dalam setiap proyek, saya mengadopsi pendekatan holistik yang mengintegrasikan
+                aspek kreatif, teknis, dan strategis. Proses dimulai dengan pemahaman mendalam
+                tentang tujuan komunikasi dan target audiens, diikuti dengan eksplorasi konsep
+                visual yang relevan dan inovatif.
+            </p>
+            
+            <div class="approach-grid">
+                <div class="approach-item">
+                    <i class="fas fa-lightbulb"></i>
+                    <h4>Konseptualisasi</h4>
+                    <p>Brainstorming ide dan pengembangan konsep kreatif yang sesuai dengan tujuan proyek.</p>
+                </div>
+                <div class="approach-item">
+                    <i class="fas fa-pencil-ruler"></i>
+                    <h4>Perancangan</h4>
+                    <p>Pembuatan wireframe, mockup, dan prototipe untuk visualisasi hasil akhir.</p>
+                </div>
+                <div class="approach-item">
+                    <i class="fas fa-code"></i>
+                    <h4>Implementasi</h4>
+                    <p>Pengembangan teknis dengan fokus pada performa dan pengalaman pengguna.</p>
+                </div>
+                <div class="approach-item">
+                    <i class="fas fa-sync-alt"></i>
+                    <h4>Iterasi</h4>
+                    <p>Evaluasi dan perbaikan berkelanjutan berdasarkan feedback dan testing.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="skills-section">
+            <h2>Kompetensi yang Diterapkan</h2>
+            <div class="divider"></div>
+            <p>
+                Setiap proyek merupakan wadah untuk mengaplikasikan dan mengembangkan berbagai
+                kompetensi teknis dan kreatif yang telah saya pelajari. Dari desain grafis
+                hingga pengembangan web, setiap skill digunakan secara optimal untuk mencapai
+                hasil yang terbaik.
+            </p>
+            
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <i class="fas fa-palette"></i>
+                    <h4>Desain Visual</h4>
+                    <p>Komposisi, teori warna, tipografi, dan hierarki visual.</p>
+                </div>
+                <div class="skill-item">
+                    <i class="fas fa-laptop-code"></i>
+                    <h4>Pengembangan Web</h4>
+                    <p>HTML5, CSS3, JavaScript, dan prinsip responsive design.</p>
+                </div>
+                <div class="skill-item">
+                    <i class="fas fa-users"></i>
+                    <h4>UX/UI Design</h4>
+                    <p>Penelitian pengguna, user journey, dan interface design.</p>
+                </div>
+                <div class="skill-item">
+                    <i class="fas fa-chart-line"></i>
+                    <h4>Analisis & Strategi</h4>
+                    <p>Market research, competitor analysis, dan strategic planning.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="outcome-section">
+            <h2>Hasil & Dampak</h2>
+            <div class="divider"></div>
+            <p>
+                Hasil dari setiap proyek tidak hanya dinilai dari aspek estetika, tetapi juga
+                dari kemampuannya dalam mencapai tujuan komunikasi dan memberikan nilai tambah
+                bagi audiens. Setiap karya dirancang untuk memberikan pengalaman yang berkesan
+                dan pesan yang tersampaikan dengan efektif.
+            </p>
+            
+            <div class="outcome-list">
+                <div class="outcome-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Solusi desain yang inovatif dan fungsional</span>
+                </div>
+                <div class="outcome-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Pengalaman pengguna yang intuitif dan menyenangkan</span>
+                </div>
+                <div class="outcome-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Komunikasi visual yang jelas dan efektif</span>
+                </div>
+                <div class="outcome-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Implementasi teknologi yang optimal dan modern</span>
+                </div>
+                <div class="outcome-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Dokumentasi proses yang lengkap dan terstruktur</span>
+                </div>
+            </div>
+        </div>
+            
+            <div class="footer-bottom">
+                <p>Website Untuk Uji Kompetensi Keahlian Desain Komunikasi Visual | SMK Miftahul Ulum Tanjungarum | Tahun Pelajaran 2024/2025</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- POSTER MODAL -->
+    <div class="modal" id="poster">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="modal-content">
+            <div class="modal-text">
+                <h2>Project Poster</h2>
+                <p>
+                    Poster dirancang untuk menyampaikan pesan secara visual dengan cepat dan
+                    efektif. Fokus utama berada pada keseimbangan warna, tipografi, dan hierarki
+                    informasi.
+                </p>
+                <ul>
+                    <li>Tujuan: menarik perhatian dan menyampaikan pesan inti</li>
+                    <li>Proses: riset tema, sketsa, dan digitalisasi</li>
+                    <li>Hasil: visual yang komunikatif dan konsisten</li>
+                </ul>
+            </div>
+            <div class="modal-image">
+                <img src="https://via.placeholder.com/600x400?text=Poster+Preview">
+            </div>
+        </div>
+    </div>
+
+    <!-- WEBSITE MODAL -->
+    <div class="modal" id="website">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="modal-content">
+            <div class="modal-text">
+                <h2>Project Website</h2>
+                <p>
+                    Website dikembangkan sebagai media interaktif yang mengutamakan struktur,
+                    responsivitas, dan pengalaman pengguna.
+                </p>
+                <ul>
+                    <li>Tujuan: media informasi dan presentasi digital</li>
+                    <li>Proses: wireframe, layout, implementasi</li>
+                    <li>Hasil: website rapi, modern, dan mudah digunakan</li>
+                </ul>
+            </div>
+            <div class="modal-image">
+                <img src="https://via.placeholder.com/600x400?text=Website+Preview">
+            </div>
+        </div>
+    </div>
+
+    <!-- ILM MODAL -->
+    <div class="modal" id="iklan">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="modal-content">
+            <div class="modal-text">
+                <h2>Iklan Layanan Masyarakat</h2>
+                <p>
+                    Proyek ini berfokus pada penyampaian pesan edukatif kepada masyarakat dengan
+                    pendekatan visual dan narasi yang bertanggung jawab.
+                </p>
+                <ul>
+                    <li>Tujuan: meningkatkan kesadaran publik</li>
+                    <li>Proses: penentuan isu, konsep visual, eksekusi</li>
+                    <li>Hasil: pesan jelas dan mudah dipahami</li>
+                </ul>
+            </div>
+            <div class="modal-image">
+                <img src="https://via.placeholder.com/600x400?text=ILM+Preview">
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="nav-buttons">
+        <a href="index.html" class="nav-button prev-button">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <a href="tentang-peserta.html" class="nav-button next-button">
+            <i class="fas fa-arrow-right"></i>
+        </a>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true, duration: 800 });
+
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+        }
+
+        function closeModal() {
+            document.querySelectorAll('.modal')
+                .forEach(m => m.classList.remove('active'));
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') {
+                window.location.href = 'index.html';
+            } else if (e.key === 'ArrowRight') {
+                window.location.href = 'tentang-peserta.html';
+            }
+        });
+    </script>
+
+</body>
+
+</html>

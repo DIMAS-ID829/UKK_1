@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uji Kompetensi Keahlian Desain Komunikasi Visual</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Enhanced style for homepage to match the image: dark background, blue accents, gradients for visual appeal */
+        body { 
+            background: linear-gradient(135deg, #000 0%, #001f3f 100%); /* Gradient background for depth */
+            color: #fff; 
+            font-family: 'Inter', sans-serif; 
+            overflow-x: hidden;
+        }
+        .homepage-container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 4rem 2rem; 
+            position: relative;
+        }
+        .greeting { 
+            font-size: 1.2rem; 
+            color: #ffd700; 
+            font-weight: 500; 
+            margin-bottom: 1rem; 
+            animation: fadeIn 1s ease-in-out;
+        }
+        .title { 
+            font-size: 4rem; 
+            font-weight: 900; 
+            background: linear-gradient(90deg, #fff 0%, #00d4ff 100%); /* Gradient text for title */
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            margin-bottom: 0.5rem;
+            animation: gradientShift 3s infinite alternate;
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0%; }
+            100% { background-position: 100%; }
+        }
+        .subtitle { 
+            font-size: 2rem; 
+            background: linear-gradient(90deg, #00d4ff 0%, #00ffcc 100%); /* Gradient for subtitle */
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            margin-bottom: 1.5rem;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        .description { 
+            font-size: 1rem; 
+            color: #a0a0a0; 
+            max-width: 500px; 
+            line-height: 1.6;
+            animation: fadeIn 2s ease-in-out;
+        }
+        .stats { 
+            display: flex; 
+            gap: 1rem; 
+            margin: 2rem 0;
+        }
+        .stat-card { 
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(0, 212, 255, 0.1) 100%); /* Gradient background for cards */
+            padding: 1rem; 
+            border-radius: 10px; 
+            text-align: center; 
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .stat-card:hover { 
+            transform: scale(1.05); 
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.2);
+        }
+        .stat-number { 
+            font-size: 1.8rem; 
+            color: #00d4ff; 
+            font-weight: 700;
+        }
+        .stat-label { 
+            font-size: 0.9rem; 
+            color: #a0a0a0;
+        }
+        .actions { 
+            display: flex; 
+            gap: 1rem; 
+            margin: 2rem 0;
+        }
+        .btn { 
+            padding: 0.8rem 1.5rem; 
+            border-radius: 50px; 
+            text-decoration: none; 
+            font-weight: 600; 
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .btn-primary { 
+            background: linear-gradient(90deg, #00d4ff 0%, #0099cc 100%); /* Gradient button */
+            color: #fff;
+        }
+        .btn-secondary { 
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, rgba(0, 212, 255, 0.2) 100%); /* Gradient secondary button */
+            color: #fff; 
+            border: 1px solid #00d4ff;
+        }
+        .btn:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+        }
+        .social-icons { 
+            display: flex; 
+            gap: 1rem;
+        }
+        .social-icon { 
+            width: 40px; 
+            height: 40px; 
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(0, 212, 255, 0.1) 100%); /* Gradient icons */
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: #a0a0a0; 
+            transition: color 0.3s, transform 0.3s;
+        }
+        .social-icon:hover { 
+            color: #00d4ff; 
+            transform: scale(1.2);
+        }
+        .profile-image { 
+            position: absolute; 
+            top: 50%; 
+            right: 10%; 
+            transform: translateY(-50%); 
+            width: 300px; 
+            height: auto; 
+            border-radius: 20px; 
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+            animation: floatImage 4s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.5)); /* Enhanced glow */
+        }
+        @keyframes floatImage {
+            0%, 100% { transform: translateY(-50%); }
+            50% { transform: translateY(-55%); }
+        }
+        /* Floating badges removed */
+        /* Modern Menu Styling */
+        .menu-container {
+            margin: 8rem auto 2rem; /* Increased top margin to 6rem */
+            max-width: 1000px;
+            padding: 0 1rem;
+        }
+        
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+            justify-content: center;
+        }
+        
+        .menu-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem 0.5rem;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            text-decoration: none;
+            color: #e0e0e0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #00d4ff, #00ffcc);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 212, 255, 0.1);
+            background: rgba(0, 212, 255, 0.1);
+            color: #fff;
+        }
+        
+        .menu-item:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .menu-icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: #00d4ff;
+            transition: transform 0.3s ease;
+        }
+        
+        .menu-item:hover .menu-icon {
+            transform: scale(1.2);
+            color: #00ffcc;
+        }
+        
+        .menu-text {
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-align: center;
+            transition: color 0.3s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .menu-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .menu-item {
+                padding: 1.2rem 0.5rem;
+            }
+            
+            .menu-icon {
+                font-size: 1.5rem;
+            }
+            
+            .menu-text {
+                font-size: 0.8rem;
+            }
+        }
+        .footer-note { 
+            font-size: 0.8rem; 
+            margin-top: 2rem; 
+            text-align: center; 
+            color: #666; 
+        }
+        
+        /* Navigation Buttons */
+        .navigation-buttons {
+            margin-top: 3rem;
+            text-align: center;
+        }
+        
+        .nav-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            background: linear-gradient(90deg, #00d4ff 0%, #0099cc 100%);
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-button i {
+            margin-left: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .nav-button:hover i {
+            transform: translateX(3px);
+        }
+        
+        .right-button {
+            position: fixed;
+            right: 2rem;
+            bottom: 2rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }
+        
+        .right-button i {
+            margin: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .right-button {
+                right: 1rem;
+                bottom: 1rem;
+                width: 45px;
+                height: 45px;
+            }
+            
+            .nav-button {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.9rem;
+            }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Welcome Screen dari code asli, diadaptasi untuk dark theme dengan gradients -->
+    <div class="welcome-screen" id="welcomeScreen">
+        <!-- Background Effects enhanced with gradients -->
+        <div class="background-effects">
+            <div class="gradient-blob gradient-blob-1" style="background: radial-gradient(circle at 50% 50%, rgba(0, 212, 255, 0.2) 0%, transparent 50%);"></div>
+            <div class="gradient-blob gradient-blob-2" style="background: radial-gradient(circle at 50% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 50%);"></div>
+        </div>
+        <!-- Welcome Content -->
+        <div class="welcome-content">
+            <!-- Icons -->
+            <div class="icon-container">
+                <!-- Code Icon -->
+                <div class="icon-wrapper">
+                    <div class="icon-button">
+                        <div class="icon-glow"></div>
+                        <div class="icon-content">
+                            <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="16 18 22 12 16 6"></polyline>
+                                <polyline points="8 6 2 12 8 18"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <!-- User Icon -->
+                <div class="icon-wrapper">
+                    <div class="icon-button">
+                        <div class="icon-glow"></div>
+                        <div class="icon-content">
+                            <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <!-- Github Icon -->
+                <div class="icon-wrapper">
+                    <div class="icon-button">
+                        <div class="icon-glow"></div>
+                        <div class="icon-content">
+                            <svg class="icon-svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Welcome Text with gradient enhancements -->
+            <div class="welcome-text">
+                <div class="welcome-title">
+                    <div class="title-line">
+                        <span class="title-word light" style="background: linear-gradient(90deg, #fff 0%, #ffd700 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Welcome</span>
+                        <span class="title-word light" style="background: linear-gradient(90deg, #fff 0%, #ffd700 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">To</span>
+                        <span class="title-word light" style="background: linear-gradient(90deg, #fff 0%, #ffd700 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">My</span>
+                    </div>
+                    <div class="title-line title-portfolio">
+                        <span class="title-word gradient" style="background: linear-gradient(90deg, #00d4ff 0%, #0099cc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Portfolio</span>
+                        <span class="title-word gradient" style="background: linear-gradient(90deg, #00d4ff 0%, #0099cc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Website</span>
+                    </div>
+                </div>
+                <!-- Added element for typewriter URL link -->
+                <div id="websiteText" class="website-url"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Homepage layout mirip gambar, enhanced with gradients -->
+    <div class="homepage-container">
+        <p class="greeting"><i class="fas fa-hand-wave" style="color: #ffd700;"></i> Hello there!</p>
+        <h1 class="title">Dimas Id</h1>
+        <h2 class="subtitle">I'm a Frontend Engineer</h2>
+        <p class="description">I'm Dimas Kurnia S, a passionate Software Developer who enjoys understanding how systems work — from low-level logic circuits to high-level applications. With solid experience in Java, C, and modern web technologies, I create efficient, reliable, and scalable software that combines logic and creativity.</p>
+        <div class="stats">
+            <div class="stat-card">
+                <span class="stat-number">25+</span>
+                <span class="stat-label">Projects Completed</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">3+</span>
+                <span class="stat-label">Years Experience</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">20+</span>
+                <span class="stat-label">My Github</span>
+            </div>
+        </div>
+        
+        <div class="social-icons">
+            <a href="#" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+        </div>
+        <!-- Profile image -->
+        <img src="images/img1.jpeg" alt="Profile Photo" class="profile-image">
+        
+        <!-- Centered Menu with updated styling -->
+        <div class="menu-container">
+            <div class="menu-grid">
+                <a href="tentang-peserta.html" class="menu-item">
+                    <div class="menu-icon"><i class="fas fa-user"></i></div>
+                    <div class="menu-text">Tentang Peserta</div>
+                </a>
+                <a href="pendahuluan.html" class="menu-item">
+                    <div class="menu-icon"><i class="fas fa-pencil-alt"></i></div>
+                    <div class="menu-text">Pendahuluan</div>
+                </a>
+                <a href="tentang-projek.html" class="menu-item">
+                    <div class="menu-icon"><i class="fas fa-info-circle"></i></div>
+                    <div class="menu-text">Tentang Projek</div>
+                </a>
+                <a href="projek.html" class="menu-item">
+                    <div class="menu-icon"><i class="fas fa-play"></i></div>
+                    <div class="menu-text">Projek</div>
+                </a>
+                <a href="lampiran.html" class="menu-item">
+                    <div class="menu-icon"><i class="fas fa-equals"></i></div>
+                    <div class="menu-text">Lampiran</div>
+                </a>
+                <a href="penutup.html" class="menu-item">
+                    <div class="menu-icon"><i class="fas fa-arrow-left"></i></div>
+                    <div class="menu-text">Penutup</div>
+                </a>
+            </div>
+        </div>
+        <a href="tentang-peserta.html" class="nav-button right-button">
+            <i class="fas fa-arrow-right"></i>
+        </a>
+        <p class="footer-note">Websites Untuk Uji Kompetensi Keahlian Desain Komunikasi Visual | SMK Miftahul Ulum Tanjungarum | Tahun Pelajaran 2024/2025</p>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
