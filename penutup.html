@@ -3,61 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Penutup - Dimas DK Portfolio</title>
+    <title>Lampiran - Dimas DK Portfolio</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Navigation Buttons Styles - Sama seperti di halaman sebelumnya */
+        .nav-buttons {
+            position: fixed;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 30px;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        .nav-button {
+            width: 50px;
+            height: 50px;
+            background: rgba(26, 32, 44, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4fd1c5;
+            text-decoration: none;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(79, 209, 197, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(79, 209, 197, 0.2);
+            pointer-events: auto;
+        }
+
+        .nav-button:hover {
+            background: rgba(45, 55, 72, 0.95);
+            box-shadow: 0 0 25px rgba(79, 209, 197, 0.7);
+            transform: scale(1.05);
+            border-color: rgba(79, 209, 197, 0.4);
+        }
+
+        .nav-button i {
+            transition: transform 0.3s ease;
+        }
+
+        .nav-button.prev-button:hover i {
+            transform: translateX(-3px);
+        }
+
+        .nav-button.next-button:hover i {
+            transform: translateX(3px);
+        }
+
+        @media (max-width: 768px) {
+            .nav-buttons {
+                padding: 0 20px;
+            }
+            
+            .nav-button {
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+        }
+    </style>
 </head>
-<body>
-    <!-- Welcome Screen dari code asli -->
-    <div class="welcome-screen" id="welcomeScreen">
-        <!-- [sama seperti di index.html] -->
-    </div>
-
-    <!-- Navbar dari code asli -->
-    <header>
-        <!-- [sama seperti di tentang-peserta.html, ubah active ke penutup] -->
-    </header>
-
-    <!-- Isi section Contact dari code asli -->
-    <section id="contact" class="section contact">
+<body class="page-transition">
+    <!-- Isi section Skills dari code asli -->
+    <section id="skills" class="section skills">
         <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
+            <h2 class="section-title">Keahlian/Kemampuan</h2>
+            <div class="skills-carousel-wrapper">
+                <div class="skills-carousel">
+                    <!-- [seluruh skill cards dan modals dari code asli, termasuk duplicated set] -->
+                    <div class="skill-card" data-skill="html5">
+                        <div class="skill-icon-wrapper">
+                            <i class="fab fa-html5"></i>
+                            <div class="skill-glow"></div>
                         </div>
-                        <div class="contact-details">
-                            <h3>Email</h3>
-                            <p>dimas.kurnia829@smk.belajar.id</p>
-                            <a href="#" class="email-link" data-mail="dimas.kurnia829@smk.belajar.id">
-                                Send Email
-                            </a>
+                        <h3>HTML5</h3>
+                        <div class="skill-level">
+                            <div class="level-bar" style="--level: 95%"></div>
                         </div>
+                        <span class="level-text">95%</span>
                     </div>
-                    <!-- [lanjutan semua contact items] -->
-                </div>
-                <div class="contact-form">
-                    <form id="contactForm">
-                        <!-- [seluruh form dari code asli] -->
-                    </form>
+                    <!-- [lanjutan semua skill cards dan modals] -->
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Navigation Buttons - Sama seperti di halaman sebelumnya -->
+    <div class="nav-buttons">
+        <a href="projek.html" class="nav-button prev-button">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <a href="penutup.html" class="nav-button next-button">
+            <i class="fas fa-arrow-right"></i>
+        </a>
+    </div>
+
     <!-- Scripts dari code asli -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-    <script>
-        document.querySelectorAll('.email-link[data-mail]').forEach(link => {
-            const addr = link.dataset.mail;
-            link.href = `mailto:${addr}?subject=Hi%20Dimas&body=Hello%2C%0A%0AI%20saw%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project.%0A%0AThanks!`;
-        });
-    </script>
     <script src="script.js"></script>
 </body>
 </html>
