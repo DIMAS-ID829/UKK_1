@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tiga Box Vertikal dengan Divider</title>
+    <title>Tentang Project</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -16,12 +16,31 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1a202c 100%);
             color: #e2e8f0;
             min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Canvas untuk partikel background */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: black;
+        }
+
+        /* Konten utama */
+        .content {
+            position: relative;
+            z-index: 1;
             display: flex;
             justify-content: center;
             align-items: center;
+            min-height: 100vh;
             padding: 60px 20px;
         }
 
@@ -42,6 +61,7 @@
             font-weight: 900;
             color: #4fd1c5;
             letter-spacing: -0.5px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         .header p {
@@ -51,6 +71,7 @@
             margin: 0 auto;
             line-height: 1.7;
             font-weight: 400;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
         }
 
         /* Box Container */
@@ -58,13 +79,13 @@
             display: flex;
             flex-direction: column;
             gap: 0;
-            background: rgba(26, 32, 44, 0.8);
+            background: rgba(26, 32, 44, 0.85);
             border-radius: 16px;
             padding: 0;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(79, 209, 197, 0.15);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(79, 209, 197, 0.2);
             overflow: hidden;
-            margin-bottom: 100px;
+            backdrop-filter: blur(10px);
         }
 
         /* Box Item */
@@ -75,7 +96,7 @@
         }
 
         .box:hover {
-            background: rgba(45, 55, 72, 0.3);
+            background: rgba(45, 55, 72, 0.4);
             transform: translateY(-3px);
         }
 
@@ -93,14 +114,14 @@
 
         .box-title i {
             font-size: 1.6rem;
-            background: rgba(79, 209, 197, 0.1);
+            background: rgba(79, 209, 197, 0.15);
             width: 50px;
             height: 50px;
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid rgba(79, 209, 197, 0.2);
+            border: 1px solid rgba(79, 209, 197, 0.3);
         }
 
         .box-content {
@@ -139,7 +160,7 @@
             box-shadow: 0 0 20px rgba(79, 209, 197, 0.9);
         }
 
-        /* Navigation Buttons Styles - Sama seperti di HTML lama */
+        /* Navigation Buttons Styles */
         .nav-buttons {
             position: fixed;
             bottom: 20px;
@@ -237,7 +258,7 @@
         }
 
         @media (max-width: 480px) {
-            body {
+            .content {
                 padding: 40px 15px;
             }
             
@@ -294,50 +315,56 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Visual Design Expertise</h1>
-            <p>Three core areas of visual communication design that transform ideas into engaging experiences across all digital platforms</p>
-        </div>
-        
-        <div class="boxes-container">
-            <!-- Box 1 -->
-            <div class="box">
-                <h2 class="box-title">
-                    <i class="fas fa-palette"></i>
-                    UI/UX Design
-                </h2>
-                <p class="box-content">
-                    Crafting intuitive user experiences through thoughtful design principles. I focus on user-centered approaches to deliver interfaces that are both visually stunning and highly functional, ensuring seamless navigation and interaction across all devices and platforms.
-                </p>
+    <!-- Canvas untuk partikel background -->
+    <canvas id="particle-canvas"></canvas>
+    
+    <!-- Konten utama -->
+    <div class="content">
+        <div class="container">
+            <div class="header">
+                <h1>Tentang Project</h1>
+                <p>Penjelasan tentang project yang saya buat meliputi Poster,Website,Iklan layanan Masyarakat</p>
             </div>
             
-            <!-- Divider 1 -->
-            <div class="divider"></div>
-            
-            <!-- Box 2 -->
-            <div class="box">
-                <h2 class="box-title">
-                    <i class="fas fa-brush"></i>
-                    Brand Identity
-                </h2>
-                <p class="box-content">
-                    Developing cohesive brand identities that effectively communicate core values and resonate with target audiences. From comprehensive logo systems to detailed brand guidelines, I ensure consistent visual storytelling across all touchpoints to build strong brand recognition and trust.
-                </p>
-            </div>
-            
-            <!-- Divider 2 -->
-            <div class="divider"></div>
-            
-            <!-- Box 3 -->
-            <div class="box">
-                <h2 class="box-title">
-                    <i class="fas fa-play-circle"></i>
-                    Motion Graphics
-                </h2>
-                <p class="box-content">
-                    Bringing static designs to life with fluid animations and engaging motion graphics. I create captivating visual narratives that capture attention and enhance user engagement across digital platforms, from social media campaigns to interactive presentations and website animations.
-                </p>
+            <div class="boxes-container">
+                <!-- Box 1 -->
+                <div class="box">
+                    <h2 class="box-title">
+                        <i class="fas fa-palette"></i>
+                        Poster Iklan Layanan Masyarakat
+                    </h2>
+                    <p class="box-content">
+                        Crafting intuitive user experiences through thoughtful design principles. I focus on user-centered approaches to deliver interfaces that are both visually stunning and highly functional, ensuring seamless navigation and interaction across all devices and platforms.
+                    </p>
+                </div>
+                
+                <!-- Divider 1 -->
+                <div class="divider"></div>
+                
+                <!-- Box 2 -->
+                <div class="box">
+                    <h2 class="box-title">
+                        <i class="fas fa-brush"></i>
+                        Website Ukk
+                    </h2>
+                    <p class="box-content">
+                        Developing cohesive brand identities that effectively communicate core values and resonate with target audiences. From comprehensive logo systems to detailed brand guidelines, I ensure consistent visual storytelling across all touchpoints to build strong brand recognition and trust.
+                    </p>
+                </div>
+                
+                <!-- Divider 2 -->
+                <div class="divider"></div>
+                
+                <!-- Box 3 -->
+                <div class="box">
+                    <h2 class="box-title">
+                        <i class="fas fa-play-circle"></i>
+                        Iklan Layanan Masyarakat
+                    </h2>
+                    <p class="box-content">
+                        Bringing static designs to life with fluid animations and engaging motion graphics. I create captivating visual narratives that capture attention and enhance user engagement across digital platforms, from social media campaigns to interactive presentations and website animations.
+                    </p>
+                </div>
             </div>
         </div>
     </div>
@@ -352,7 +379,158 @@
         </a>
     </div>
 
+    <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simplex-noise/2.4.0/simplex-noise.min.js"></script>
+    
+    <!-- Utils dari Codepen -->
+    <script src="https://codepen.io/seanfree/pen/LvrJWz.js"></script>
+    
+    <!-- Kode partikel utama - SAMA PERSIS DENGAN YANG ANDA BERIKAN -->
+    <script>
+        "use strict";
+
+        const particleCount = 2000;
+        const particlePropCount = 9;
+        const particlePropsLength = particleCount * particlePropCount;
+        const spawnRadius = rand(150) + 150;
+        const noiseSteps = 6;
+        const { buffer, ctx } = createRenderingContext()
+
+        // Utils: https://codepen.io/seanfree/pen/LvrJWz
+
+        let center;
+        let tick;
+        let simplex;
+        let particleProps;
+
+        function setup() {
+            tick = 0;
+            center = [];
+            resize();
+            createParticles();
+            draw();
+        }
+
+        function createParticles() {
+            simplex = new SimplexNoise();
+            particleProps = new Float32Array(particleCount * particlePropCount);
+            
+            let i;
+            
+            for (i = 0; i < particlePropsLength; i += particlePropCount) {
+                initParticle(i);
+            }
+        }
+
+        function initParticle(i) {
+            let iy, ih, rd, rt, cx, sy, x, y, s, rv, vx, vy, t, h, w, l, ttl;
+            
+            iy = i + 1;
+            ih = 0.5 * i | 0;
+            rd = rand(spawnRadius);
+            rt = rand(TAU);
+            cx = cos(rt);
+            sy = sin(rt);
+            x = center[0] + cx * rd;
+            y = center[1] + sy * rd;
+            rv = randIn(0.1, 1);
+            s = randIn(1, 8);
+            vx = rv * cx * 0.1;
+            vy = rv * sy * 0.1;
+            w = randIn(0.1, 2);
+            h = randIn(160,260);
+            l = 0;
+            ttl = randIn(50, 200);
+            
+            particleProps.set([x, y, vx, vy, s, h, w, l, ttl], i);
+        }
+
+        function drawParticle(i) {
+            let n, dx, dy, dl, c;
+            let [x, y, vx, vy, s, h, w, l, ttl] = particleProps.get(i, particlePropCount);
+            
+            n = simplex.noise3D(x * 0.0025, y * 0.0025, tick * 0.0005) * TAU * noiseSteps;
+            vx = lerp(vx, cos(n), 0.05);
+            vy = lerp(vy, sin(n), 0.05);
+            dx = x + vx * s;
+            dy = y + vy * s;
+            dl = fadeInOut(l, ttl);
+            c = `hsla(${h},50%,60%,${dl})`;
+
+            l++;
+
+            buffer.save();
+            buffer.lineWidth = dl * w + 1;
+            buffer.strokeStyle = c;
+            buffer.beginPath();
+            buffer.moveTo(x, y);
+            buffer.lineTo(dx, dy);
+            buffer.stroke();
+            buffer.closePath();
+            buffer.restore();
+            
+            particleProps.set([dx, dy, vx, vy, s, h, w, l, ttl], i);
+
+            (checkBounds(x, y) || l > ttl) && initParticle(i);
+        }
+
+        function checkBounds(x, y) {
+            return(
+                x > buffer.canvas.width ||
+                x < 0 ||
+                y > buffer.canvas.height ||
+                y < 0
+            );
+        }
+
+        function resize() {
+            buffer.canvas.width = innerWidth;
+          buffer.canvas.height = innerHeight;
+
+          buffer.drawImage(ctx.canvas, 0, 0);
+
+            ctx.canvas.width = innerWidth;
+          ctx.canvas.height = innerHeight;
+          
+          ctx.drawImage(buffer.canvas, 0, 0);
+
+          center[0] = 0.5 * innerWidth;
+          center[1] = 0.5 * innerHeight;
+        }
+
+        function draw() {
+            tick++;
+            buffer.clearRect(0,0,buffer.canvas.width,buffer.canvas.height);
+            
+            ctx.fillStyle = 'rgba(0,0,0,0.1)';
+            ctx.fillRect(0,0,buffer.canvas.width,buffer.canvas.height);
+            
+            let i = 0;
+            
+            for (; i < particlePropsLength; i += particlePropCount) {
+                drawParticle(i);
+            }
+            
+            ctx.save();
+            ctx.filter = 'blur(8px)';
+            ctx.globalCompositeOperation = 'lighten';
+            ctx.drawImage(buffer.canvas, 0, 0);
+            ctx.restore();
+            
+            ctx.save();
+            ctx.globalCompositeOperation = 'lighter';
+            ctx.drawImage(buffer.canvas, 0, 0);
+            ctx.restore();
+            
+            window.requestAnimationFrame(draw);
+        }
+
+        window.addEventListener("load", setup);
+        window.addEventListener("resize", resize);
+    </script>
+    
+    <!-- Script untuk konten -->
     <script>
         // Initialize AOS
         AOS.init({
@@ -370,7 +548,7 @@
             
             box.addEventListener('mouseleave', function() {
                 this.style.boxShadow = 'none';
-                this.style.borderColor = 'rgba(79, 209, 197, 0.15)';
+                this.style.borderColor = 'rgba(79, 209, 197, 0.2)';
             });
         });
 
