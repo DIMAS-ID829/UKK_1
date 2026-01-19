@@ -17,7 +17,7 @@
         :root {
             --bg-dark: #05070a;
             --bg-navy: #0b1220;
-            --accent: #2b6bb085;
+            --accent: #2b6bb03b;
             --text: #e6eaf0;
             --muted: #9aa4b2;
         }
@@ -47,10 +47,10 @@
             height: 100%;
             z-index: 0;
             pointer-events: none;
-            opacity: 0.3;
+            opacity: 0.4; /* Meningkatkan opacity */
         }
 
-        /* Partikel background tambahan */
+        /* Partikel background tambahan - DIPERBESAR */
         .bg-particles {
             position: fixed;
             top: 0;
@@ -63,7 +63,7 @@
 
         .bg-particle {
             position: absolute;
-            background-color: rgba(123, 212, 255, 0.1);
+            background-color: rgba(123, 212, 255, 0.15); /* Lebih terang */
             border-radius: 50%;
             animation: float 20s infinite linear;
         }
@@ -422,82 +422,6 @@
             background: rgba(43, 107, 176, 0.3);
             transform: scale(1.1);
         }
-        
-        /* Kontrol partikel (disembunyikan default) */
-        .particle-controls {
-            position: fixed;
-            z-index: 100;
-            bottom: 80px;
-            right: 20px;
-            background: rgba(10, 15, 30, 0.9);
-            border-radius: 10px;
-            padding: 15px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            display: none;
-            transition: all 0.3s ease;
-            max-width: 200px;
-        }
-        
-        .particle-controls.active {
-            display: block;
-        }
-        
-        .particle-toggle {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            z-index: 101;
-            background: rgba(10, 15, 30, 0.8);
-            color: var(--accent);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 20px;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-        
-        .particle-toggle:hover {
-            background: rgba(43, 107, 176, 0.2);
-            transform: scale(1.1);
-        }
-        
-        .control-buttons {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 10px;
-            flex-wrap: wrap;
-        }
-        
-        .control-buttons button {
-            padding: 6px 12px;
-            background: rgba(43, 107, 176, 0.3);
-            border: none;
-            border-radius: 5px;
-            color: var(--text);
-            cursor: pointer;
-            font-size: 12px;
-            transition: all 0.2s ease;
-            flex: 1;
-            min-width: 80px;
-        }
-        
-        .control-buttons button:hover {
-            background: rgba(43, 107, 176, 0.5);
-        }
-        
-        .particle-info {
-            font-size: 11px;
-            color: var(--muted);
-            margin-top: 8px;
-            text-align: center;
-        }
 
         /* MEDIA QUERIES UNTUK TABLET (768px ke atas) */
         @media (min-width: 768px) {
@@ -565,16 +489,6 @@
                 bottom: 30px;
                 right: 30px;
             }
-            
-            .particle-toggle {
-                bottom: 30px;
-                left: 30px;
-            }
-            
-            .particle-controls {
-                bottom: 100px;
-                right: 30px;
-            }
         }
 
         /* MEDIA QUERIES UNTUK DESKTOP (1024px ke atas) */
@@ -622,16 +536,6 @@
             
             .nav-buttons {
                 bottom: 40px;
-                right: 40px;
-            }
-            
-            .particle-toggle {
-                bottom: 40px;
-                left: 40px;
-            }
-            
-            .particle-controls {
-                bottom: 110px;
                 right: 40px;
             }
         }
@@ -744,26 +648,6 @@
                 height: 45px;
                 font-size: 16px;
             }
-            
-            .particle-toggle {
-                bottom: 15px;
-                left: 15px;
-                width: 45px;
-                height: 45px;
-                font-size: 18px;
-            }
-            
-            .particle-controls {
-                bottom: 70px;
-                right: 15px;
-                padding: 12px;
-            }
-            
-            .control-buttons button {
-                padding: 5px 10px;
-                font-size: 11px;
-                min-width: 70px;
-            }
         }
     </style>
 </head>
@@ -773,27 +657,8 @@
     <!-- Canvas untuk simulasi partikel -->
     <canvas id="particle-canvas"></canvas>
     
-    <!-- Partikel background tambahan -->
+    <!-- Partikel background tambahan - DIPERBESAR -->
     <div class="bg-particles" id="bgParticles"></div>
-
-    <!-- Kontrol partikel -->
-    <div class="particle-toggle" id="particleToggle">
-        <i class="fas fa-atom"></i>
-    </div>
-    
-    <div class="particle-controls" id="particleControls">
-        <div style="color: var(--accent); font-weight: bold; margin-bottom: 8px; font-size: 14px;">Kontrol Partikel</div>
-        <div style="font-size: 11px; color: var(--muted); margin-bottom: 12px;">Simulasi partikel interaktif</div>
-        <div class="control-buttons">
-            <button id="moreParticles">+ Partikel</button>
-            <button id="lessParticles">- Partikel</button>
-            <button id="fasterParticles">+ Cepat</button>
-            <button id="slowerParticles">- Cepat</button>
-        </div>
-        <div class="particle-info">
-            Partikel Aktif: <span id="activeParticles">0</span>
-        </div>
-    </div>
 
     <div class="container" data-aos="fade-up">
         <h1 class="glow-text">Pendahuluan</h1>
@@ -1068,11 +933,11 @@
             }
         });
 
-        // Kode untuk partikel background
+        // Kode untuk partikel background - DIPERBESAR
         // Inisialisasi partikel latar belakang
         function initBackgroundParticles() {
             const bgParticlesContainer = document.getElementById('bgParticles');
-            const particleCount = window.innerWidth < 768 ? 15 : 25; // Lebih sedikit untuk mobile
+            const particleCount = window.innerWidth < 768 ? 25 : 35; // Meningkatkan jumlah partikel
             
             // Hapus partikel lama jika ada
             bgParticlesContainer.innerHTML = '';
@@ -1081,8 +946,8 @@
                 const particle = document.createElement('div');
                 particle.classList.add('bg-particle');
                 
-                // Ukuran acak
-                const size = Math.random() * 3 + 1;
+                // Ukuran acak - DIPERBESAR dari 1-4px menjadi 2-8px
+                const size = Math.random() * 6 + 2; // 2-8px
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
                 
@@ -1090,9 +955,9 @@
                 particle.style.left = `${Math.random() * 100}%`;
                 particle.style.top = `${Math.random() * 100}%`;
                 
-                // Warna acak dengan transparansi
+                // Warna acak dengan transparansi - DIPERBESAR opasitas
                 const hue = 200 + Math.floor(60 * Math.random());
-                particle.style.backgroundColor = `hsla(${hue}, 70%, 60%, 0.08)`;
+                particle.style.backgroundColor = `hsla(${hue}, 70%, 60%, 0.15)`; // Lebih terang
                 
                 // Animasi dengan durasi acak
                 const duration = Math.random() * 25 + 20;
@@ -1103,7 +968,7 @@
             }
         }
 
-        // Aplikasi partikel utama
+        // Aplikasi partikel utama - DIPERBESAR
         var ParticleApp = {};
         ParticleApp.setup = function() {
             var canvas = document.getElementById('particle-canvas');
@@ -1120,14 +985,14 @@
             
             this.stepCount = 0;
             this.particles = [];
-            this.lifespan = window.innerWidth < 768 ? 600 : 800; // Lebih pendek untuk mobile
+            this.lifespan = window.innerWidth < 768 ? 700 : 900; // Meningkatkan lifespan
             this.popPerBirth = 1;
-            this.maxPop = window.innerWidth < 768 ? 80 : 120; // Lebih sedikit untuk mobile
-            this.birthFreq = window.innerWidth < 768 ? 4 : 3; // Lebih jarang untuk mobile
+            this.maxPop = window.innerWidth < 768 ? 120 : 180; // Meningkatkan max pop
+            this.birthFreq = window.innerWidth < 768 ? 3 : 2; // Lebih sering
             this.speedMultiplier = 1.0;
 
-            // Build grid
-            this.gridSize = window.innerWidth < 768 ? 12 : 10;
+            // Build grid - DIPERBESAR grid untuk partikel lebih besar
+            this.gridSize = window.innerWidth < 768 ? 10 : 8; // Grid lebih kecil = partikel lebih besar
             this.gridSteps = Math.floor(1000 / this.gridSize);
             this.grid = [];
             var i = 0;
@@ -1181,9 +1046,6 @@
             }
             ParticleApp.move();
             ParticleApp.draw();
-            
-            // Update UI counter
-            document.getElementById('activeParticles').textContent = this.particles.length;
         };
         
         ParticleApp.birth = function() {
@@ -1191,14 +1053,14 @@
                 gridSpot = this.grid[gridSpotIndex],
                 x = gridSpot.x, y = gridSpot.y;
             
-            // Warna partikel dengan palet biru yang sesuai tema
+            // Warna partikel dengan palet biru yang sesuai tema - DIPERBESAR kecerahan
             const hue = 200 + Math.floor(60 * Math.random());
-            const sat = 50 + Math.floor(30 * Math.random());
+            const sat = 60 + Math.floor(30 * Math.random()); // Lebih jenuh
             
             var particle = {
                 hue: hue,
                 sat: sat,
-                lum: 50 + Math.floor(30 * Math.random()),
+                lum: 60 + Math.floor(30 * Math.random()), // Lebih terang
                 x: x, y: y,
                 xLast: x, yLast: y,
                 xSpeed: 0, ySpeed: 0,
@@ -1303,8 +1165,8 @@
             this.ctx.fillStyle = 'rgba(10, 15, 30, 0.04)';
             this.ctx.fillRect(0, 0, this.width, this.height);
             
-            // Ukuran line width berdasarkan device
-            const lineWidth = window.innerWidth < 768 ? 0.8 : 1.2;
+            // Ukuran line width berdasarkan device - DIPERBESAR
+            const lineWidth = window.innerWidth < 768 ? 1.5 : 2.0; // Dari 0.8/1.2 menjadi 1.5/2.0
             
             for (var i = 0; i < this.particles.length; i++) {
                 var p = this.particles[i];
@@ -1314,7 +1176,7 @@
                 h = p.hue + this.stepCount / 50;
                 s = p.sat;
                 l = p.lum;
-                a = window.innerWidth < 768 ? 0.4 : 0.6; // Lebih transparan untuk mobile
+                a = window.innerWidth < 768 ? 0.6 : 0.8; // Lebih transparan untuk mobile - DIPERBESAR opasitas
                 
                 var last = this.dataXYtoCanvasXY(p.xLast, p.yLast),
                     now = this.dataXYtoCanvasXY(p.x, p.y);
@@ -1336,10 +1198,10 @@
                 this.ctx.stroke();
                 this.ctx.closePath();
                 
-                // Attractor positions (lebih sederhana)
+                // Attractor positions (lebih sederhana) - DIPERBESAR
                 this.ctx.beginPath();
-                this.ctx.arc(attracXY.x, attracXY.y, 0.6 * this.dataToImageRatio, 0, 2 * Math.PI, false);
-                this.ctx.fillStyle = `hsla(${h}, ${s}%, ${l}%, ${a * 0.3})`;
+                this.ctx.arc(attracXY.x, attracXY.y, 1.2 * this.dataToImageRatio, 0, 2 * Math.PI, false); // Dari 0.6 menjadi 1.2
+                this.ctx.fillStyle = `hsla(${h}, ${s}%, ${l}%, ${a * 0.5})`; // Lebih terang
                 this.ctx.fill();
                 this.ctx.closePath();
                 
@@ -1348,55 +1210,13 @@
         };
         
         ParticleApp.dataXYtoCanvasXY = function(x, y) {
-            var zoom = window.innerWidth < 768 ? 1.2 : 1.4; // Zoom lebih kecil untuk mobile
+            var zoom = window.innerWidth < 768 ? 1.3 : 1.5; // Zoom lebih kecil untuk mobile
             var xx = this.xC + x * zoom * this.dataToImageRatio,
                 yy = this.yC + y * zoom * this.dataToImageRatio;
             
             return {x: xx, y: yy};
         };
 
-        // Fungsi untuk kontrol partikel
-        function setupParticleControls() {
-            const toggleBtn = document.getElementById('particleToggle');
-            const controls = document.getElementById('particleControls');
-            const moreBtn = document.getElementById('moreParticles');
-            const lessBtn = document.getElementById('lessParticles');
-            const fasterBtn = document.getElementById('fasterParticles');
-            const slowerBtn = document.getElementById('slowerParticles');
-            
-            toggleBtn.addEventListener('click', function() {
-                controls.classList.toggle('active');
-                toggleBtn.innerHTML = controls.classList.contains('active') ? 
-                    '<i class="fas fa-times"></i>' : '<i class="fas fa-atom"></i>';
-            });
-            
-            moreBtn.addEventListener('click', function() {
-                ParticleApp.maxPop += window.innerWidth < 768 ? 10 : 20;
-                ParticleApp.birthFreq = Math.max(1, ParticleApp.birthFreq - 1);
-            });
-            
-            lessBtn.addEventListener('click', function() {
-                ParticleApp.maxPop = Math.max(20, ParticleApp.maxPop - (window.innerWidth < 768 ? 10 : 20));
-                ParticleApp.birthFreq += 1;
-            });
-            
-            fasterBtn.addEventListener('click', function() {
-                ParticleApp.speedMultiplier = Math.min(2.0, ParticleApp.speedMultiplier + 0.2);
-            });
-            
-            slowerBtn.addEventListener('click', function() {
-                ParticleApp.speedMultiplier = Math.max(0.2, ParticleApp.speedMultiplier - 0.2);
-            });
-            
-            // Tutup kontrol jika klik di luar
-            document.addEventListener('click', function(e) {
-                if (!controls.contains(e.target) && !toggleBtn.contains(e.target) && controls.classList.contains('active')) {
-                    controls.classList.remove('active');
-                    toggleBtn.innerHTML = '<i class="fas fa-atom"></i>';
-                }
-            });
-        }
-        
         // Handle resize window
         function handleResize() {
             ParticleApp.canvas.width = window.innerWidth;
@@ -1407,10 +1227,10 @@
             ParticleApp.yC = ParticleApp.height / 2;
             
             // Update pengaturan berdasarkan ukuran layar baru
-            ParticleApp.lifespan = window.innerWidth < 768 ? 600 : 800;
-            ParticleApp.maxPop = window.innerWidth < 768 ? 80 : 120;
-            ParticleApp.birthFreq = window.innerWidth < 768 ? 4 : 3;
-            ParticleApp.gridSize = window.innerWidth < 768 ? 12 : 10;
+            ParticleApp.lifespan = window.innerWidth < 768 ? 700 : 900;
+            ParticleApp.maxPop = window.innerWidth < 768 ? 120 : 180;
+            ParticleApp.birthFreq = window.innerWidth < 768 ? 3 : 2;
+            ParticleApp.gridSize = window.innerWidth < 768 ? 10 : 8;
             
             // Regenerate partikel background
             initBackgroundParticles();
@@ -1420,7 +1240,6 @@
         document.addEventListener('DOMContentLoaded', function() {
             initBackgroundParticles();
             ParticleApp.setup();
-            setupParticleControls();
             
             var frame = function() {
                 ParticleApp.evolve();
