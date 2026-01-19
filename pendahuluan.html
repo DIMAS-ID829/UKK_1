@@ -17,7 +17,7 @@
         :root {
             --bg-dark: #05070a;
             --bg-navy: #0b1220;
-            --accent: #2b6bb03b;
+            --accent: #2b6bb085;
             --text: #e6eaf0;
             --muted: #9aa4b2;
         }
@@ -392,16 +392,7 @@
             text-shadow: 0 0 15px rgba(43, 107, 176, 0.4);
         }
         
-        /* Navigation Buttons - RESPONSIVE */
-        .nav-buttons {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            display: flex;
-            gap: 10px;
-            z-index: 100;
-        }
-        
+        /* Navigation Buttons - DIUBAH: satu di kiri, satu di kanan */
         .nav-button {
             background: rgba(10, 15, 30, 0.8);
             color: var(--accent);
@@ -416,11 +407,22 @@
             font-size: 18px;
             backdrop-filter: blur(10px);
             transition: all 0.3s ease;
+            position: fixed;
+            bottom: 20px;
+            z-index: 100;
         }
         
         .nav-button:hover {
             background: rgba(43, 107, 176, 0.3);
             transform: scale(1.1);
+        }
+        
+        .prev-button {
+            left: 20px;
+        }
+        
+        .next-button {
+            right: 20px;
         }
 
         /* MEDIA QUERIES UNTUK TABLET (768px ke atas) */
@@ -485,8 +487,15 @@
                 padding: 30px;
             }
             
-            .nav-buttons {
+            .nav-button {
                 bottom: 30px;
+            }
+            
+            .prev-button {
+                left: 30px;
+            }
+            
+            .next-button {
                 right: 30px;
             }
         }
@@ -534,8 +543,15 @@
                 grid-template-columns: repeat(4, 1fr);
             }
             
-            .nav-buttons {
+            .nav-button {
                 bottom: 40px;
+            }
+            
+            .prev-button {
+                left: 40px;
+            }
+            
+            .next-button {
                 right: 40px;
             }
         }
@@ -608,6 +624,18 @@
                 top: 15px;
                 right: 15px;
             }
+            
+            .nav-button {
+                bottom: 15px;
+            }
+            
+            .prev-button {
+                left: 15px;
+            }
+            
+            .next-button {
+                right: 15px;
+            }
         }
         
         /* DUKUNGAN UNTUK LAYAR SANGAT KECIL */
@@ -638,15 +666,19 @@
                 padding: 12px;
             }
             
-            .nav-buttons {
-                bottom: 15px;
-                right: 15px;
-            }
-            
             .nav-button {
+                bottom: 15px;
                 width: 45px;
                 height: 45px;
                 font-size: 16px;
+            }
+            
+            .prev-button {
+                left: 15px;
+            }
+            
+            .next-button {
+                right: 15px;
             }
         }
     </style>
@@ -878,15 +910,13 @@
         </div>
     </div>
 
-    <!-- Navigation Buttons -->
-    <div class="nav-buttons">
-        <a href="tentang-peserta.html" class="nav-button prev-button">
-            <i class="fas fa-arrow-left"></i>
-        </a>
-        <a href="tentang-projek.html" class="nav-button next-button">
-            <i class="fas fa-arrow-right"></i>
-        </a>
-    </div>
+    <!-- Navigation Buttons - DIUBAH: satu di kiri, satu di kanan -->
+    <a href="tentang-peserta.html" class="nav-button prev-button">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+    <a href="tentang-projek.html" class="nav-button next-button">
+        <i class="fas fa-arrow-right"></i>
+    </a>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
