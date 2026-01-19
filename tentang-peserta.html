@@ -18,9 +18,47 @@
             opacity: 0.8;
             transform: translateY(-2px);
         }
+        
+        /* Style untuk Vanta background */
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        
+        #vanta-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        /* Pastikan konten di atas background */
+        .section, .nav-buttons {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Tambahkan transparansi jika diperlukan */
+        .about {
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(2px);
+        }
+        
+        .container {
+            background-color: rgba(15, 23, 42, 0.7);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
     </style>
 </head>
 <body class="page-transition">
+    
+    <!-- Vanta.js Background Container -->
+    <div id="vanta-bg"></div>
 
     <!-- Isi section About dari code asli -->
     <section id="about" class="section about">
@@ -102,6 +140,49 @@
     <!-- Scripts dari code asli -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    
+    <!-- Vanta.js Dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+    
     <script src="script.js"></script>
+    
+    <script>
+        // Inisialisasi Vanta.js setelah halaman dimuat
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inisialisasi Vanta.js
+            VANTA.NET({
+                el: "#vanta-bg",
+                mouseControls: true,
+                touchControls: true,
+                gyroControls: false,
+                minHeight: 200.00,
+                minWidth: 200.00,
+                scale: 1.00,
+                scaleMobile: 1.00,
+                color: 0xc82960,
+                backgroundColor: 0x0,
+                points: 12.00,
+                maxDistance: 25.00,
+                spacing: 18.00
+            });
+            
+            // Inisialisasi AOS
+            if (typeof AOS !== 'undefined') {
+                AOS.init({
+                    duration: 800,
+                    easing: 'ease-in-out',
+                    once: true
+                });
+            }
+        });
+        
+        // Pastikan Vanta.js menyesuaikan ukuran saat window di-resize
+        window.addEventListener('resize', function() {
+            if (window.VANTA && window.VANTA.current) {
+                window.VANTA.current.resize();
+            }
+        });
+    </script>
 </body>
 </html>
