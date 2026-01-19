@@ -9,13 +9,15 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="nav-buttons.css">
+    
+    <!-- Lodash untuk simulasi partikel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.min.js"></script>
 
     <style>
         :root {
             --bg-dark: #05070a;
             --bg-navy: #0b1220;
-            --accent: #2b6cb0;
+            --accent: #2b6bb085;
             --text: #e6eaf0;
             --muted: #9aa4b2;
         }
@@ -30,70 +32,125 @@
         body {
             background: linear-gradient(135deg, var(--bg-dark), var(--bg-navy));
             color: var(--text);
-            padding: 60px 20px;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        /* MAIN */
+        /* Canvas untuk partikel background */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        /* Partikel background tambahan */
+        .bg-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .bg-particle {
+            position: absolute;
+            background-color: rgba(123, 212, 255, 0.1);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+        }
+
+        /* MAIN CONTENT - RESPONSIVE PADDING */
         .container {
+            position: relative;
+            z-index: 2;
             max-width: 1100px;
-            margin: auto;
-            background: rgba(10, 15, 30, .65);
+            margin: 20px auto;
+            background: rgba(10, 15, 30, .85);
             backdrop-filter: blur(10px);
-            border-radius: 25px;
-            padding: 160px;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, .7);
+            border-radius: 20px;
+            padding: 40px 25px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, .7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         h1 {
-            font-size: 2.8rem;
+            font-size: 1.8rem;
             font-weight: 800;
+            background: linear-gradient(90deg, #2b6bb0, #00d2ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.3;
+            margin-bottom: 15px;
         }
 
         .divider {
-            width: 90px;
-            height: 4px;
+            width: 70px;
+            height: 3px;
             background: linear-gradient(to right, var(--accent), transparent);
-            margin: 20px 0 30px;
+            margin: 15px 0 20px;
         }
 
         p {
             color: var(--muted);
-            line-height: 1.9;
-            font-size: 1.05rem;
+            line-height: 1.7;
+            font-size: 0.95rem;
+            margin-bottom: 1.2rem;
         }
 
-        /* PROJECT BOX */
+        /* PROJECT BOX - RESPONSIVE GRID */
         .project-boxes {
-            margin-top: 50px;
+            margin-top: 40px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 26px;
+            grid-template-columns: 1fr;
+            gap: 20px;
         }
 
         .project-box {
             background: rgba(255, 255, 255, .05);
-            border-radius: 20px;
-            padding: 34px;
+            border-radius: 15px;
+            padding: 25px;
             cursor: pointer;
-            transition: .4s ease;
+            transition: .3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
         }
 
         .project-box:hover {
-            transform: translateY(-10px);
+            transform: translateY(-5px);
             background: rgba(255, 255, 255, .1);
+            border-color: rgba(43, 107, 176, 0.5);
+            box-shadow: 0 10px 25px rgba(43, 107, 176, 0.2);
         }
 
         .project-box i {
-            font-size: 32px;
+            font-size: 28px;
             color: var(--accent);
-            margin-bottom: 14px;
+            margin-bottom: 12px;
         }
 
         .project-box h3 {
-            margin-bottom: 10px
+            margin-bottom: 8px;
+            color: var(--text);
+            font-size: 1.2rem;
         }
 
-        /* FULLSCREEN MODAL */
+        .project-box p {
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* FULLSCREEN MODAL - RESPONSIVE */
         .modal {
             position: fixed;
             inset: 0;
@@ -101,8 +158,10 @@
             opacity: 0;
             pointer-events: none;
             transform: scale(1.05);
-            transition: opacity .5s ease, transform .5s ease;
+            transition: opacity .4s ease, transform .4s ease;
             z-index: 9999;
+            overflow-y: auto;
+            padding: 20px;
         }
 
         .modal.active {
@@ -112,13 +171,13 @@
         }
 
         .modal-content {
-            height: 100%;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
         }
 
         .modal-text {
-            padding: 90px;
+            padding: 30px 20px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -126,42 +185,69 @@
         }
 
         .modal-text h2 {
-            font-size: 2.4rem;
-            margin-bottom: 20px;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, #2b6bb0, #00d2ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.3;
         }
 
         .modal-text ul {
-            margin-top: 20px;
+            margin-top: 15px;
             padding-left: 20px;
             color: var(--muted);
-            line-height: 1.8;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .modal-text ul li {
+            margin-bottom: 8px;
         }
 
         .modal-image {
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 20px;
             animation: slideRight .6s ease;
         }
 
         .modal-image img {
-            max-width: 90%;
-            border-radius: 20px;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, .6);
+            max-width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, .6);
         }
 
         .close {
-            position: absolute;
-            top: 30px;
-            right: 40px;
-            font-size: 28px;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
             cursor: pointer;
             color: var(--muted);
+            transition: color .3s ease;
+            background: rgba(10, 15, 30, 0.8);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .close:hover {
+            color: var(--text);
+            background: rgba(43, 107, 176, 0.3);
         }
 
         @keyframes slideLeft {
             from {
-                transform: translateX(-40px);
+                transform: translateX(-20px);
                 opacity: 0
             }
 
@@ -173,7 +259,7 @@
 
         @keyframes slideRight {
             from {
-                transform: translateX(40px);
+                transform: translateX(20px);
                 opacity: 0
             }
 
@@ -183,140 +269,534 @@
             }
         }
 
-        @media(max-width:768px) {
-            .modal-content {
-                grid-template-columns: 1fr
-            }
-
-            .modal-image {
-                display: none
-            }
-
-            .modal-text {
-                padding: 50px
-            }
-
-            .approach-grid,
-            .skills-grid {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 20px;
-            }
-
-            .outcome-list {
-                gap: 15px;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-
-            .social-links {
-                justify-content: center;
-            }
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-15px) rotate(90deg); }
+            50% { transform: translateY(-30px) rotate(180deg); }
+            75% { transform: translateY(-15px) rotate(270deg); }
+            100% { transform: translateY(0px) rotate(360deg); }
         }
 
-        /* Additional Sections Styles */
+        /* Additional Sections Styles - RESPONSIVE */
         .approach-section,
         .skills-section,
         .outcome-section {
-            margin-top: 60px;
+            margin-top: 40px;
+        }
+
+        .approach-section h2,
+        .skills-section h2,
+        .outcome-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--text);
         }
 
         .approach-grid,
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-top: 25px;
         }
 
         .approach-item,
         .skill-item {
             background: rgba(255, 255, 255, .05);
-            border-radius: 20px;
-            padding: 30px;
-            transition: .4s ease;
+            border-radius: 15px;
+            padding: 25px;
+            transition: .3s ease;
             text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .approach-item:hover,
         .skill-item:hover {
-            transform: translateY(-10px);
+            transform: translateY(-5px);
             background: rgba(255, 255, 255, .1);
+            border-color: rgba(43, 107, 176, 0.3);
         }
 
         .approach-item i,
         .skill-item i {
-            font-size: 32px;
+            font-size: 28px;
             color: var(--accent);
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .approach-item h4,
         .skill-item h4 {
-            margin-bottom: 10px;
-            font-size: 1.2rem;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+            color: var(--text);
         }
 
         .approach-item p,
         .skill-item p {
             color: var(--muted);
-            line-height: 1.6;
-            font-size: 0.95rem;
+            line-height: 1.5;
+            font-size: 0.9rem;
         }
 
         .outcome-list {
             display: flex;
             flex-direction: column;
-            gap: 20px;
-            margin-top: 30px;
+            gap: 15px;
+            margin-top: 25px;
         }
 
         .outcome-item {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
             padding: 15px;
             background: rgba(255, 255, 255, .05);
-            border-radius: 15px;
+            border-radius: 12px;
             transition: .3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .outcome-item:hover {
             background: rgba(255, 255, 255, .1);
-            transform: translateX(10px);
+            transform: translateX(5px);
+            border-color: rgba(43, 107, 176, 0.3);
         }
 
         .outcome-item i {
             color: var(--accent);
-            font-size: 20px;
+            font-size: 18px;
+            min-width: 20px;
         }
 
         .outcome-item span {
             color: var(--text);
-            font-size: 1rem;
+            font-size: 0.95rem;
+            line-height: 1.4;
         }
 
-        
         .footer-bottom {
             text-align: center;
             padding-top: 20px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            margin-top: 40px;
+            margin-top: 30px;
         }
 
         .footer-bottom p {
             color: var(--muted);
-            font-size: 0.9rem;
+            font-size: 0.8rem;
+            line-height: 1.5;
+        }
+        
+        /* Efek glow untuk highlight */
+        .glow-text {
+            text-shadow: 0 0 15px rgba(43, 107, 176, 0.4);
+        }
+        
+        /* Navigation Buttons - RESPONSIVE */
+        .nav-buttons {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+        }
+        
+        .nav-button {
+            background: rgba(10, 15, 30, 0.8);
+            color: var(--accent);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 18px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-button:hover {
+            background: rgba(43, 107, 176, 0.3);
+            transform: scale(1.1);
+        }
+        
+        /* Kontrol partikel (disembunyikan default) */
+        .particle-controls {
+            position: fixed;
+            z-index: 100;
+            bottom: 80px;
+            right: 20px;
+            background: rgba(10, 15, 30, 0.9);
+            border-radius: 10px;
+            padding: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: none;
+            transition: all 0.3s ease;
+            max-width: 200px;
+        }
+        
+        .particle-controls.active {
+            display: block;
+        }
+        
+        .particle-toggle {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 101;
+            background: rgba(10, 15, 30, 0.8);
+            color: var(--accent);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 20px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .particle-toggle:hover {
+            background: rgba(43, 107, 176, 0.2);
+            transform: scale(1.1);
+        }
+        
+        .control-buttons {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .control-buttons button {
+            padding: 6px 12px;
+            background: rgba(43, 107, 176, 0.3);
+            border: none;
+            border-radius: 5px;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s ease;
+            flex: 1;
+            min-width: 80px;
+        }
+        
+        .control-buttons button:hover {
+            background: rgba(43, 107, 176, 0.5);
+        }
+        
+        .particle-info {
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 8px;
+            text-align: center;
+        }
+
+        /* MEDIA QUERIES UNTUK TABLET (768px ke atas) */
+        @media (min-width: 768px) {
+            body {
+                padding: 30px;
+            }
+            
+            .container {
+                padding: 60px 50px;
+                margin: 30px auto;
+                border-radius: 22px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .project-boxes {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 25px;
+            }
+            
+            .modal {
+                padding: 30px;
+            }
+            
+            .modal-text {
+                padding: 40px 30px;
+            }
+            
+            .modal-text h2 {
+                font-size: 2rem;
+            }
+            
+            .modal-content {
+                flex-direction: row;
+            }
+            
+            .modal-text {
+                flex: 1;
+            }
+            
+            .modal-image {
+                flex: 1;
+                padding: 40px 30px;
+            }
+            
+            .close {
+                top: 30px;
+                right: 30px;
+            }
+            
+            .approach-grid,
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 25px;
+            }
+            
+            .approach-item,
+            .skill-item {
+                padding: 30px;
+            }
+            
+            .nav-buttons {
+                bottom: 30px;
+                right: 30px;
+            }
+            
+            .particle-toggle {
+                bottom: 30px;
+                left: 30px;
+            }
+            
+            .particle-controls {
+                bottom: 100px;
+                right: 30px;
+            }
+        }
+
+        /* MEDIA QUERIES UNTUK DESKTOP (1024px ke atas) */
+        @media (min-width: 1024px) {
+            body {
+                padding: 40px;
+            }
+            
+            .container {
+                padding: 80px 70px;
+                margin: 40px auto;
+                border-radius: 25px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .project-boxes {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 30px;
+            }
+            
+            .modal {
+                padding: 50px;
+            }
+            
+            .modal-text {
+                padding: 60px 50px;
+            }
+            
+            .modal-text h2 {
+                font-size: 2.2rem;
+            }
+            
+            .close {
+                top: 40px;
+                right: 40px;
+            }
+            
+            .approach-grid,
+            .skills-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .nav-buttons {
+                bottom: 40px;
+                right: 40px;
+            }
+            
+            .particle-toggle {
+                bottom: 40px;
+                left: 40px;
+            }
+            
+            .particle-controls {
+                bottom: 110px;
+                right: 40px;
+            }
+        }
+
+        /* MEDIA QUERIES UNTUK DESKTOP BESAR (1200px ke atas) */
+        @media (min-width: 1200px) {
+            .container {
+                padding: 100px 80px;
+            }
+            
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            p {
+                font-size: 1.05rem;
+                line-height: 1.9;
+            }
+            
+            .project-box p {
+                font-size: 0.95rem;
+            }
+        }
+        
+        /* ORIENTASI LANDSCAPE UNTUK HANDPHONE */
+        @media (max-height: 600px) and (orientation: landscape) {
+            .container {
+                margin: 10px auto;
+                padding: 30px 25px;
+            }
+            
+            .project-boxes {
+                grid-template-columns: repeat(2, 1fr);
+                margin-top: 25px;
+                gap: 15px;
+            }
+            
+            .project-box {
+                padding: 20px;
+            }
+            
+            .approach-grid,
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+            
+            .approach-item,
+            .skill-item {
+                padding: 20px;
+            }
+            
+            .modal {
+                padding: 15px;
+            }
+            
+            .modal-content {
+                flex-direction: row;
+            }
+            
+            .modal-text {
+                padding: 20px;
+            }
+            
+            .modal-image {
+                padding: 20px;
+            }
+            
+            .close {
+                top: 15px;
+                right: 15px;
+            }
+        }
+        
+        /* DUKUNGAN UNTUK LAYAR SANGAT KECIL */
+        @media (max-width: 360px) {
+            body {
+                padding: 15px;
+            }
+            
+            .container {
+                padding: 30px 20px;
+                border-radius: 15px;
+            }
+            
+            h1 {
+                font-size: 1.6rem;
+            }
+            
+            .project-box {
+                padding: 20px;
+            }
+            
+            .approach-item,
+            .skill-item {
+                padding: 20px;
+            }
+            
+            .outcome-item {
+                padding: 12px;
+            }
+            
+            .nav-buttons {
+                bottom: 15px;
+                right: 15px;
+            }
+            
+            .nav-button {
+                width: 45px;
+                height: 45px;
+                font-size: 16px;
+            }
+            
+            .particle-toggle {
+                bottom: 15px;
+                left: 15px;
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+            
+            .particle-controls {
+                bottom: 70px;
+                right: 15px;
+                padding: 12px;
+            }
+            
+            .control-buttons button {
+                padding: 5px 10px;
+                font-size: 11px;
+                min-width: 70px;
+            }
         }
     </style>
 </head>
 
 <body>
 
+    <!-- Canvas untuk simulasi partikel -->
+    <canvas id="particle-canvas"></canvas>
+    
+    <!-- Partikel background tambahan -->
+    <div class="bg-particles" id="bgParticles"></div>
+
+    <!-- Kontrol partikel -->
+    <div class="particle-toggle" id="particleToggle">
+        <i class="fas fa-atom"></i>
+    </div>
+    
+    <div class="particle-controls" id="particleControls">
+        <div style="color: var(--accent); font-weight: bold; margin-bottom: 8px; font-size: 14px;">Kontrol Partikel</div>
+        <div style="font-size: 11px; color: var(--muted); margin-bottom: 12px;">Simulasi partikel interaktif</div>
+        <div class="control-buttons">
+            <button id="moreParticles">+ Partikel</button>
+            <button id="lessParticles">- Partikel</button>
+            <button id="fasterParticles">+ Cepat</button>
+            <button id="slowerParticles">- Cepat</button>
+        </div>
+        <div class="particle-info">
+            Partikel Aktif: <span id="activeParticles">0</span>
+        </div>
+    </div>
+
     <div class="container" data-aos="fade-up">
-        <h1>Pendahuluan</h1>
+        <h1 class="glow-text">Pendahuluan</h1>
         <div class="divider"></div>
 
         <p>
@@ -461,9 +941,8 @@
             </div>
         </div>
             
-            <div class="footer-bottom">
-                <p>Website Untuk Uji Kompetensi Keahlian Desain Komunikasi Visual | SMK Miftahul Ulum Tanjungarum | Tahun Pelajaran 2024/2025</p>
-            </div>
+        <div class="footer-bottom">
+            <p>Website Untuk Uji Kompetensi Keahlian Desain Komunikasi Visual | SMK Miftahul Ulum Tanjungarum | Tahun Pelajaran 2024/2025</p>
         </div>
     </div>
 
@@ -546,22 +1025,417 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ once: true, duration: 800 });
+        // Inisialisasi AOS
+        AOS.init({ 
+            once: true, 
+            duration: 600,
+            offset: 100,
+            disable: function() {
+                return window.innerWidth < 768;
+            }
+        });
 
+        // Fungsi untuk modal
         function openModal(id) {
             document.getElementById(id).classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
             document.querySelectorAll('.modal')
                 .forEach(m => m.classList.remove('active'));
+            document.body.style.overflow = 'auto';
         }
 
+        // Tutup modal dengan klik di luar konten
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeModal();
+                }
+            });
+        });
+
+        // Navigasi dengan keyboard
         document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
             if (e.key === 'ArrowLeft') {
-                window.location.href = 'index.html';
-            } else if (e.key === 'ArrowRight') {
                 window.location.href = 'tentang-peserta.html';
+            } else if (e.key === 'ArrowRight') {
+                window.location.href = 'tentang-projek.html';
+            }
+        });
+
+        // Kode untuk partikel background
+        // Inisialisasi partikel latar belakang
+        function initBackgroundParticles() {
+            const bgParticlesContainer = document.getElementById('bgParticles');
+            const particleCount = window.innerWidth < 768 ? 15 : 25; // Lebih sedikit untuk mobile
+            
+            // Hapus partikel lama jika ada
+            bgParticlesContainer.innerHTML = '';
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('bg-particle');
+                
+                // Ukuran acak
+                const size = Math.random() * 3 + 1;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Posisi acak
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Warna acak dengan transparansi
+                const hue = 200 + Math.floor(60 * Math.random());
+                particle.style.backgroundColor = `hsla(${hue}, 70%, 60%, 0.08)`;
+                
+                // Animasi dengan durasi acak
+                const duration = Math.random() * 25 + 20;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                
+                bgParticlesContainer.appendChild(particle);
+            }
+        }
+
+        // Aplikasi partikel utama
+        var ParticleApp = {};
+        ParticleApp.setup = function() {
+            var canvas = document.getElementById('particle-canvas');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            this.canvas = canvas;
+            this.ctx = this.canvas.getContext('2d');
+            this.width = this.canvas.width;
+            this.height = this.canvas.height;
+            this.dataToImageRatio = 1;
+            this.ctx.imageSmoothingEnabled = false;
+            this.xC = this.width / 2;
+            this.yC = this.height / 2;
+            
+            this.stepCount = 0;
+            this.particles = [];
+            this.lifespan = window.innerWidth < 768 ? 600 : 800; // Lebih pendek untuk mobile
+            this.popPerBirth = 1;
+            this.maxPop = window.innerWidth < 768 ? 80 : 120; // Lebih sedikit untuk mobile
+            this.birthFreq = window.innerWidth < 768 ? 4 : 3; // Lebih jarang untuk mobile
+            this.speedMultiplier = 1.0;
+
+            // Build grid
+            this.gridSize = window.innerWidth < 768 ? 12 : 10;
+            this.gridSteps = Math.floor(1000 / this.gridSize);
+            this.grid = [];
+            var i = 0;
+            for (var xx = -500; xx < 500; xx += this.gridSize) {
+                for (var yy = -500; yy < 500; yy += this.gridSize) {
+                    var r = Math.sqrt(xx*xx+yy*yy),
+                        r0 = 120,
+                        field;
+                    
+                    if (r < r0) field = 255 / r0 * r;
+                    else if (r > r0) field = 255 - Math.min(255, (r - r0)/2);
+                    
+                    this.grid.push({
+                        x: xx,
+                        y: yy,
+                        busyAge: 0,
+                        spotIndex: i,
+                        isEdge: (xx == -500 ? 'left' : 
+                                 (xx == (-500 + this.gridSize * (this.gridSteps-1)) ? 'right' : 
+                                  (yy == -500 ? 'top' : 
+                                   (yy == (-500 + this.gridSize *(this.gridSteps-1)) ? 'bottom' : 
+                                    false
+                                   )
+                                  )
+                                 )
+                                ),
+                        field: field
+                    });
+                    i++;
+                }
+            }
+            this.gridMaxIndex = i;
+            
+            // Counters for UI
+            this.drawnInLastFrame = 0;
+            this.deathCount = 0;
+            
+            this.initDraw();
+        };
+        
+        ParticleApp.evolve = function() {
+            this.stepCount++;
+            
+            // Increment all grid ages
+            this.grid.forEach(function(e) {
+                if (e.busyAge > 0) e.busyAge++;
+            });
+            
+            if (this.stepCount % this.birthFreq == 0 && (this.particles.length + this.popPerBirth) < this.maxPop) {
+                this.birth();
+            }
+            ParticleApp.move();
+            ParticleApp.draw();
+            
+            // Update UI counter
+            document.getElementById('activeParticles').textContent = this.particles.length;
+        };
+        
+        ParticleApp.birth = function() {
+            var gridSpotIndex = Math.floor(Math.random() * this.gridMaxIndex),
+                gridSpot = this.grid[gridSpotIndex],
+                x = gridSpot.x, y = gridSpot.y;
+            
+            // Warna partikel dengan palet biru yang sesuai tema
+            const hue = 200 + Math.floor(60 * Math.random());
+            const sat = 50 + Math.floor(30 * Math.random());
+            
+            var particle = {
+                hue: hue,
+                sat: sat,
+                lum: 50 + Math.floor(30 * Math.random()),
+                x: x, y: y,
+                xLast: x, yLast: y,
+                xSpeed: 0, ySpeed: 0,
+                age: 0,
+                ageSinceStuck: 0,
+                attractor: {
+                    oldIndex: gridSpotIndex,
+                    gridSpotIndex: gridSpotIndex,
+                },
+                name: 'seed-' + Math.ceil(10000000 * Math.random())
+            };
+            this.particles.push(particle);
+        };
+        
+        ParticleApp.kill = function(particleName) {
+            var newArray = _.reject(this.particles, function(seed) {
+                return (seed.name == particleName);
+            });
+            this.particles = _.cloneDeep(newArray);
+        };
+        
+        ParticleApp.move = function() {
+            for (var i = 0; i < this.particles.length; i++) {
+                var p = this.particles[i];
+                
+                p.xLast = p.x; p.yLast = p.y;
+                
+                var index = p.attractor.gridSpotIndex,
+                    gridSpot = this.grid[index];
+                
+                if (Math.random() < 0.5) {
+                    if (!gridSpot.isEdge) {
+                        var topIndex = index - 1,
+                            bottomIndex = index + 1,
+                            leftIndex = index - this.gridSteps,
+                            rightIndex = index + this.gridSteps,
+                            topSpot = this.grid[topIndex],
+                            bottomSpot = this.grid[bottomIndex],
+                            leftSpot = this.grid[leftIndex],
+                            rightSpot = this.grid[rightIndex];
+                        
+                        var chaos = 30;
+                        var maxFieldSpot = _.maxBy([topSpot, bottomSpot, leftSpot, rightSpot], function(e) {
+                            return e.field + chaos * Math.random()
+                        });
+                        
+                        var potentialNewGridSpot = maxFieldSpot;
+                        if (potentialNewGridSpot.busyAge == 0 || potentialNewGridSpot.busyAge > 15) {
+                            p.ageSinceStuck = 0;
+                            p.attractor.oldIndex = index;
+                            p.attractor.gridSpotIndex = potentialNewGridSpot.spotIndex;
+                            gridSpot = potentialNewGridSpot;
+                            gridSpot.busyAge = 1;
+                        } else p.ageSinceStuck++;
+                        
+                    } else p.ageSinceStuck++;
+                    
+                    if (p.ageSinceStuck == 10) this.kill(p.name);
+                }
+                
+                var k = 8, visc = 0.4;
+                var dx = p.x - gridSpot.x,
+                    dy = p.y - gridSpot.y,
+                    dist = Math.sqrt(dx*dx + dy*dy);
+                
+                var xAcc = -k * dx,
+                    yAcc = -k * dy;
+                
+                p.xSpeed += xAcc; p.ySpeed += yAcc;
+                
+                p.xSpeed *= visc; p.ySpeed *= visc;
+                
+                // Terapkan speed multiplier
+                p.xSpeed *= this.speedMultiplier;
+                p.ySpeed *= this.speedMultiplier;
+                
+                p.speed = Math.sqrt(p.xSpeed * p.xSpeed + p.ySpeed * p.ySpeed);
+                p.dist = dist;
+                
+                p.x += 0.1 * p.xSpeed * this.speedMultiplier; 
+                p.y += 0.1 * p.ySpeed * this.speedMultiplier;
+                
+                p.age++;
+                
+                if (p.age > this.lifespan) {
+                    this.kill(p.name);
+                    this.deathCount++;
+                }
+            }
+        };
+        
+        ParticleApp.initDraw = function() {
+            // Background transparan
+            this.ctx.clearRect(0, 0, this.width, this.height);
+        };
+        
+        ParticleApp.draw = function() {
+            this.drawnInLastFrame = 0;
+            if (!this.particles.length) return false;
+            
+            // Efek fade untuk trail partikel
+            this.ctx.fillStyle = 'rgba(10, 15, 30, 0.04)';
+            this.ctx.fillRect(0, 0, this.width, this.height);
+            
+            // Ukuran line width berdasarkan device
+            const lineWidth = window.innerWidth < 768 ? 0.8 : 1.2;
+            
+            for (var i = 0; i < this.particles.length; i++) {
+                var p = this.particles[i];
+                
+                var h, s, l, a;
+                
+                h = p.hue + this.stepCount / 50;
+                s = p.sat;
+                l = p.lum;
+                a = window.innerWidth < 768 ? 0.4 : 0.6; // Lebih transparan untuk mobile
+                
+                var last = this.dataXYtoCanvasXY(p.xLast, p.yLast),
+                    now = this.dataXYtoCanvasXY(p.x, p.y);
+                var attracSpot = this.grid[p.attractor.gridSpotIndex],
+                    attracXY = this.dataXYtoCanvasXY(attracSpot.x, attracSpot.y);
+                var oldAttracSpot = this.grid[p.attractor.oldIndex],
+                    oldAttracXY = this.dataXYtoCanvasXY(oldAttracSpot.x, oldAttracSpot.y);
+                
+                // Gambar garis trail partikel
+                this.ctx.beginPath();
+                this.ctx.strokeStyle = `hsla(${h}, ${s}%, ${l}%, ${a})`;
+                this.ctx.fillStyle = `hsla(${h}, ${s}%, ${l}%, ${a})`;
+                
+                // Particle trail
+                this.ctx.moveTo(last.x, last.y);
+                this.ctx.lineTo(now.x, now.y);
+                
+                this.ctx.lineWidth = lineWidth * this.dataToImageRatio;
+                this.ctx.stroke();
+                this.ctx.closePath();
+                
+                // Attractor positions (lebih sederhana)
+                this.ctx.beginPath();
+                this.ctx.arc(attracXY.x, attracXY.y, 0.6 * this.dataToImageRatio, 0, 2 * Math.PI, false);
+                this.ctx.fillStyle = `hsla(${h}, ${s}%, ${l}%, ${a * 0.3})`;
+                this.ctx.fill();
+                this.ctx.closePath();
+                
+                this.drawnInLastFrame++;
+            }
+        };
+        
+        ParticleApp.dataXYtoCanvasXY = function(x, y) {
+            var zoom = window.innerWidth < 768 ? 1.2 : 1.4; // Zoom lebih kecil untuk mobile
+            var xx = this.xC + x * zoom * this.dataToImageRatio,
+                yy = this.yC + y * zoom * this.dataToImageRatio;
+            
+            return {x: xx, y: yy};
+        };
+
+        // Fungsi untuk kontrol partikel
+        function setupParticleControls() {
+            const toggleBtn = document.getElementById('particleToggle');
+            const controls = document.getElementById('particleControls');
+            const moreBtn = document.getElementById('moreParticles');
+            const lessBtn = document.getElementById('lessParticles');
+            const fasterBtn = document.getElementById('fasterParticles');
+            const slowerBtn = document.getElementById('slowerParticles');
+            
+            toggleBtn.addEventListener('click', function() {
+                controls.classList.toggle('active');
+                toggleBtn.innerHTML = controls.classList.contains('active') ? 
+                    '<i class="fas fa-times"></i>' : '<i class="fas fa-atom"></i>';
+            });
+            
+            moreBtn.addEventListener('click', function() {
+                ParticleApp.maxPop += window.innerWidth < 768 ? 10 : 20;
+                ParticleApp.birthFreq = Math.max(1, ParticleApp.birthFreq - 1);
+            });
+            
+            lessBtn.addEventListener('click', function() {
+                ParticleApp.maxPop = Math.max(20, ParticleApp.maxPop - (window.innerWidth < 768 ? 10 : 20));
+                ParticleApp.birthFreq += 1;
+            });
+            
+            fasterBtn.addEventListener('click', function() {
+                ParticleApp.speedMultiplier = Math.min(2.0, ParticleApp.speedMultiplier + 0.2);
+            });
+            
+            slowerBtn.addEventListener('click', function() {
+                ParticleApp.speedMultiplier = Math.max(0.2, ParticleApp.speedMultiplier - 0.2);
+            });
+            
+            // Tutup kontrol jika klik di luar
+            document.addEventListener('click', function(e) {
+                if (!controls.contains(e.target) && !toggleBtn.contains(e.target) && controls.classList.contains('active')) {
+                    controls.classList.remove('active');
+                    toggleBtn.innerHTML = '<i class="fas fa-atom"></i>';
+                }
+            });
+        }
+        
+        // Handle resize window
+        function handleResize() {
+            ParticleApp.canvas.width = window.innerWidth;
+            ParticleApp.canvas.height = window.innerHeight;
+            ParticleApp.width = ParticleApp.canvas.width;
+            ParticleApp.height = ParticleApp.canvas.height;
+            ParticleApp.xC = ParticleApp.width / 2;
+            ParticleApp.yC = ParticleApp.height / 2;
+            
+            // Update pengaturan berdasarkan ukuran layar baru
+            ParticleApp.lifespan = window.innerWidth < 768 ? 600 : 800;
+            ParticleApp.maxPop = window.innerWidth < 768 ? 80 : 120;
+            ParticleApp.birthFreq = window.innerWidth < 768 ? 4 : 3;
+            ParticleApp.gridSize = window.innerWidth < 768 ? 12 : 10;
+            
+            // Regenerate partikel background
+            initBackgroundParticles();
+        }
+
+        // Inisialisasi saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', function() {
+            initBackgroundParticles();
+            ParticleApp.setup();
+            setupParticleControls();
+            
+            var frame = function() {
+                ParticleApp.evolve();
+                requestAnimationFrame(frame);
+            };
+            frame();
+            
+            window.addEventListener('resize', handleResize);
+            
+            // Optimisasi untuk perangkat mobile
+            if ('ontouchstart' in window) {
+                // Nonaktifkan efek hover pada elemen untuk touch devices
+                document.querySelectorAll('.project-box, .approach-item, .skill-item, .outcome-item').forEach(el => {
+                    el.style.cursor = 'pointer';
+                });
             }
         });
     </script>
