@@ -1,103 +1,849 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lampiran - Dimas DK Portfolio</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="nav-buttons.css">
     <style>
-        /* Navigation Buttons Styles - Sama seperti di halaman sebelumnya */
-        .nav-buttons {
-            position: fixed;
-            bottom: 10px;
-            left: 0;
-            right: 0;
+        /* Lampiran Page Specific Styles */
+        .lampiran-hero {
+            min-height: 60vh;
             display: flex;
-            justify-content: space-between;
-            padding: 0 30px;
-            z-index: 1000;
-            pointer-events: none;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: linear-gradient(135deg, rgba(79, 209, 197, 0.1) 0%, rgba(26, 32, 44, 0.8) 100%);
+            overflow: hidden;
         }
 
-        .nav-button {
-            width: 50px;
-            height: 50px;
-            background: rgba(26, 32, 44, 0.9);
+        .lampiran-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(79, 209, 197, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(79, 209, 197, 0.1) 0%, transparent 50%);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .lampiran-hero-content {
+            text-align: center;
+            z-index: 2;
+            position: relative;
+        }
+
+        .lampiran-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #4fd1c5;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px rgba(79, 209, 197, 0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 30px rgba(79, 209, 197, 0.5); }
+            to { text-shadow: 0 0 40px rgba(79, 209, 197, 0.8), 0 0 50px rgba(79, 209, 197, 0.6); }
+        }
+
+        .lampiran-subtitle {
+            font-size: 1.3rem;
+            color: #a0aec0;
+            margin-bottom: 2rem;
+        }
+
+        /* Section Styles */
+        .lampiran-section {
+            padding: 4rem 0;
+            position: relative;
+        }
+
+        .section-divider {
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #4fd1c5, transparent);
+            margin: 3rem auto;
+            border-radius: 2px;
+        }
+
+        /* Certification Cards */
+        .certifications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .cert-card {
+            background: rgba(26, 32, 44, 0.8);
+            border: 1px solid rgba(79, 209, 197, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .cert-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #4fd1c5, #2d3748);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .cert-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .cert-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(79, 209, 197, 0.2);
+            border-color: rgba(79, 209, 197, 0.4);
+        }
+
+        .cert-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(79, 209, 197, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            color: #4fd1c5;
+        }
+
+        .cert-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #4fd1c5;
+            margin-bottom: 0.5rem;
+        }
+
+        .cert-issuer {
+            color: #a0aec0;
+            margin-bottom: 1rem;
+        }
+
+        .cert-date {
+            color: #718096;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .cert-description {
+            color: #e2e8f0;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .cert-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #4fd1c5;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cert-link:hover {
+            color: #2d3748;
+            transform: translateX(5px);
+        }
+
+        /* Skills Progress Section */
+        .skills-showcase {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 3rem 0;
+            border: 1px solid rgba(79, 209, 197, 0.1);
+        }
+
+        .skill-item {
+            margin-bottom: 2rem;
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+
+        .skill-name {
+            font-weight: 600;
+            color: #4fd1c5;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skill-percentage {
+            color: #a0aec0;
+            font-weight: 500;
+        }
+
+        .skill-bar {
+            height: 8px;
+            background: rgba(45, 55, 72, 0.5);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #4fd1c5, #2d3748);
+            border-radius: 4px;
+            position: relative;
+            animation: progressAnimation 2s ease-out;
+            transition: width 0.3s ease;
+        }
+
+        @keyframes progressAnimation {
+            from { width: 0; }
+        }
+
+        .skill-progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Timeline Section */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, transparent, #4fd1c5, transparent);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            width: 45%;
+            background: rgba(26, 32, 44, 0.8);
+            border: 1px solid rgba(79, 209, 197, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(79, 209, 197, 0.2);
+            border-color: rgba(79, 209, 197, 0.4);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 16px;
+            background: #4fd1c5;
+            border-radius: 50%;
+            border: 3px solid rgba(26, 32, 44, 0.8);
+            z-index: 2;
+        }
+
+        .timeline-date {
+            color: #4fd1c5;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            color: #e2e8f0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-description {
+            color: #a0aec0;
+            line-height: 1.5;
+        }
+
+        /* Contact Cards */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .contact-card {
+            background: rgba(26, 32, 44, 0.8);
+            border: 1px solid rgba(79, 209, 197, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(79, 209, 197, 0.3);
+            border-color: rgba(79, 209, 197, 0.5);
+        }
+
+        .contact-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(79, 209, 197, 0.1);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
             color: #4fd1c5;
-            text-decoration: none;
-            font-size: 20px;
             transition: all 0.3s ease;
-            box-shadow: 0 0 15px rgba(79, 209, 197, 0.4);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(79, 209, 197, 0.2);
-            pointer-events: auto;
         }
 
-        .nav-button:hover {
-            background: rgba(45, 55, 72, 0.95);
-            box-shadow: 0 0 25px rgba(79, 209, 197, 0.7);
-            transform: scale(1.05);
-            border-color: rgba(79, 209, 197, 0.4);
+        .contact-card:hover .contact-icon {
+            background: rgba(79, 209, 197, 0.2);
+            transform: scale(1.1);
         }
 
-        .nav-button i {
-            transition: transform 0.3s ease;
+        .contact-title {
+            color: #4fd1c5;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
         }
 
-        .nav-button.prev-button:hover i {
-            transform: translateX(-3px);
+        .contact-value {
+            color: #e2e8f0;
+            margin-bottom: 0.5rem;
         }
 
-        .nav-button.next-button:hover i {
-            transform: translateX(3px);
+        .contact-hint {
+            color: #a0aec0;
+            font-size: 0.9rem;
         }
 
+        /* Download CV Button */
+        .download-cv {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: linear-gradient(135deg, #4fd1c5, #2d3748);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(79, 209, 197, 0.3);
+            margin: 2rem auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-cv::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .download-cv:hover::before {
+            left: 100%;
+        }
+
+        .download-cv:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(79, 209, 197, 0.4);
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .nav-buttons {
-                padding: 0 20px;
+            .lampiran-title {
+                font-size: 2.5rem;
             }
-            
-            .nav-button {
-                width: 45px;
-                height: 45px;
-                font-size: 18px;
+
+            .lampiran-subtitle {
+                font-size: 1.1rem;
             }
+
+            .certifications-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item {
+                flex-direction: row !important;
+                margin-left: 60px;
+            }
+
+            .timeline-content {
+                width: 100%;
+            }
+
+            .timeline-dot {
+                left: 30px;
+            }
+
+            .skills-showcase {
+                padding: 2rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .lampiran-hero {
+                min-height: 50vh;
+            }
+
+            .lampiran-title {
+                font-size: 2rem;
+            }
+
+            .cert-card,
+            .timeline-content,
+            .contact-card {
+                padding: 1.5rem;
+            }
+
+            .skills-showcase {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Animations for scroll */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
+
 <body class="page-transition">
-    <!-- Isi section Skills dari code asli -->
-    <section id="skills" class="section skills">
+    <!-- Hero Section -->
+    <section class="lampiran-hero">
         <div class="container">
-            <h2 class="section-title">Keahlian/Kemampuan</h2>
-            <div class="skills-carousel-wrapper">
-                <div class="skills-carousel">
-                    <!-- [seluruh skill cards dan modals dari code asli, termasuk duplicated set] -->
-                    <div class="skill-card" data-skill="html5">
-                        <div class="skill-icon-wrapper">
-                            <i class="fab fa-html5"></i>
-                            <div class="skill-glow"></div>
-                        </div>
-                        <h3>HTML5</h3>
-                        <div class="skill-level">
-                            <div class="level-bar" style="--level: 95%"></div>
-                        </div>
-                        <span class="level-text">95%</span>
+            <div class="lampiran-hero-content">
+                <h1 class="lampiran-title" data-aos="fade-up">Lampiran</h1>
+                <p class="lampiran-subtitle" data-aos="fade-up" data-aos-delay="100">
+                    Sertifikasi, Keahlian, dan Informasi Kontak
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section class="lampiran-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Sertifikasi</h2>
+            
+            <div class="certifications-grid">
+                <div class="cert-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="cert-icon">
+                        <i class="fab fa-js"></i>
                     </div>
-                    <!-- [lanjutan semua skill cards dan modals] -->
+                    <h3 class="cert-title">JavaScript Advanced Certification</h3>
+                    <p class="cert-issuer">freeCodeCamp</p>
+                    <p class="cert-date">Desember 2023</p>
+                    <p class="cert-description">
+                        Sertifikasi tingkat lanjut dalam pemrograman JavaScript meliputi ES6+, asynchronous programming, dan design patterns.
+                    </p>
+                    <a href="#" class="cert-link">
+                        Lihat Sertifikat <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+
+                <div class="cert-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="cert-icon">
+                        <i class="fab fa-react"></i>
+                    </div>
+                    <h3 class="cert-title">React Developer Certification</h3>
+                    <p class="cert-issuer">Meta</p>
+                    <p class="cert-date">November 2023</p>
+                    <p class="cert-description">
+                        Sertifikasi pengembangan aplikasi web dengan React, Redux, dan ekosistem modern React.
+                    </p>
+                    <a href="#" class="cert-link">
+                        Lihat Sertifikat <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+
+                <div class="cert-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="cert-icon">
+                        <i class="fab fa-node"></i>
+                    </div>
+                    <h3 class="cert-title">Node.js Backend Development</h3>
+                    <p class="cert-issuer">Coursera</p>
+                    <p class="cert-date">Oktober 2023</p>
+                    <p class="cert-description">
+                        Sertifikasi pengembangan backend dengan Node.js, Express, dan integrasi database.
+                    </p>
+                    <a href="#" class="cert-link">
+                        Lihat Sertifikat <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+
+                <div class="cert-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="cert-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3 class="cert-title">MongoDB Database Administrator</h3>
+                    <p class="cert-issuer">MongoDB University</p>
+                    <p class="cert-date">September 2023</p>
+                    <p class="cert-description">
+                        Sertifikasi administrasi dan optimasi database MongoDB untuk aplikasi skala besar.
+                    </p>
+                    <a href="#" class="cert-link">
+                        Lihat Sertifikat <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+
+                <div class="cert-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="cert-icon">
+                        <i class="fab fa-aws"></i>
+                    </div>
+                    <h3 class="cert-title">AWS Cloud Practitioner</h3>
+                    <p class="cert-issuer">Amazon Web Services</p>
+                    <p class="cert-date">Agustus 2023</p>
+                    <p class="cert-description">
+                        Sertifikasi dasar-dasar cloud computing dengan AWS dan layanan cloud utama.
+                    </p>
+                    <a href="#" class="cert-link">
+                        Lihat Sertifikat <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+
+                <div class="cert-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="cert-icon">
+                        <i class="fab fa-git-alt"></i>
+                    </div>
+                    <h3 class="cert-title">Git Version Control Professional</h3>
+                    <p class="cert-issuer">GitHub</p>
+                    <p class="cert-date">Juli 2023</p>
+                    <p class="cert-description">
+                        Sertifikasi penggunaan Git untuk version control dan kolaborasi dalam pengembangan software.
+                    </p>
+                    <a href="#" class="cert-link">
+                        Lihat Sertifikat <i class="fas fa-external-link-alt"></i>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Navigation Buttons - Sama seperti di halaman sebelumnya -->
+    <div class="section-divider"></div>
+
+    <!-- Skills Showcase Section -->
+    <section class="lampiran-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Keahlian Teknis</h2>
+            
+            <div class="skills-showcase" data-aos="fade-up" data-aos-delay="100">
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span class="skill-name">
+                            <i class="fab fa-html5"></i> HTML5 & CSS3
+                        </span>
+                        <span class="skill-percentage">95%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 95%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span class="skill-name">
+                            <i class="fab fa-js"></i> JavaScript
+                        </span>
+                        <span class="skill-percentage">90%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 90%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span class="skill-name">
+                            <i class="fab fa-react"></i> React.js
+                        </span>
+                        <span class="skill-percentage">85%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 85%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span class="skill-name">
+                            <i class="fab fa-node"></i> Node.js
+                        </span>
+                        <span class="skill-percentage">80%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 80%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span class="skill-name">
+                            <i class="fas fa-database"></i> MongoDB
+                        </span>
+                        <span class="skill-percentage">75%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 75%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span class="skill-name">
+                            <i class="fab fa-git-alt"></i> Git
+                        </span>
+                        <span class="skill-percentage">88%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 88%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span class="skill-name">
+                            <i class="fab fa-figma"></i> UI/UX Design
+                        </span>
+                        <span class="skill-percentage">70%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 70%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span class="skill-name">
+                            <i class="fab fa-aws"></i> AWS
+                        </span>
+                        <span class="skill-percentage">65%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 65%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Experience Timeline -->
+    <section class="lampiran-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Pengalaman</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="timeline-content">
+                        <div class="timeline-dot"></div>
+                        <p class="timeline-date">2023 - Sekarang</p>
+                        <h3 class="timeline-title">Full Stack Developer</h3>
+                        <p class="timeline-description">
+                            Pengembangan aplikasi web full-stack dengan React, Node.js, dan MongoDB. Membangun RESTful API dan implementasi fitur real-time.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="timeline-content">
+                        <div class="timeline-dot"></div>
+                        <p class="timeline-date">2022 - 2023</p>
+                        <h3 class="timeline-title">Frontend Developer</h3>
+                        <p class="timeline-description">
+                            Pengembangan UI/UX untuk aplikasi web menggunakan React dan Vue.js. Optimasi performa dan implementasi responsive design.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="timeline-content">
+                        <div class="timeline-dot"></div>
+                        <p class="timeline-date">2021 - 2022</p>
+                        <h3 class="timeline-title">Junior Web Developer</h3>
+                        <p class="timeline-description">
+                            Pengembangan website statis dan dinamis. Belajar best practices dalam pengembangan web dan version control dengan Git.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
+                    <div class="timeline-content">
+                        <div class="timeline-dot"></div>
+                        <p class="timeline-date">2020 - 2021</p>
+                        <h3 class="timeline-title">Web Development Internship</h3>
+                        <p class="timeline-description">
+                            Magang pengembangan web, belajar HTML, CSS, JavaScript dasar. Kontribusi pada proyek-proyek kecil dan maintenance website.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Contact Section -->
+    <section class="lampiran-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Hubungi Saya</h2>
+            
+            <div class="contact-grid">
+                <a href="mailto:dimas@example.com" class="contact-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3 class="contact-title">Email</h3>
+                    <p class="contact-value">dimas@example.com</p>
+                    <p class="contact-hint">Kirim pesan langsung</p>
+                </a>
+
+                <a href="tel:+628123456789" class="contact-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <h3 class="contact-title">Telepon</h3>
+                    <p class="contact-value">+62 812-3456-789</p>
+                    <p class="contact-hint">Hubungi langsung</p>
+                </a>
+
+                <a href="https://wa.me/628123456789" class="contact-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="contact-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <h3 class="contact-title">WhatsApp</h3>
+                    <p class="contact-value">+62 812-3456-789</p>
+                    <p class="contact-hint">Chat via WhatsApp</p>
+                </a>
+
+                <a href="https://linkedin.com/in/dimasdk" class="contact-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="contact-icon">
+                        <i class="fab fa-linkedin"></i>
+                    </div>
+                    <h3 class="contact-title">LinkedIn</h3>
+                    <p class="contact-value">linkedin.com/in/dimasdk</p>
+                    <p class="contact-hint">Kunjungi profil</p>
+                </a>
+
+                <a href="https://github.com/dimasdk" class="contact-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="contact-icon">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <h3 class="contact-title">GitHub</h3>
+                    <p class="contact-value">github.com/dimasdk</p>
+                    <p class="contact-hint">Lihat repository</p>
+                </a>
+
+                <a href="https://instagram.com/dimasdk" class="contact-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="contact-icon">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                    <h3 class="contact-title">Instagram</h3>
+                    <p class="contact-value">@dimasdk</p>
+                    <p class="contact-hint">Follow Instagram</p>
+                </a>
+            </div>
+
+            <div class="text-center" data-aos="fade-up" data-aos-delay="700">
+                <a href="#" class="download-cv">
+                    <i class="fas fa-download"></i>
+                    Download CV Lengkap
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigation Buttons -->
     <div class="nav-buttons">
         <a href="projek.html" class="nav-button prev-button">
             <i class="fas fa-arrow-left"></i>
@@ -107,9 +853,86 @@
         </a>
     </div>
 
-    <!-- Scripts dari code asli -->
+    <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 200,
+            easing: 'ease-in-out',
+            once: false,
+            delay: 0
+        });
+
+        // Animate skill bars when in viewport
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px'
+        };
+
+        const skillObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const skillBars = entry.target.querySelectorAll('.skill-progress');
+                    skillBars.forEach(bar => {
+                        const width = bar.style.width;
+                        bar.style.width = '0';
+                        setTimeout(() => {
+                            bar.style.width = width;
+                        }, 200);
+                    });
+                }
+            });
+        }, observerOptions);
+
+        const skillsShowcase = document.querySelector('.skills-showcase');
+        if (skillsShowcase) {
+            skillObserver.observe(skillsShowcase);
+        }
+
+        // Add smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add parallax effect to hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.lampiran-hero');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Add typing effect to title
+        const title = document.querySelector('.lampiran-title');
+        if (title) {
+            const text = title.textContent;
+            title.textContent = '';
+            let index = 0;
+
+            function typeWriter() {
+                if (index < text.length) {
+                    title.textContent += text.charAt(index);
+                    index++;
+                    setTimeout(typeWriter, 100);
+                }
+            }
+
+            setTimeout(typeWriter, 500);
+        }
+    </script>
     <script src="script.js"></script>
 </body>
+
 </html>
