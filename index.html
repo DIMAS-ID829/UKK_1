@@ -9,13 +9,42 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Enhanced style for homepage to match the image: dark background, blue accents, gradients for visual appeal */
+        /* Reset default margin and padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Vanta.js container styling - FIXED */
+        #vanta-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: #0a0a0a; /* Fallback color */
+        }
+        
+        /* Enhanced style for homepage */
         body { 
-            background: linear-gradient(135deg, #000 0%, #001f3f 100%); /* Gradient background for depth */
+            background: transparent;
             color: #fff; 
             font-family: 'Inter', sans-serif; 
             overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
         }
+        
+        /* Add semi-transparent overlay for better text readability */
+        .content-overlay {
+            position: relative;
+            background: rgba(0, 0, 0, 0.6);
+            min-height: 100vh;
+        }
+        
         .homepage-container { 
             max-width: 1200px; 
             margin: 0 auto; 
@@ -32,11 +61,12 @@
         .title { 
             font-size: 4rem; 
             font-weight: 900; 
-            background: linear-gradient(90deg, #fff 0%, #00d4ff 100%); /* Gradient text for title */
+            background: linear-gradient(90deg, #fff 0%, #00d4ff 100%);
             -webkit-background-clip: text; 
             -webkit-text-fill-color: transparent; 
             margin-bottom: 0.5rem;
             animation: gradientShift 3s infinite alternate;
+            background-size: 200% 100%;
         }
         @keyframes gradientShift {
             0% { background-position: 0%; }
@@ -44,7 +74,7 @@
         }
         .subtitle { 
             font-size: 2rem; 
-            background: linear-gradient(90deg, #00d4ff 0%, #00ffcc 100%); /* Gradient for subtitle */
+            background: linear-gradient(90deg, #00d4ff 0%, #00ffcc 100%);
             -webkit-background-clip: text; 
             -webkit-text-fill-color: transparent; 
             margin-bottom: 1.5rem;
@@ -63,12 +93,13 @@
             margin: 2rem 0;
         }
         .stat-card { 
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(0, 212, 255, 0.1) 100%); /* Gradient background for cards */
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(0, 212, 255, 0.1) 100%);
             padding: 1rem; 
             border-radius: 10px; 
             text-align: center; 
             box-shadow: 0 4px 15px rgba(0, 212, 255, 0.1);
             transition: transform 0.3s, box-shadow 0.3s;
+            backdrop-filter: blur(10px);
         }
         .stat-card:hover { 
             transform: scale(1.05); 
@@ -96,11 +127,11 @@
             transition: transform 0.3s, box-shadow 0.3s;
         }
         .btn-primary { 
-            background: linear-gradient(90deg, #00d4ff 0%, #0099cc 100%); /* Gradient button */
+            background: linear-gradient(90deg, #00d4ff 0%, #0099cc 100%);
             color: #fff;
         }
         .btn-secondary { 
-            background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, rgba(0, 212, 255, 0.2) 100%); /* Gradient secondary button */
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, rgba(0, 212, 255, 0.2) 100%);
             color: #fff; 
             border: 1px solid #00d4ff;
         }
@@ -115,13 +146,14 @@
         .social-icon { 
             width: 40px; 
             height: 40px; 
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(0, 212, 255, 0.1) 100%); /* Gradient icons */
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(0, 212, 255, 0.1) 100%);
             border-radius: 50%; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
             color: #a0a0a0; 
             transition: color 0.3s, transform 0.3s;
+            backdrop-filter: blur(10px);
         }
         .social-icon:hover { 
             color: #00d4ff; 
@@ -137,16 +169,16 @@
             border-radius: 20px; 
             box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
             animation: floatImage 4s ease-in-out infinite;
-            filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.5)); /* Enhanced glow */
+            filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.5));
         }
         @keyframes floatImage {
             0%, 100% { transform: translateY(-50%); }
             50% { transform: translateY(-55%); }
         }
-        /* Floating badges removed */
+        
         /* Modern Menu Styling */
         .menu-container {
-            margin: 8rem auto 2rem; /* Increased top margin to 6rem */
+            margin: 8rem auto 2rem;
             max-width: 1000px;
             padding: 0 1rem;
         }
@@ -233,7 +265,26 @@
             .menu-text {
                 font-size: 0.8rem;
             }
+            
+            .profile-image {
+                position: relative;
+                top: 0;
+                right: 0;
+                transform: none;
+                margin: 2rem auto;
+                display: block;
+                width: 250px;
+            }
+            
+            .title {
+                font-size: 3rem;
+            }
+            
+            .subtitle {
+                font-size: 1.5rem;
+            }
         }
+        
         .footer-note { 
             font-size: 0.8rem; 
             margin-top: 2rem; 
@@ -306,147 +357,387 @@
                 font-size: 0.9rem;
             }
         }
+        
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        
+        /* Welcome screen styles */
+        .welcome-screen {
+            position: fixed;
+            inset: 0;
+            background: #0a0a0a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .welcome-screen.fade-out {
+            animation: fadeOut 0.8s ease forwards;
+        }
+        
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                transform: scale(1);
+                filter: blur(0px);
+            }
+            to {
+                opacity: 0;
+                transform: scale(1.1);
+                filter: blur(10px);
+            }
+        }
+        
+        .background-effects {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .gradient-blob {
+            position: absolute;
+            inset: 0;
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.2;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.4;
+                transform: scale(1.05);
+            }
+        }
+        
+        .welcome-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 20px;
+            max-width: 1000px;
+            width: 100%;
+        }
+        
+        .icon-container {
+            display: flex;
+            justify-content: center;
+            gap: clamp(12px, 4vw, 32px);
+            margin-bottom: clamp(24px, 6vw, 48px);
+        }
+        
+        .icon-wrapper {
+            position: relative;
+            animation: fadeDown 0.6s ease backwards;
+        }
+        
+        .icon-wrapper:nth-child(1) { animation-delay: 0.2s; }
+        .icon-wrapper:nth-child(2) { animation-delay: 0.4s; }
+        .icon-wrapper:nth-child(3) { animation-delay: 0.6s; }
+        
+        @keyframes fadeDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .icon-button {
+            position: relative;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .icon-button:hover {
+            transform: scale(1.1);
+        }
+        
+        .icon-glow {
+            position: absolute;
+            inset: -8px;
+            background: linear-gradient(to right, #3eb2ff, #000000);
+            border-radius: 50%;
+            filter: blur(8px);
+            opacity: 0.3;
+            transition: opacity 0.3s ease;
+        }
+        
+        .icon-button:hover .icon-glow {
+            opacity: 0.75;
+        }
+        
+        .icon-content {
+            position: relative;
+            padding: clamp(8px, 2vw, 12px);
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .icon-svg {
+            width: clamp(20px, 6vw, 32px);
+            height: clamp(20px, 6vw, 32px);
+            color: white;
+        }
+        
+        .welcome-text {
+            margin-bottom: clamp(24px, 6vw, 48px);
+        }
+        
+        .welcome-title {
+            font-size: clamp(32px, 8vw, 60px);
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: clamp(8px, 2vw, 16px);
+        }
+        
+        .title-line {
+            display: flex;
+            justify-content: center;
+            gap: clamp(8px, 2vw, 16px);
+            flex-wrap: wrap;
+            margin-bottom: clamp(8px, 2vw, 16px);
+        }
+        
+        .title-word {
+            display: inline-block;
+            padding: 0 8px;
+            animation: fadeRight 0.6s ease backwards;
+        }
+        
+        .title-word:nth-child(1) { animation-delay: 0.8s; }
+        .title-word:nth-child(2) { animation-delay: 1.0s; }
+        .title-word:nth-child(3) { animation-delay: 1.2s; }
+        
+        @keyframes fadeRight {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .title-portfolio {
+            animation: fadeUp 0.6s ease backwards;
+            animation-delay: 1.4s;
+        }
+        
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .website-url {
+            font-size: clamp(18px, 4vw, 24px);
+            color: #6366f1;
+        }
     </style>
 </head>
 <body>
-    <!-- Welcome Screen dari code asli, diadaptasi untuk dark theme dengan gradients -->
-    <div class="welcome-screen" id="welcomeScreen">
-        <!-- Background Effects enhanced with gradients -->
-        <div class="background-effects">
-            <div class="gradient-blob gradient-blob-1" style="background: radial-gradient(circle at 50% 50%, rgba(0, 212, 255, 0.2) 0%, transparent 50%);"></div>
-            <div class="gradient-blob gradient-blob-2" style="background: radial-gradient(circle at 50% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 50%);"></div>
-        </div>
-        <!-- Welcome Content -->
-        <div class="welcome-content">
-            <!-- Icons -->
-            <div class="icon-container">
-                <!-- Code Icon -->
-                <div class="icon-wrapper">
-                    <div class="icon-button">
-                        <div class="icon-glow"></div>
-                        <div class="icon-content">
-                            <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="16 18 22 12 16 6"></polyline>
-                                <polyline points="8 6 2 12 8 18"></polyline>
-                            </svg>
+    <!-- Vanta.js background container -->
+    <div id="vanta-bg"></div>
+    
+    <!-- Content overlay for better readability -->
+    <div class="content-overlay">
+        <!-- Welcome Screen -->
+        <div class="welcome-screen" id="welcomeScreen">
+            <!-- Background Effects enhanced with gradients -->
+            <div class="background-effects">
+                <div class="gradient-blob gradient-blob-1" style="background: radial-gradient(circle at 50% 50%, rgba(0, 212, 255, 0.2) 0%, transparent 50%);"></div>
+                <div class="gradient-blob gradient-blob-2" style="background: radial-gradient(circle at 50% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 50%);"></div>
+            </div>
+            <!-- Welcome Content -->
+            <div class="welcome-content">
+                <!-- Icons -->
+                <div class="icon-container">
+                    <!-- Code Icon -->
+                    <div class="icon-wrapper">
+                        <div class="icon-button">
+                            <div class="icon-glow"></div>
+                            <div class="icon-content">
+                                <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="16 18 22 12 16 6"></polyline>
+                                    <polyline points="8 6 2 12 8 18"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- User Icon -->
+                    <div class="icon-wrapper">
+                        <div class="icon-button">
+                            <div class="icon-glow"></div>
+                            <div class="icon-content">
+                                <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Github Icon -->
+                    <div class="icon-wrapper">
+                        <div class="icon-button">
+                            <div class="icon-glow"></div>
+                            <div class="icon-content">
+                                <svg class="icon-svg" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                                </svg>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <!-- User Icon -->
-                <div class="icon-wrapper">
-                    <div class="icon-button">
-                        <div class="icon-glow"></div>
-                        <div class="icon-content">
-                            <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                <circle cx="12" cy="7" r="4"></circle>
-                            </svg>
+                <!-- Welcome Text with gradient enhancements -->
+                <div class="welcome-text">
+                    <div class="welcome-title">
+                        <div class="title-line">
+                            <span class="title-word light" style="background: linear-gradient(90deg, #fff 0%, #ffd700 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Welcome</span>
+                            <span class="title-word light" style="background: linear-gradient(90deg, #fff 0%, #ffd700 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">To</span>
+                            <span class="title-word light" style="background: linear-gradient(90deg, #fff 0%, #ffd700 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">My</span>
+                        </div>
+                        <div class="title-line title-portfolio">
+                            <span class="title-word gradient" style="background: linear-gradient(90deg, #00d4ff 0%, #0099cc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Portfolio</span>
+                            <span class="title-word gradient" style="background: linear-gradient(90deg, #00d4ff 0%, #0099cc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Website</span>
                         </div>
                     </div>
-                </div>
-                <!-- Github Icon -->
-                <div class="icon-wrapper">
-                    <div class="icon-button">
-                        <div class="icon-glow"></div>
-                        <div class="icon-content">
-                            <svg class="icon-svg" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                            </svg>
-                        </div>
-                    </div>
+                    <!-- Added element for typewriter URL link -->
+                    <div id="websiteText" class="website-url"></div>
                 </div>
             </div>
-            <!-- Welcome Text with gradient enhancements -->
-            <div class="welcome-text">
-                <div class="welcome-title">
-                    <div class="title-line">
-                        <span class="title-word light" style="background: linear-gradient(90deg, #fff 0%, #ffd700 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Welcome</span>
-                        <span class="title-word light" style="background: linear-gradient(90deg, #fff 0%, #ffd700 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">To</span>
-                        <span class="title-word light" style="background: linear-gradient(90deg, #fff 0%, #ffd700 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">My</span>
-                    </div>
-                    <div class="title-line title-portfolio">
-                        <span class="title-word gradient" style="background: linear-gradient(90deg, #00d4ff 0%, #0099cc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Portfolio</span>
-                        <span class="title-word gradient" style="background: linear-gradient(90deg, #00d4ff 0%, #0099cc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Website</span>
-                    </div>
-                </div>
-                <!-- Added element for typewriter URL link -->
-                <div id="websiteText" class="website-url"></div>
-            </div>
         </div>
-    </div>
 
-    <!-- Homepage layout mirip gambar, enhanced with gradients -->
-    <div class="homepage-container">
-        <p class="greeting"><i class="fas fa-hand-wave" style="color: #ffd700;"></i> Hello there!</p>
-        <h1 class="title">Dimas Id</h1>
-        <h2 class="subtitle">I'm a Frontend Engineer</h2>
-        <p class="description">I'm Dimas Kurnia S, a passionate Software Developer who enjoys understanding how systems work — from low-level logic circuits to high-level applications. With solid experience in Java, C, and modern web technologies, I create efficient, reliable, and scalable software that combines logic and creativity.</p>
-        <div class="stats">
-            <div class="stat-card">
-                <span class="stat-number">25+</span>
-                <span class="stat-label">Projects Completed</span>
+        <!-- Homepage layout -->
+        <div class="homepage-container">
+            <p class="greeting"><i class="fas fa-hand-wave" style="color: #ffd700;"></i> Hello there!</p>
+            <h1 class="title">Dimas Id</h1>
+            <h2 class="subtitle">I'm a Frontend Engineer</h2>
+            <p class="description">I'm Dimas Kurnia S, a passionate Software Developer who enjoys understanding how systems work — from low-level logic circuits to high-level applications. With solid experience in Java, C, and modern web technologies, I create efficient, reliable, and scalable software that combines logic and creativity.</p>
+            <div class="stats">
+                <div class="stat-card">
+                    <span class="stat-number">25+</span>
+                    <span class="stat-label">Projects Completed</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">3+</span>
+                    <span class="stat-label">Years Experience</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">20+</span>
+                    <span class="stat-label">My Github</span>
+                </div>
             </div>
-            <div class="stat-card">
-                <span class="stat-number">3+</span>
-                <span class="stat-label">Years Experience</span>
+            
+            <div class="social-icons">
+                <a href="#" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
             </div>
-            <div class="stat-card">
-                <span class="stat-number">20+</span>
-                <span class="stat-label">My Github</span>
+            <!-- Profile image -->
+            <img src="images/img1.jpeg" alt="Profile Photo" class="profile-image">
+            
+            <!-- Centered Menu with updated styling -->
+            <div class="menu-container">
+                <div class="menu-grid">
+                    <a href="tentang-peserta.html" class="menu-item">
+                        <div class="menu-icon"><i class="fas fa-user"></i></div>
+                        <div class="menu-text">Tentang Peserta</div>
+                    </a>
+                    <a href="pendahuluan.html" class="menu-item">
+                        <div class="menu-icon"><i class="fas fa-pencil-alt"></i></div>
+                        <div class="menu-text">Pendahuluan</div>
+                    </a>
+                    <a href="tentang-projek.html" class="menu-item">
+                        <div class="menu-icon"><i class="fas fa-info-circle"></i></div>
+                        <div class="menu-text">Tentang Projek</div>
+                    </a>
+                    <a href="projek.html" class="menu-item">
+                        <div class="menu-icon"><i class="fas fa-play"></i></div>
+                        <div class="menu-text">Projek</div>
+                    </a>
+                    <a href="lampiran.html" class="menu-item">
+                        <div class="menu-icon"><i class="fas fa-equals"></i></div>
+                        <div class="menu-text">Lampiran</div>
+                    </a>
+                    <a href="penutup.html" class="menu-item">
+                        <div class="menu-icon"><i class="fas fa-arrow-left"></i></div>
+                        <div class="menu-text">Penutup</div>
+                    </a>
+                </div>
             </div>
+            <a href="tentang-peserta.html" class="nav-button right-button">
+                <i class="fas fa-arrow-right"></i>
+            </a>
+            <p class="footer-note">Websites Untuk Uji Kompetensi Keahlian Desain Komunikasi Visual | SMK Miftahul Ulum Tanjungarum | Tahun Pelajaran 2024/2025</p>
         </div>
-        
-        <div class="social-icons">
-            <a href="#" class="social-icon"><i class="fab fa-whatsapp"></i></a>
-            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
-            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-        </div>
-        <!-- Profile image -->
-        <img src="images/img1.jpeg" alt="Profile Photo" class="profile-image">
-        
-        <!-- Centered Menu with updated styling -->
-        <div class="menu-container">
-            <div class="menu-grid">
-                <a href="tentang-peserta.html" class="menu-item">
-                    <div class="menu-icon"><i class="fas fa-user"></i></div>
-                    <div class="menu-text">Tentang Peserta</div>
-                </a>
-                <a href="pendahuluan.html" class="menu-item">
-                    <div class="menu-icon"><i class="fas fa-pencil-alt"></i></div>
-                    <div class="menu-text">Pendahuluan</div>
-                </a>
-                <a href="tentang-projek.html" class="menu-item">
-                    <div class="menu-icon"><i class="fas fa-info-circle"></i></div>
-                    <div class="menu-text">Tentang Projek</div>
-                </a>
-                <a href="projek.html" class="menu-item">
-                    <div class="menu-icon"><i class="fas fa-play"></i></div>
-                    <div class="menu-text">Projek</div>
-                </a>
-                <a href="lampiran.html" class="menu-item">
-                    <div class="menu-icon"><i class="fas fa-equals"></i></div>
-                    <div class="menu-text">Lampiran</div>
-                </a>
-                <a href="penutup.html" class="menu-item">
-                    <div class="menu-icon"><i class="fas fa-arrow-left"></i></div>
-                    <div class="menu-text">Penutup</div>
-                </a>
-            </div>
-        </div>
-        <a href="tentang-peserta.html" class="nav-button right-button">
-            <i class="fas fa-arrow-right"></i>
-        </a>
-        <p class="footer-note">Websites Untuk Uji Kompetensi Keahlian Desain Komunikasi Visual | SMK Miftahul Ulum Tanjungarum | Tahun Pelajaran 2024/2025</p>
     </div>
 
     <!-- Scripts -->
+    <!-- Load Three.js and Vanta.js FIRST -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <!-- Gunakan CDN Vanta.js yang Anda berikan -->
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    
+    <script>
+        // Initialize Vanta.js after window loads
+        window.addEventListener('load', function() {
+            // Remove welcome screen after 3 seconds
+            setTimeout(function() {
+                const welcomeScreen = document.getElementById('welcomeScreen');
+                if (welcomeScreen) {
+                    welcomeScreen.classList.add('fade-out');
+                    setTimeout(() => {
+                        welcomeScreen.style.display = 'none';
+                    }, 800);
+                }
+            }, 3000);
+            
+            // Initialize Vanta.js Globe effect
+            if (typeof VANTA !== 'undefined') {
+                VANTA.GLOBE({
+                    el: "#vanta-bg",
+                    mouseControls: true,
+                    touchControls: true,
+                    gyroControls: false,
+                    minHeight: 200.00,
+                    minWidth: 200.00,
+                    scale: 1.00,
+                    scaleMobile: 1.00,
+                    color: 0x41d4e3,
+                    color2: 0xf05353,
+                    size: 1.20,
+                    backgroundColor: 0x474784
+                });
+            } else {
+                console.error("VANTA is not defined. Check if Vanta.js loaded correctly.");
+                // Fallback background
+                document.getElementById('vanta-bg').style.background = "linear-gradient(135deg, #000 0%, #001f3f 100%)";
+            }
+        });
+    </script>
+    
+    <!-- Load your custom script last -->
     <script src="script.js"></script>
 </body>
 </html>
