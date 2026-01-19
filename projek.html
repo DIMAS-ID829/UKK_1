@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Navigation Buttons Styles - Sama seperti di halaman sebelumnya */
+        /* Navigation Buttons Styles */
         .nav-buttons {
             position: fixed;
             bottom: 10px;
@@ -61,7 +61,569 @@
             transform: translateX(3px);
         }
 
+        /* Grid Layout untuk Projects */
+        .parent {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 25px;
+            margin-top: 2rem;
+            min-height: 540px;
+            position: relative;
+        }
+        
+        .div1, .div2, .div3 {
+            background: rgba(26, 32, 44, 0.7);
+            border-radius: 12px;
+            overflow: visible; /* Diubah dari hidden menjadi visible */
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
+            border: 1px solid rgba(79, 209, 197, 0.1);
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem;
+            height: 100%;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .div1:hover, .div2:hover, .div3:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(79, 209, 197, 0.3);
+            z-index: 100; /* Z-index lebih tinggi saat hover */
+        }
+        
+        /* Info Panel Styles */
+        .info-panel {
+            position: absolute;
+            width: 450px;
+            min-height: 400px;
+            background: rgba(15, 23, 42, 0.98);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+            border: 2px solid rgba(79, 209, 197, 0.4);
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.1s ease;
+            z-index: 1000;
+            pointer-events: auto;
+        }
+        
+        /* Div 1: Kiri atas - Info panel muncul di kanan, agak ke tengah */
+        .div1 {
+            grid-column: span 1;
+            grid-row: span 1;
+            grid-column-start: 1;
+            grid-row-start: 1;
+        }
+        
+        .div1:hover .info-panel {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
+        }
+        
+        .div1 .info-panel {
+            left: 50%;
+            top: calc(100% + 15px);
+            transform: translateX(-50%) translateY(-10px);
+        }
+        
+        /* Div 2: Kanan tengah - Info panel muncul di kiri, agak ke tengah */
+        .div2 {
+            grid-column: span 1;
+            grid-row: span 1;
+            grid-column-start: 2;
+            grid-row-start: 1;
+        }
+        
+        .div2:hover .info-panel {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
+        }
+        
+        .div2 .info-panel {
+            left: 50%;
+            top: calc(100% + 15px);
+            transform: translateX(-50%) translateY(-10px);
+        }
+        
+        /* Div 3: Kiri bawah - Info panel muncul di kanan, agak ke atas */
+        .div3 {
+            grid-column: span 1;
+            grid-row: span 1;
+            grid-column-start: 3;
+            grid-row-start: 1;
+        }
+        
+        .div3:hover .info-panel {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
+        }
+        
+        .div3 .info-panel {
+            left: 50%;
+            top: calc(100% + 15px);
+            transform: translateX(-50%) translateY(-10px);
+        }
+        
+        /* Info Panel Content */
+        .info-title {
+            color: #4fd1c5;
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+        }
+        
+        .info-description {
+            color: #e2e8f0;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1.2rem;
+        }
+        
+        .info-features {
+            margin-bottom: 1.2rem;
+        }
+        
+        .info-features h4 {
+            color: #4fd1c5;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .info-features ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .info-features li {
+            color: #cbd5e0;
+            font-size: 0.9rem;
+            margin-bottom: 0.4rem;
+            padding-left: 1.2rem;
+            position: relative;
+        }
+        
+        .info-features li:before {
+            content: '•';
+            color: #4fd1c5;
+            position: absolute;
+            left: 0;
+            font-size: 1.2rem;
+        }
+        
+        .info-tech {
+            margin-bottom: 1.2rem;
+        }
+        
+        .info-tech h4 {
+            color: #4fd1c5;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .info-tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .info-tech-tags span {
+            background: rgba(79, 209, 197, 0.15);
+            color: #4fd1c5;
+            padding: 0.4rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .info-hint {
+            color: #a0aec0;
+            font-size: 0.85rem;
+            font-style: italic;
+            text-align: center;
+            margin-top: 1rem;
+            border-top: 1px solid rgba(79, 209, 197, 0.2);
+            padding-top: 0.8rem;
+        }
+        
+        /* Styling untuk konten di dalam div */
+        .project-grid-image {
+            flex: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            background-color: #1a202c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-grid-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.1s ease;
+        }
+
+        .div1:hover .project-grid-image img,
+        .div2:hover .project-grid-image img,
+        .div3:hover .project-grid-image img {
+            transform: scale(1.05);
+        }
+
+        .project-grid-info {
+            color: #e2e8f0;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-grid-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #4fd1c5;
+            font-weight: 700;
+        }
+
+        .project-grid-info p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            color: #a0aec0;
+            min-height: 72px;
+        }
+
+        .project-grid-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .project-grid-tech span {
+            background: rgba(79, 209, 197, 0.1);
+            color: #4fd1c5;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Section title styling */
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #4fd1c5;
+            font-weight: 900;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: #4fd1c5;
+            margin: 10px auto 30px;
+            border-radius: 2px;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .modal-content {
+            background: rgba(26, 32, 44, 0.95);
+            border-radius: 16px;
+            width: 95%;
+            max-width: 1400px;
+            max-height: 95vh;
+            overflow-y: auto;
+            padding: 3rem;
+            position: relative;
+            border: 2px solid rgba(79, 209, 197, 0.3);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.7);
+            animation: modalFadeIn 0.1s ease;
+        }
+        
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            background: none;
+            border: none;
+            color: #4fd1c5;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .modal-close:hover {
+            transform: rotate(90deg);
+            background: rgba(79, 209, 197, 0.1);
+        }
+        
+        .modal-image {
+            width: 100%;
+            height: 500px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+        
+        .modal-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .modal-title {
+            color: #4fd1c5;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 900;
+        }
+        
+        .modal-description {
+            color: #e2e8f0;
+            font-size: 1.2rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-details {
+            background: rgba(15, 23, 42, 0.7);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-details h4 {
+            color: #4fd1c5;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .modal-details ul {
+            color: #cbd5e0;
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .modal-details li {
+            margin-bottom: 0.7rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .modal-details li:before {
+            content: '▸';
+            color: #4fd1c5;
+            position: absolute;
+            left: 0;
+        }
+        
+        .modal-tech {
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-tech h4 {
+            color: #4fd1c5;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .modal-tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+        }
+        
+        .modal-tech-tags span {
+            background: rgba(79, 209, 197, 0.15);
+            color: #4fd1c5;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .modal-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .modal-link {
+            background: rgba(79, 209, 197, 0.2);
+            color: #4fd1c5;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-link:hover {
+            background: rgba(79, 209, 197, 0.3);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1200px) {
+            .parent {
+                grid-template-columns: repeat(3, 1fr);
+                grid-template-rows: repeat(2, 1fr);
+                min-height: 500px;
+            }
+            
+            .div1, .div2, .div3 {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+            
+            .div1 {
+                grid-column-start: 1;
+                grid-row-start: 1;
+            }
+            
+            .div2 {
+                grid-column-start: 2;
+                grid-row-start: 1;
+            }
+            
+            .div3 {
+                grid-column-start: 3;
+                grid-row-start: 1;
+            }
+            
+            /* Adjust info panel position for medium screens */
+            .info-panel {
+                width: 300px;
+            }
+            
+            .div1 .info-panel {
+                left: calc(100% + 10px);
+                top: 40%;
+                transform: translateY(-40%) translateX(-10px);
+            }
+            
+            .div2 .info-panel {
+                right: calc(100% + 10px);
+                top: 40%;
+                transform: translateY(-40%) translateX(10px);
+            }
+            
+            .div3 .info-panel {
+                left: calc(100% + 10px);
+                top: 45%;
+                transform: translateY(-45%) translateX(-10px);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .info-panel {
+                width: 280px;
+                padding: 1.5rem;
+            }
+            
+            .info-title {
+                font-size: 1.3rem;
+            }
+            
+            .info-description {
+                font-size: 0.9rem;
+            }
+        }
+
         @media (max-width: 768px) {
+            .parent {
+                grid-template-columns: 1fr;
+                grid-template-rows: repeat(3, auto);
+                gap: 1.5rem;
+                min-height: auto;
+            }
+            
+            .div1, .div2, .div3 {
+                grid-column: 1;
+                grid-row: auto !important;
+                height: 400px;
+                min-height: 400px;
+                overflow: hidden; /* Kembali ke hidden untuk mobile */
+            }
+            
+            .project-grid-info p {
+                min-height: auto;
+            }
+            
+            /* Info panel untuk mobile - muncul di bawah */
+            .info-panel {
+                position: fixed;
+                width: 90%;
+                left: 50% !important;
+                right: auto !important;
+                top: 50% !important;
+                transform: translate(-50%, -50%) !important;
+                z-index: 2000;
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+            }
+            
+            .div1:hover .info-panel,
+            .div2:hover .info-panel,
+            .div3:hover .info-panel {
+                opacity: 1;
+                visibility: visible;
+                pointer-events: auto;
+            }
+            
             .nav-buttons {
                 padding: 0 20px;
             }
@@ -71,37 +633,110 @@
                 height: 45px;
                 font-size: 18px;
             }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .modal-content {
+                width: 98%;
+                padding: 1.5rem;
+                max-height: 90vh;
+            }
+            
+            .modal-title {
+                font-size: 1.8rem;
+            }
+            
+            .modal-image {
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .div1, .div2, .div3 {
+                padding: 1rem;
+                height: 350px;
+                min-height: 350px;
+            }
+            
+            .project-grid-image {
+                min-height: 150px;
+            }
+            
+            .project-grid-info h3 {
+                font-size: 1.3rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .info-panel {
+                width: 95%;
+                padding: 1.2rem;
+            }
+            
+            .modal-content {
+                padding: 1.2rem;
+            }
+            
+            .modal-title {
+                font-size: 1.5rem;
+            }
+            
+            .modal-links {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
 
 <body class="page-transition">
-    <!-- Isi section Projects dari code asli -->
+    <!-- Isi section Projects dengan layout grid baru -->
     <section id="project" class="section projects">
         <div class="container">
             <h2 class="section-title">My Projects</h2>
             <div class="projects-content">
-                <div class="projects-grid">
-                    <!-- [seluruh project cards dari code asli] -->
-                    <div class="project-card">
-                        <div class="project-image">
-                            <img src="images/Cleveroad.jpg" alt="Project 1">
-                            <div class="project-overlay">
-                                <div class="project-links">
-                                    <a href="#" class="project-link">
-                                        <i class="fas fa-external-link-alt"></i>
-                                    </a>
-                                    <a href="#" class="project-link">
-                                        <i class="fab fa-github"></i>
-                                    </a>
+                <div class="parent">
+                    <!-- Div 1 - KIRI ATAS -->
+                    <div class="div1" data-project="1">
+                        <!-- Info Panel akan muncul di kanan saat hover -->
+                        <div class="info-panel" id="info-panel-1">
+                            <h3 class="info-title">E-web Embed Editor</h3>
+                            <p class="info-description">Platform full-stack untuk membuat, mengedit, dan menyematkan konten web secara dinamis dengan editor WYSIWYG yang intuitif.</p>
+                            
+                            <div class="info-features">
+                                <h4>Fitur Utama:</h4>
+                                <ul>
+                                    <li>Editor WYSIWYG yang mudah digunakan</li>
+                                    <li>Autentikasi pengguna dengan OAuth2</li>
+                                    <li>Sistem pembayaran Stripe</li>
+                                    <li>Dashboard admin real-time</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="info-tech">
+                                <h4>Teknologi:</h4>
+                                <div class="info-tech-tags">
+                                    <span>React</span>
+                                    <span>Node.js</span>
+                                    <span>MongoDB</span>
+                                    <span>Stripe</span>
                                 </div>
                             </div>
+                            
+                            <p class="info-hint">Klik untuk detail lengkap</p>
                         </div>
-                        <div class="project-info">
+                        
+                        <div class="project-grid-image">
+                            <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" 
+                                 alt="E-web Embed Editor">
+                        </div>
+                        <div class="project-grid-info">
                             <h3>E-web Embed Editor</h3>
-                            <p>A full-stack e-web embed editor solution built with React, Node.js, and MongoDB.
-                                Features include user authentication, payment processing, and admin dashboard.</p>
-                            <div class="project-tech">
+                            <p>A full-stack e-web embed editor solution built with React, Node.js, and MongoDB. Features include user authentication, payment processing, and admin dashboard.</p>
+                            <div class="project-grid-tech">
                                 <span>React</span>
                                 <span>Node.js</span>
                                 <span>MongoDB</span>
@@ -109,13 +744,146 @@
                             </div>
                         </div>
                     </div>
-                    <!-- [lanjutan semua project cards] -->
+
+                    <!-- Div 2 - KANAN TENGAH -->
+                    <div class="div2" data-project="2">
+                        <!-- Info Panel akan muncul di kiri saat hover -->
+                        <div class="info-panel" id="info-panel-2">
+                            <h3 class="info-title">E-commerce Platform</h3>
+                            <p class="info-description">Platform e-commerce komprehensif dengan pengalaman belanja online yang mulus untuk pelanggan dan administrator.</p>
+                            
+                            <div class="info-features">
+                                <h4>Fitur Utama:</h4>
+                                <ul>
+                                    <li>Katalog produk dengan filter canggih</li>
+                                    <li>Keranjang belanja real-time</li>
+                                    <li>Sistem ulasan dan rating produk</li>
+                                    <li>Pelacakan pesanan otomatis</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="info-tech">
+                                <h4>Teknologi:</h4>
+                                <div class="info-tech-tags">
+                                    <span>Vue.js</span>
+                                    <span>Express</span>
+                                    <span>PostgreSQL</span>
+                                    <span>Stripe API</span>
+                                </div>
+                            </div>
+                            
+                            <p class="info-hint">Klik untuk detail lengkap</p>
+                        </div>
+                        
+                        <div class="project-grid-image">
+                            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" 
+                                 alt="E-commerce Platform">
+                        </div>
+                        <div class="project-grid-info">
+                            <h3>E-commerce Platform</h3>
+                            <p>Complete e-commerce solution with product management, shopping cart, user reviews, and order tracking. Built with Vue.js, Express, and PostgreSQL.</p>
+                            <div class="project-grid-tech">
+                                <span>Vue.js</span>
+                                <span>Express</span>
+                                <span>PostgreSQL</span>
+                                <span>Stripe API</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Div 3 - KIRI BAWAH -->
+                    <div class="div3" data-project="3">
+                        <!-- Info Panel akan muncul di kanan saat hover -->
+                        <div class="info-panel" id="info-panel-3">
+                            <h3 class="info-title">Task Management App</h3>
+                            <p class="info-description">Aplikasi manajemen tugas kolaboratif yang membantu tim bekerja lebih efisien dengan fitur real-time dan antarmuka intuitif.</p>
+                            
+                            <div class="info-features">
+                                <h4>Fitur Utama:</h4>
+                                <ul>
+                                    <li>Sinkronisasi real-time antar tim</li>
+                                    <li>Drag-and-drop untuk prioritas</li>
+                                    <li>Pemberitahuan dan reminder</li>
+                                    <li>Integrasi dengan Google Calendar</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="info-tech">
+                                <h4>Teknologi:</h4>
+                                <div class="info-tech-tags">
+                                    <span>React</span>
+                                    <span>Firebase</span>
+                                    <span>Material-UI</span>
+                                    <span>Socket.io</span>
+                                </div>
+                            </div>
+                            
+                            <p class="info-hint">Klik untuk detail lengkap</p>
+                        </div>
+                        
+                        <div class="project-grid-image">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" 
+                                 alt="Task Management App">
+                        </div>
+                        <div class="project-grid-info">
+                            <h3>Task Management App</h3>
+                            <p>Collaborative task management application with real-time updates, team collaboration features, and progress tracking. Built with React, Firebase, and Material-UI.</p>
+                            <div class="project-grid-tech">
+                                <span>React</span>
+                                <span>Firebase</span>
+                                <span>Material-UI</span>
+                                <span>Socket.io</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Navigation Buttons - Sama seperti di halaman sebelumnya -->
+    <!-- Modal untuk Detail Project -->
+    <div class="modal-overlay" id="project-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close">&times;</button>
+            
+            <div class="modal-image">
+                <img id="modal-img" src="" alt="Project Image">
+            </div>
+            
+            <h2 class="modal-title" id="modal-title">Project Title</h2>
+            
+            <p class="modal-description" id="modal-description">
+                Project description will appear here...
+            </p>
+            
+            <div class="modal-details">
+                <h4>Fitur Utama</h4>
+                <ul id="modal-features">
+                    <li>Feature 1</li>
+                    <li>Feature 2</li>
+                    <li>Feature 3</li>
+                </ul>
+            </div>
+            
+            <div class="modal-tech">
+                <h4>Teknologi yang Digunakan</h4>
+                <div class="modal-tech-tags" id="modal-tech">
+                    <!-- Tech tags will be inserted here -->
+                </div>
+            </div>
+            
+            <div class="modal-links">
+                <a href="#" class="modal-link" id="modal-link-live" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> Live Demo
+                </a>
+                <a href="#" class="modal-link" id="modal-link-github" target="_blank">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Buttons -->
     <div class="nav-buttons">
         <a href="tentang-projek.html" class="nav-button prev-button">
             <i class="fas fa-arrow-left"></i>
@@ -125,9 +893,164 @@
         </a>
     </div>
 
-    <!-- Scripts dari code asli -->
+    <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 0,
+            easing: 'ease-in-out',
+            once: false,
+            delay: 0
+        });
+        
+        // Data untuk masing-masing project
+        const projectsData = {
+            1: {
+                title: "E-web Embed Editor",
+                image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                description: "E-web Embed Editor adalah platform full-stack yang memungkinkan pengguna untuk membuat, mengedit, dan menyematkan konten web secara dinamis. Sistem ini dilengkapi dengan berbagai fitur canggih untuk memudahkan pengembangan dan deployment konten web.",
+                features: [
+                    "Editor WYSIWYG (What You See Is What You Get) yang intuitif",
+                    "Autentikasi pengguna dengan OAuth2 dan JWT",
+                    "Sistem pembayaran terintegrasi dengan Stripe",
+                    "Dashboard admin dengan analitik real-time",
+                    "Optimasi performa dengan lazy loading dan caching",
+                    "Responsif di semua perangkat dan browser"
+                ],
+                tech: ["React", "Node.js", "MongoDB", "Stripe", "Express", "Redux", "JWT"],
+                liveLink: "#",
+                githubLink: "#"
+            },
+            2: {
+                title: "E-commerce Platform",
+                image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                description: "Platform e-commerce komprehensif yang dibangun dengan teknologi terbaru. Menyediakan pengalaman belanja online yang mulus dengan berbagai fitur modern untuk pelanggan dan administrator.",
+                features: [
+                    "Katalog produk dengan filter dan pencarian canggih",
+                    "Keranjang belanja real-time dengan perhitungan otomatis",
+                    "Sistem ulasan dan rating produk",
+                    "Pelacakan pesanan dari pembelian hingga pengiriman",
+                    "Dashboard analitik untuk penjualan dan stok",
+                    "Integrasi dengan berbagai metode pembayaran"
+                ],
+                tech: ["Vue.js", "Express", "PostgreSQL", "Stripe API", "Vuex", "JWT", "Redis"],
+                liveLink: "#",
+                githubLink: "#"
+            },
+            3: {
+                title: "Task Management App",
+                image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                description: "Aplikasi manajemen tugas kolaboratif yang memungkinkan tim untuk bekerja lebih efisien. Dengan antarmuka yang intuitif dan fitur real-time, aplikasi ini membantu tim menyelesaikan proyek tepat waktu.",
+                features: [
+                    "Sinkronisasi real-time antar semua anggota tim",
+                    "Drag-and-drop untuk mengatur prioritas tugas",
+                    "Pemberitahuan dan reminder otomatis",
+                    "Laporan progres dengan grafik visual",
+                    "Integrasi dengan Google Calendar dan Slack",
+                    "Role-based access control (RBAC)"
+                ],
+                tech: ["React", "Firebase", "Material-UI", "Socket.io", "Redux Toolkit", "Chart.js"],
+                liveLink: "#",
+                githubLink: "#"
+            }
+        };
+        
+        // Elemen modal
+        const modalOverlay = document.getElementById('project-modal');
+        const modalClose = document.getElementById('modal-close');
+        const modalImg = document.getElementById('modal-img');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDescription = document.getElementById('modal-description');
+        const modalFeatures = document.getElementById('modal-features');
+        const modalTech = document.getElementById('modal-tech');
+        const modalLinkLive = document.getElementById('modal-link-live');
+        const modalLinkGithub = document.getElementById('modal-link-github');
+        
+        // Fungsi untuk membuka modal
+        function openModal(projectId) {
+            const project = projectsData[projectId];
+            
+            // Isi data ke modal
+            modalImg.src = project.image;
+            modalImg.alt = project.title;
+            modalTitle.textContent = project.title;
+            modalDescription.textContent = project.description;
+            
+            // Isi fitur-fitur
+            modalFeatures.innerHTML = '';
+            project.features.forEach(feature => {
+                const li = document.createElement('li');
+                li.textContent = feature;
+                modalFeatures.appendChild(li);
+            });
+            
+            // Isi teknologi
+            modalTech.innerHTML = '';
+            project.tech.forEach(techItem => {
+                const span = document.createElement('span');
+                span.textContent = techItem;
+                modalTech.appendChild(span);
+            });
+            
+            // Isi link
+            modalLinkLive.href = project.liveLink;
+            modalLinkGithub.href = project.githubLink;
+            
+            // Tampilkan modal
+            modalOverlay.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Mencegah scroll di background
+        }
+        
+        // Fungsi untuk menutup modal
+        function closeModal() {
+            modalOverlay.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Mengembalikan scroll
+        }
+        
+        // Event listener untuk project cards
+        document.querySelectorAll('.div1, .div2, .div3').forEach(card => {
+            card.addEventListener('click', function() {
+                const projectId = this.getAttribute('data-project');
+                openModal(projectId);
+            });
+        });
+        
+        // Event listener untuk info panels
+        document.querySelectorAll('.info-panel').forEach(panel => {
+            panel.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const parentCard = this.closest('.div1, .div2, .div3');
+                const projectId = parentCard.getAttribute('data-project');
+                openModal(projectId);
+            });
+        });
+        
+        // Event listener untuk tombol close modal
+        modalClose.addEventListener('click', closeModal);
+        
+        // Event listener untuk menutup modal ketika klik di luar konten modal
+        modalOverlay.addEventListener('click', function(e) {
+            if (e.target === modalOverlay) {
+                closeModal();
+            }
+        });
+        
+        // Event listener untuk menutup modal dengan tombol ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modalOverlay.style.display === 'flex') {
+                closeModal();
+            }
+        });
+        
+        // Tambahkan event listener untuk info panel agar tidak trigger click pada box
+        document.querySelectorAll('.info-panel').forEach(panel => {
+            panel.addEventListener('click', function(e) {
+                e.stopPropagation(); // Mencegah event click bubble ke parent div
+            });
+        });
+    </script>
     <script src="script.js"></script>
 </body>
 
