@@ -1,3 +1,0 @@
-# UKK_1
-UKK PRIVATE
-😩
