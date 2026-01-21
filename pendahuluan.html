@@ -6,10 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pendahuluan - Dimas DK Portfolio</title>
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Lodash untuk simulasi partikel -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.min.js"></script>
 
@@ -47,7 +48,8 @@
             height: 100%;
             z-index: 0;
             pointer-events: none;
-            opacity: 0.4; /* Meningkatkan opacity */
+            opacity: 0.4;
+            /* Meningkatkan opacity */
         }
 
         /* Partikel background tambahan - DIPERBESAR */
@@ -63,7 +65,8 @@
 
         .bg-particle {
             position: absolute;
-            background-color: rgba(123, 212, 255, 0.15); /* Lebih terang */
+            background-color: rgba(123, 212, 255, 0.15);
+            /* Lebih terang */
             border-radius: 50%;
             animation: float 20s infinite linear;
         }
@@ -270,11 +273,25 @@
         }
 
         @keyframes float {
-            0% { transform: translateY(0px) rotate(0deg); }
-            25% { transform: translateY(-15px) rotate(90deg); }
-            50% { transform: translateY(-30px) rotate(180deg); }
-            75% { transform: translateY(-15px) rotate(270deg); }
-            100% { transform: translateY(0px) rotate(360deg); }
+            0% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            25% {
+                transform: translateY(-15px) rotate(90deg);
+            }
+
+            50% {
+                transform: translateY(-30px) rotate(180deg);
+            }
+
+            75% {
+                transform: translateY(-15px) rotate(270deg);
+            }
+
+            100% {
+                transform: translateY(0px) rotate(360deg);
+            }
         }
 
         /* Additional Sections Styles - RESPONSIVE */
@@ -386,12 +403,12 @@
             font-size: 0.8rem;
             line-height: 1.5;
         }
-        
+
         /* Efek glow untuk highlight */
         .glow-text {
             text-shadow: 0 0 15px rgba(43, 107, 176, 0.4);
         }
-        
+
         /* Navigation Buttons - DIUBAH: satu di kiri, satu di kanan */
         .nav-button {
             background: rgba(10, 15, 30, 0.8);
@@ -411,16 +428,16 @@
             bottom: 20px;
             z-index: 100;
         }
-        
+
         .nav-button:hover {
             background: rgba(43, 107, 176, 0.3);
             transform: scale(1.1);
         }
-        
+
         .prev-button {
             left: 20px;
         }
-        
+
         .next-button {
             right: 20px;
         }
@@ -430,71 +447,71 @@
             body {
                 padding: 30px;
             }
-            
+
             .container {
                 padding: 60px 50px;
                 margin: 30px auto;
                 border-radius: 22px;
             }
-            
+
             h1 {
                 font-size: 2.2rem;
             }
-            
+
             .project-boxes {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 25px;
             }
-            
+
             .modal {
                 padding: 30px;
             }
-            
+
             .modal-text {
                 padding: 40px 30px;
             }
-            
+
             .modal-text h2 {
                 font-size: 2rem;
             }
-            
+
             .modal-content {
                 flex-direction: row;
             }
-            
+
             .modal-text {
                 flex: 1;
             }
-            
+
             .modal-image {
                 flex: 1;
                 padding: 40px 30px;
             }
-            
+
             .close {
                 top: 30px;
                 right: 30px;
             }
-            
+
             .approach-grid,
             .skills-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 25px;
             }
-            
+
             .approach-item,
             .skill-item {
                 padding: 30px;
             }
-            
+
             .nav-button {
                 bottom: 30px;
             }
-            
+
             .prev-button {
                 left: 30px;
             }
-            
+
             .next-button {
                 right: 30px;
             }
@@ -505,52 +522,52 @@
             body {
                 padding: 40px;
             }
-            
+
             .container {
                 padding: 80px 70px;
                 margin: 40px auto;
                 border-radius: 25px;
             }
-            
+
             h1 {
                 font-size: 2.5rem;
             }
-            
+
             .project-boxes {
                 grid-template-columns: repeat(3, 1fr);
                 gap: 30px;
             }
-            
+
             .modal {
                 padding: 50px;
             }
-            
+
             .modal-text {
                 padding: 60px 50px;
             }
-            
+
             .modal-text h2 {
                 font-size: 2.2rem;
             }
-            
+
             .close {
                 top: 40px;
                 right: 40px;
             }
-            
+
             .approach-grid,
             .skills-grid {
                 grid-template-columns: repeat(4, 1fr);
             }
-            
+
             .nav-button {
                 bottom: 40px;
             }
-            
+
             .prev-button {
                 left: 40px;
             }
-            
+
             .next-button {
                 right: 40px;
             }
@@ -561,122 +578,122 @@
             .container {
                 padding: 100px 80px;
             }
-            
+
             h1 {
                 font-size: 2.8rem;
             }
-            
+
             p {
                 font-size: 1.05rem;
                 line-height: 1.9;
             }
-            
+
             .project-box p {
                 font-size: 0.95rem;
             }
         }
-        
+
         /* ORIENTASI LANDSCAPE UNTUK HANDPHONE */
         @media (max-height: 600px) and (orientation: landscape) {
             .container {
                 margin: 10px auto;
                 padding: 30px 25px;
             }
-            
+
             .project-boxes {
                 grid-template-columns: repeat(2, 1fr);
                 margin-top: 25px;
                 gap: 15px;
             }
-            
+
             .project-box {
                 padding: 20px;
             }
-            
+
             .approach-grid,
             .skills-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 15px;
             }
-            
+
             .approach-item,
             .skill-item {
                 padding: 20px;
             }
-            
+
             .modal {
                 padding: 15px;
             }
-            
+
             .modal-content {
                 flex-direction: row;
             }
-            
+
             .modal-text {
                 padding: 20px;
             }
-            
+
             .modal-image {
                 padding: 20px;
             }
-            
+
             .close {
                 top: 15px;
                 right: 15px;
             }
-            
+
             .nav-button {
                 bottom: 15px;
             }
-            
+
             .prev-button {
                 left: 15px;
             }
-            
+
             .next-button {
                 right: 15px;
             }
         }
-        
+
         /* DUKUNGAN UNTUK LAYAR SANGAT KECIL */
         @media (max-width: 360px) {
             body {
                 padding: 15px;
             }
-            
+
             .container {
                 padding: 30px 20px;
                 border-radius: 15px;
             }
-            
+
             h1 {
                 font-size: 1.6rem;
             }
-            
+
             .project-box {
                 padding: 20px;
             }
-            
+
             .approach-item,
             .skill-item {
                 padding: 20px;
             }
-            
+
             .outcome-item {
                 padding: 12px;
             }
-            
+
             .nav-button {
                 bottom: 15px;
                 width: 45px;
                 height: 45px;
                 font-size: 16px;
             }
-            
+
             .prev-button {
                 left: 15px;
             }
-            
+
             .next-button {
                 right: 15px;
             }
@@ -688,7 +705,7 @@
 
     <!-- Canvas untuk simulasi partikel -->
     <canvas id="particle-canvas"></canvas>
-    
+
     <!-- Partikel background tambahan - DIPERBESAR -->
     <div class="bg-particles" id="bgParticles"></div>
 
@@ -698,80 +715,51 @@
 
         <p>
             Sebagai bentuk kesiapan dan penguasaan kompetensi, saya telah menyiapkan
-            <strong>tiga proyek utama</strong> yang dirancang untuk menunjukkan kemampuan
+            <strong>tiga proyek utama</strong> yaitu website, poster, dan film pendek. Proyek ini saya kerjakan sebagai
+            bentuk penerapan dari materi yang sudah dipelajari selama sekolah.
+            yang dirancang untuk menunjukkan kemampuan
             dalam desain visual, pengembangan web, dan komunikasi publik secara efektif.
             Setiap proyek memiliki tujuan, pendekatan, dan hasil yang terukur.
-        </p>
-
-        <p>
-            Setiap proyek ini tidak hanya menampilkan kemampuan teknis, tetapi juga mencerminkan
-            pemahaman mendalam tentang kebutuhan audiens, prinsip desain yang efektif,
-            dan implementasi teknologi yang tepat. Dari konsep awal hingga hasil akhir,
-            setiap tahap dilakukan dengan pertimbangan matang untuk menciptakan karya
-            yang tidak hanya menarik secara visual, tetapi juga fungsional dan berdampak.
-        </p>
-
-        <p>
-            Proses pengembangan setiap proyek melibatkan riset mendalam, perencanaan strategis,
-            dan iterasi berkelanjutan untuk memastikan hasil yang optimal. Saya percaya bahwa
-            desain yang baik adalah perpaduan sempurna antara estetika, fungsionalitas,
-            dan pesan yang jelas yang dapat diterima dengan baik oleh target audiens.
         </p>
 
         <div class="project-boxes">
             <div class="project-box" onclick="openModal('poster')">
                 <i class="fa-solid fa-image"></i>
                 <h3>Poster</h3>
-                <p>Eksplorasi visual dan pesan singkat.</p>
+                <p>Poster yang Dibuat untuk Project UKK.</p>
             </div>
             <div class="project-box" onclick="openModal('website')">
                 <i class="fa-solid fa-globe"></i>
                 <h3>Website</h3>
-                <p>Struktur digital dan interaksi pengguna.</p>
+                <p>Wadah dari Project yang dibuat untuk UKK.</p>
             </div>
             <div class="project-box" onclick="openModal('iklan')">
                 <i class="fa-solid fa-bullhorn"></i>
                 <h3>Iklan Layanan Masyarakat</h3>
-                <p>Penyampaian pesan edukatif.</p>
+                <p>Penyampaian pesan edukasi Stop Bullying.</p>
             </div>
         </div>
 
         <div class="outcome-section">
-            <h2>Hasil & Dampak</h2>
+            <h2>Proses</h2>
             <div class="divider"></div>
             <p>
-                Hasil dari setiap proyek tidak hanya dinilai dari aspek estetika, tetapi juga
-                dari kemampuannya dalam mencapai tujuan komunikasi dan memberikan nilai tambah
-                bagi audiens. Setiap karya dirancang untuk memberikan pengalaman yang berkesan
-                dan pesan yang tersampaikan dengan efektif.
+                Persiapan Untuk membuat Iklan layanan masyarakat dimulai dari penentuan ide,
+                penulisan naskah, pemilihan aktor untuk video ini yang dilakukan pada tanggal 5 Januari.
             </p>
-            
-            <div class="outcome-list">
-                <div class="outcome-item">
-                    <i class="fas fa-check-circle"></i>
-                    <span>Solusi desain yang inovatif dan fungsional</span>
-                </div>
-                <div class="outcome-item">
-                    <i class="fas fa-check-circle"></i>
-                    <span>Pengalaman pengguna yang intuitif dan menyenangkan</span>
-                </div>
-                <div class="outcome-item">
-                    <i class="fas fa-check-circle"></i>
-                    <span>Komunikasi visual yang jelas dan efektif</span>
-                </div>
-                <div class="outcome-item">
-                    <i class="fas fa-check-circle"></i>
-                    <span>Implementasi teknologi yang optimal dan modern</span>
-                </div>
-                <div class="outcome-item">
-                    <i class="fas fa-check-circle"></i>
-                    <span>Dokumentasi proses yang lengkap dan terstruktur</span>
-                </div>
-            </div>
+
+            <p>Setelah persiapan yang sudah direncanakan secara matang, proses shooting dilaksanakan pada 
+                tanggal 6 januari sampai 8 januari. Selanjutnya proses editing dimulai tanggal 10 sampai 13 januari untuk mendapatkan hasil yang sesuai dan disetujui.
+                proses mengedit video meliputi perbaikan suara,penambahan backsound dan cut video agar sesuai dengan naskah yang dibuat.</p>
+
+            <p>Setelah film pendek selesai dikerjakan, saya melanjutkan ke tahap pembuatan poster. Tahap terakhir dari proyek ini adalah pembuatan website yang saya buat jauh-jau hari agar bisa disesuaikan
+               dan digunakan untuk menampilkan informasi dan seluruh karya yang telah saya buat.
+               rangkaian singkat yang saya buat ini cukup untuk menjelaskan peoses dari pembuatan project ini.</p>
         </div>
-            
+
         <div class="footer-bottom">
-            <p>Website Untuk Uji Kompetensi Keahlian Desain Komunikasi Visual | SMK Miftahul Ulum Tanjungarum | Tahun Pelajaran 2024/2025</p>
+            <p>Website Untuk Uji Kompetensi Keahlian Desain Komunikasi Visual | SMK Miftahul Ulum Tanjungarum | Tahun
+                Pelajaran 2025/2026</p>
         </div>
     </div>
 
@@ -853,11 +841,11 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         // Inisialisasi AOS
-        AOS.init({ 
-            once: true, 
+        AOS.init({
+            once: true,
             duration: 600,
             offset: 100,
-            disable: function() {
+            disable: function () {
                 return window.innerWidth < 768;
             }
         });
@@ -876,7 +864,7 @@
 
         // Tutup modal dengan klik di luar konten
         document.querySelectorAll('.modal').forEach(modal => {
-            modal.addEventListener('click', function(e) {
+            modal.addEventListener('click', function (e) {
                 if (e.target === this) {
                     closeModal();
                 }
@@ -884,7 +872,7 @@
         });
 
         // Navigasi dengan keyboard
-        document.addEventListener('keydown', function(e) {
+        document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape') {
                 closeModal();
             }
@@ -900,39 +888,39 @@
         function initBackgroundParticles() {
             const bgParticlesContainer = document.getElementById('bgParticles');
             const particleCount = window.innerWidth < 768 ? 25 : 35; // Meningkatkan jumlah partikel
-            
+
             // Hapus partikel lama jika ada
             bgParticlesContainer.innerHTML = '';
-            
+
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.classList.add('bg-particle');
-                
+
                 // Ukuran acak - DIPERBESAR dari 1-4px menjadi 2-8px
                 const size = Math.random() * 6 + 2; // 2-8px
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
-                
+
                 // Posisi acak
                 particle.style.left = `${Math.random() * 100}%`;
                 particle.style.top = `${Math.random() * 100}%`;
-                
+
                 // Warna acak dengan transparansi - DIPERBESAR opasitas
                 const hue = 200 + Math.floor(60 * Math.random());
                 particle.style.backgroundColor = `hsla(${hue}, 70%, 60%, 0.15)`; // Lebih terang
-                
+
                 // Animasi dengan durasi acak
                 const duration = Math.random() * 25 + 20;
                 particle.style.animationDuration = `${duration}s`;
                 particle.style.animationDelay = `${Math.random() * 5}s`;
-                
+
                 bgParticlesContainer.appendChild(particle);
             }
         }
 
         // Aplikasi partikel utama - DIPERBESAR
         var ParticleApp = {};
-        ParticleApp.setup = function() {
+        ParticleApp.setup = function () {
             var canvas = document.getElementById('particle-canvas');
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -944,7 +932,7 @@
             this.ctx.imageSmoothingEnabled = false;
             this.xC = this.width / 2;
             this.yC = this.height / 2;
-            
+
             this.stepCount = 0;
             this.particles = [];
             this.lifespan = window.innerWidth < 768 ? 700 : 900; // Meningkatkan lifespan
@@ -960,65 +948,65 @@
             var i = 0;
             for (var xx = -500; xx < 500; xx += this.gridSize) {
                 for (var yy = -500; yy < 500; yy += this.gridSize) {
-                    var r = Math.sqrt(xx*xx+yy*yy),
+                    var r = Math.sqrt(xx * xx + yy * yy),
                         r0 = 120,
                         field;
-                    
+
                     if (r < r0) field = 255 / r0 * r;
-                    else if (r > r0) field = 255 - Math.min(255, (r - r0)/2);
-                    
+                    else if (r > r0) field = 255 - Math.min(255, (r - r0) / 2);
+
                     this.grid.push({
                         x: xx,
                         y: yy,
                         busyAge: 0,
                         spotIndex: i,
-                        isEdge: (xx == -500 ? 'left' : 
-                                 (xx == (-500 + this.gridSize * (this.gridSteps-1)) ? 'right' : 
-                                  (yy == -500 ? 'top' : 
-                                   (yy == (-500 + this.gridSize *(this.gridSteps-1)) ? 'bottom' : 
-                                    false
-                                   )
-                                  )
-                                 )
-                                ),
+                        isEdge: (xx == -500 ? 'left' :
+                            (xx == (-500 + this.gridSize * (this.gridSteps - 1)) ? 'right' :
+                                (yy == -500 ? 'top' :
+                                    (yy == (-500 + this.gridSize * (this.gridSteps - 1)) ? 'bottom' :
+                                        false
+                                    )
+                                )
+                            )
+                        ),
                         field: field
                     });
                     i++;
                 }
             }
             this.gridMaxIndex = i;
-            
+
             // Counters for UI
             this.drawnInLastFrame = 0;
             this.deathCount = 0;
-            
+
             this.initDraw();
         };
-        
-        ParticleApp.evolve = function() {
+
+        ParticleApp.evolve = function () {
             this.stepCount++;
-            
+
             // Increment all grid ages
-            this.grid.forEach(function(e) {
+            this.grid.forEach(function (e) {
                 if (e.busyAge > 0) e.busyAge++;
             });
-            
+
             if (this.stepCount % this.birthFreq == 0 && (this.particles.length + this.popPerBirth) < this.maxPop) {
                 this.birth();
             }
             ParticleApp.move();
             ParticleApp.draw();
         };
-        
-        ParticleApp.birth = function() {
+
+        ParticleApp.birth = function () {
             var gridSpotIndex = Math.floor(Math.random() * this.gridMaxIndex),
                 gridSpot = this.grid[gridSpotIndex],
                 x = gridSpot.x, y = gridSpot.y;
-            
+
             // Warna partikel dengan palet biru yang sesuai tema - DIPERBESAR kecerahan
             const hue = 200 + Math.floor(60 * Math.random());
             const sat = 60 + Math.floor(30 * Math.random()); // Lebih jenuh
-            
+
             var particle = {
                 hue: hue,
                 sat: sat,
@@ -1036,23 +1024,23 @@
             };
             this.particles.push(particle);
         };
-        
-        ParticleApp.kill = function(particleName) {
-            var newArray = _.reject(this.particles, function(seed) {
+
+        ParticleApp.kill = function (particleName) {
+            var newArray = _.reject(this.particles, function (seed) {
                 return (seed.name == particleName);
             });
             this.particles = _.cloneDeep(newArray);
         };
-        
-        ParticleApp.move = function() {
+
+        ParticleApp.move = function () {
             for (var i = 0; i < this.particles.length; i++) {
                 var p = this.particles[i];
-                
+
                 p.xLast = p.x; p.yLast = p.y;
-                
+
                 var index = p.attractor.gridSpotIndex,
                     gridSpot = this.grid[index];
-                
+
                 if (Math.random() < 0.5) {
                     if (!gridSpot.isEdge) {
                         var topIndex = index - 1,
@@ -1063,12 +1051,12 @@
                             bottomSpot = this.grid[bottomIndex],
                             leftSpot = this.grid[leftIndex],
                             rightSpot = this.grid[rightIndex];
-                        
+
                         var chaos = 30;
-                        var maxFieldSpot = _.maxBy([topSpot, bottomSpot, leftSpot, rightSpot], function(e) {
+                        var maxFieldSpot = _.maxBy([topSpot, bottomSpot, leftSpot, rightSpot], function (e) {
                             return e.field + chaos * Math.random()
                         });
-                        
+
                         var potentialNewGridSpot = maxFieldSpot;
                         if (potentialNewGridSpot.busyAge == 0 || potentialNewGridSpot.busyAge > 15) {
                             p.ageSinceStuck = 0;
@@ -1077,106 +1065,106 @@
                             gridSpot = potentialNewGridSpot;
                             gridSpot.busyAge = 1;
                         } else p.ageSinceStuck++;
-                        
+
                     } else p.ageSinceStuck++;
-                    
+
                     if (p.ageSinceStuck == 10) this.kill(p.name);
                 }
-                
+
                 var k = 8, visc = 0.4;
                 var dx = p.x - gridSpot.x,
                     dy = p.y - gridSpot.y,
-                    dist = Math.sqrt(dx*dx + dy*dy);
-                
+                    dist = Math.sqrt(dx * dx + dy * dy);
+
                 var xAcc = -k * dx,
                     yAcc = -k * dy;
-                
+
                 p.xSpeed += xAcc; p.ySpeed += yAcc;
-                
+
                 p.xSpeed *= visc; p.ySpeed *= visc;
-                
+
                 // Terapkan speed multiplier
                 p.xSpeed *= this.speedMultiplier;
                 p.ySpeed *= this.speedMultiplier;
-                
+
                 p.speed = Math.sqrt(p.xSpeed * p.xSpeed + p.ySpeed * p.ySpeed);
                 p.dist = dist;
-                
-                p.x += 0.1 * p.xSpeed * this.speedMultiplier; 
+
+                p.x += 0.1 * p.xSpeed * this.speedMultiplier;
                 p.y += 0.1 * p.ySpeed * this.speedMultiplier;
-                
+
                 p.age++;
-                
+
                 if (p.age > this.lifespan) {
                     this.kill(p.name);
                     this.deathCount++;
                 }
             }
         };
-        
-        ParticleApp.initDraw = function() {
+
+        ParticleApp.initDraw = function () {
             // Background transparan
             this.ctx.clearRect(0, 0, this.width, this.height);
         };
-        
-        ParticleApp.draw = function() {
+
+        ParticleApp.draw = function () {
             this.drawnInLastFrame = 0;
             if (!this.particles.length) return false;
-            
+
             // Efek fade untuk trail partikel
             this.ctx.fillStyle = 'rgba(10, 15, 30, 0.04)';
             this.ctx.fillRect(0, 0, this.width, this.height);
-            
+
             // Ukuran line width berdasarkan device - DIPERBESAR
             const lineWidth = window.innerWidth < 768 ? 1.5 : 2.0; // Dari 0.8/1.2 menjadi 1.5/2.0
-            
+
             for (var i = 0; i < this.particles.length; i++) {
                 var p = this.particles[i];
-                
+
                 var h, s, l, a;
-                
+
                 h = p.hue + this.stepCount / 50;
                 s = p.sat;
                 l = p.lum;
                 a = window.innerWidth < 768 ? 0.6 : 0.8; // Lebih transparan untuk mobile - DIPERBESAR opasitas
-                
+
                 var last = this.dataXYtoCanvasXY(p.xLast, p.yLast),
                     now = this.dataXYtoCanvasXY(p.x, p.y);
                 var attracSpot = this.grid[p.attractor.gridSpotIndex],
                     attracXY = this.dataXYtoCanvasXY(attracSpot.x, attracSpot.y);
                 var oldAttracSpot = this.grid[p.attractor.oldIndex],
                     oldAttracXY = this.dataXYtoCanvasXY(oldAttracSpot.x, oldAttracSpot.y);
-                
+
                 // Gambar garis trail partikel
                 this.ctx.beginPath();
                 this.ctx.strokeStyle = `hsla(${h}, ${s}%, ${l}%, ${a})`;
                 this.ctx.fillStyle = `hsla(${h}, ${s}%, ${l}%, ${a})`;
-                
+
                 // Particle trail
                 this.ctx.moveTo(last.x, last.y);
                 this.ctx.lineTo(now.x, now.y);
-                
+
                 this.ctx.lineWidth = lineWidth * this.dataToImageRatio;
                 this.ctx.stroke();
                 this.ctx.closePath();
-                
+
                 // Attractor positions (lebih sederhana) - DIPERBESAR
                 this.ctx.beginPath();
                 this.ctx.arc(attracXY.x, attracXY.y, 1.2 * this.dataToImageRatio, 0, 2 * Math.PI, false); // Dari 0.6 menjadi 1.2
                 this.ctx.fillStyle = `hsla(${h}, ${s}%, ${l}%, ${a * 0.5})`; // Lebih terang
                 this.ctx.fill();
                 this.ctx.closePath();
-                
+
                 this.drawnInLastFrame++;
             }
         };
-        
-        ParticleApp.dataXYtoCanvasXY = function(x, y) {
+
+        ParticleApp.dataXYtoCanvasXY = function (x, y) {
             var zoom = window.innerWidth < 768 ? 1.3 : 1.5; // Zoom lebih kecil untuk mobile
             var xx = this.xC + x * zoom * this.dataToImageRatio,
                 yy = this.yC + y * zoom * this.dataToImageRatio;
-            
-            return {x: xx, y: yy};
+
+            return { x: xx, y: yy };
         };
 
         // Handle resize window
@@ -1187,30 +1175,30 @@
             ParticleApp.height = ParticleApp.canvas.height;
             ParticleApp.xC = ParticleApp.width / 2;
             ParticleApp.yC = ParticleApp.height / 2;
-            
+
             // Update pengaturan berdasarkan ukuran layar baru
             ParticleApp.lifespan = window.innerWidth < 768 ? 700 : 900;
             ParticleApp.maxPop = window.innerWidth < 768 ? 120 : 180;
             ParticleApp.birthFreq = window.innerWidth < 768 ? 3 : 2;
             ParticleApp.gridSize = window.innerWidth < 768 ? 10 : 8;
-            
+
             // Regenerate partikel background
             initBackgroundParticles();
         }
 
         // Inisialisasi saat halaman dimuat
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             initBackgroundParticles();
             ParticleApp.setup();
-            
-            var frame = function() {
+
+            var frame = function () {
                 ParticleApp.evolve();
                 requestAnimationFrame(frame);
             };
             frame();
-            
+
             window.addEventListener('resize', handleResize);
-            
+
             // Optimisasi untuk perangkat mobile
             if ('ontouchstart' in window) {
                 // Nonaktifkan efek hover pada elemen untuk touch devices
