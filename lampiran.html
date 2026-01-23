@@ -234,6 +234,16 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
 
+        .timeline-image-link {
+            display: block;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-image-link:hover {
+            transform: scale(1.05);
+        }
+
         .timeline-image-container:hover .timeline-image {
             transform: scale(1.05);
         }
@@ -256,6 +266,11 @@
             color: #ffffff;
             font-size: 1.2rem;
             border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-image-link:hover .image-placeholder {
+            transform: scale(1.05);
         }
 
         .image-caption {
@@ -274,6 +289,13 @@
             margin-top: 20px;
         }
 
+        .grid-image-link {
+            display: block;
+            text-decoration: none;
+            overflow: hidden;
+            border-radius: 6px;
+        }
+
         .grid-image {
             width: 100%;
             height: 150px;
@@ -282,7 +304,7 @@
             transition: transform 0.3s ease;
         }
 
-        .grid-image:hover {
+        .grid-image-link:hover .grid-image {
             transform: scale(1.03);
         }
 
@@ -414,7 +436,7 @@
             <div class="lampiran-hero-content">
                 <h1 class="lampiran-title" data-aos="fade-up">Lampiran</h1>
                 <p class="lampiran-subtitle" data-aos="fade-up" data-aos-delay="100">
-                    Dokumentasi dan Bukti Pencapaian
+                    Lampiran yang berisi Naskah,sinopsis, dan script
                 </p>
             </div>
         </div>
@@ -425,26 +447,26 @@
     <!-- Experience Timeline with Images -->
     <section class="lampiran-section">
         <div class="container">
-            <h2 class="section-title">Pengalaman & Dokumentasi</h2>
+            <h2 class="section-title">Lampiran untuk iklan layanan masyarakat</h2>
             
             <div class="timeline">
                 <!-- Item 1 -->
                 <div class="timeline-item">
                     <div class="timeline-content">
                         <div class="timeline-dot"></div>
-                        <p class="timeline-date">2023 - Sekarang</p>
-                        <h3 class="timeline-title">Full Stack Developer</h3>
-                        <p class="timeline-description">
-                            Pengembangan aplikasi web full-stack dengan React, Node.js, dan MongoDB. Membangun RESTful API dan implementasi fitur real-time.
+                        <h3 class="timeline-title">Naskah</h3>
+                        <p class="timeline-description">Naskah yang terbentuk dari ide dan imajinasi liar yang  dibuat dalam bentuk naskah.
                         </p>
                         
                         <!-- Single Image Container -->
                         <div class="timeline-image-container">
-                            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                                 alt="Full Stack Development Project" 
-                                 class="timeline-image">
+                            <a href="https://drive.google.com/file/d/1GMCH0v_U9fFH40XCdTvST2Lf9z0Q31hs/view?usp=sharing" target="_blank" class="timeline-image-link">
+                                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                     alt="Naskah - ILM" 
+                                     class="timeline-image">
+                            </a>
                         </div>
-                        <p class="image-caption">Dashboard Admin - Sistem Manajemen Konten</p>
+                        <p class="image-caption">Naskah - ILM</p>
                     </div>
                 </div>
 
@@ -452,22 +474,20 @@
                 <div class="timeline-item">
                     <div class="timeline-content">
                         <div class="timeline-dot"></div>
-                        <p class="timeline-date">2022 - 2023</p>
-                        <h3 class="timeline-title">Frontend Developer</h3>
+                        <h3 class="timeline-title">Sinopsis</h3>
                         <p class="timeline-description">
-                            Pengembangan UI/UX untuk aplikasi web menggunakan React dan Vue.js. Optimasi performa dan implementasi responsive design.
+                            Cerita singkat yang terbentuk dari Naskah.
                         </p>
                         
-                        <!-- Multiple Images Grid -->
-                        <div class="timeline-images-grid">
-                            <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
-                                 alt="UI Design 1" 
-                                 class="grid-image">
-                            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
-                                 alt="UI Design 2" 
-                                 class="grid-image">
+                        
+                        <div class="timeline-image-container">
+                            <a href="https://drive.google.com/file/d/1PNMOrn7J9onfxFOFVnfoB_clZg2IumzB/view?usp=drive_link" target="_blank" class="grid-image-link">
+                                <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                     alt="Sinopsis - ILM" 
+                                     class="timeline-image">
+                            </a>
                         </div>
-                        <p class="image-caption">UI/UX Design Projects</p>
+                        <p class="image-caption">Sinopsis - ILM</p>
                     </div>
                 </div>
 
@@ -475,19 +495,20 @@
                 <div class="timeline-item">
                     <div class="timeline-content">
                         <div class="timeline-dot"></div>
-                        <p class="timeline-date">2021 - 2022</p>
-                        <h3 class="timeline-title">Junior Web Developer</h3>
+                        <h3 class="timeline-title">Script</h3>
                         <p class="timeline-description">
-                            Pengembangan website statis dan dinamis. Belajar best practices dalam pengembangan web dan version control dengan Git.
+                            Script untuk shooting iklan layanan masyarakat agar sesuai dengan naskah dan sinopsis.
                         </p>
                         
                         <!-- Image Placeholder (can be replaced with actual image) -->
                         <div class="timeline-image-container">
-                            <div class="image-placeholder">
-                                <i class="fas fa-code" style="font-size: 3rem; color: #4fd1c5;"></i>
-                            </div>
+                            <a href="https://drive.google.com/your-drive-link-4" target="_blank" class="timeline-image-link">
+                                <div class="image-placeholder">
+                                    <i class="fas fa-code" style="font-size: 3rem; color: #4fd1c5;"></i>
+                                </div>
+                            </a>
                         </div>
-                        <p class="image-caption">Code Repository - Web Development Projects</p>
+                        <p class="image-caption">Script - ILM</p>
                     </div>
                 </div>
 
@@ -495,19 +516,20 @@
                 <div class="timeline-item">
                     <div class="timeline-content">
                         <div class="timeline-dot"></div>
-                        <p class="timeline-date">2020 - 2021</p>
-                        <h3 class="timeline-title">Web Development Internship</h3>
+                        <h3 class="timeline-title">Jadwal pembuatan ILM (iklan layanan masyarakat)</h3>
                         <p class="timeline-description">
-                            Magang pengembangan web, belajar HTML, CSS, JavaScript dasar. Kontribusi pada proyek-proyek kecil dan maintenance website.
+                            Jadwal yang disusun untuk pembuatan ILM (iklan layanan masyarakat).
                         </p>
                         
                         <!-- Another Single Image -->
                         <div class="timeline-image-container">
-                            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                                 alt="Team Collaboration" 
-                                 class="timeline-image">
+                            <a href="https://drive.google.com/your-drive-link-5" target="_blank" class="timeline-image-link">
+                                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                     alt="Team Collaboration" 
+                                     class="timeline-image">
+                            </a>
                         </div>
-                        <p class="image-caption">Team Collaboration - Internship Program</p>
+                        <p class="image-caption">Jadwal Pembuatan - ILM</p>
                     </div>
                 </div>
             </div>
