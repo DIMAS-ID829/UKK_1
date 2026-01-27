@@ -9,7 +9,6 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
     <style>
         /* Reset dan base styles */
         * {
@@ -23,6 +22,7 @@
             background: #0f172a;
             color: #f1f5f9;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
         .section {
@@ -102,7 +102,7 @@
         .div1, .div2, .div3 {
             background: rgba(26, 32, 44, 0.7);
             border-radius: 12px;
-            overflow: visible; /* Diubah dari hidden menjadi visible */
+            overflow: visible;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border: 1px solid rgba(79, 209, 197, 0.1);
             display: flex;
@@ -118,7 +118,7 @@
             transform: translateY(-5px);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             border-color: rgba(79, 209, 197, 0.3);
-            z-index: 100; /* Z-index lebih tinggi saat hover */
+            z-index: 100;
         }
         
         /* Info Panel Styles */
@@ -139,11 +139,7 @@
             pointer-events: auto;
         }
         
-        /* Div 1: Kiri atas - Info panel muncul di bawah */
-        .div1 {
-            grid-column: 1;
-        }
-        
+        /* Positioning untuk info panels */
         .div1:hover .info-panel {
             opacity: 1;
             visibility: visible;
@@ -157,11 +153,6 @@
             transform: translateX(-50%) translateY(-10px);
         }
         
-        /* Div 2: Tengah - Info panel muncul di bawah */
-        .div2 {
-            grid-column: 2;
-        }
-        
         .div2:hover .info-panel {
             opacity: 1;
             visibility: visible;
@@ -173,11 +164,6 @@
             left: 50%;
             top: calc(100% + 15px);
             transform: translateX(-50%) translateY(-10px);
-        }
-        
-        /* Div 3: Kanan - Info panel muncul di bawah */
-        .div3 {
-            grid-column: 3;
         }
         
         .div3:hover .info-panel {
@@ -361,7 +347,7 @@
             border-radius: 2px;
         }
 
-        /* Modal Styles */
+        /* IMPROVED Modal Styles */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -369,100 +355,144 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            z-index: 2000;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
             align-items: center;
             justify-content: center;
             padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            display: flex;
         }
         
         .modal-content {
-            background: rgba(26, 32, 44, 0.95);
+            background: linear-gradient(145deg, #1a202c, #0f172a);
             border-radius: 16px;
             width: 95%;
-            max-width: 1400px;
-            max-height: 95vh;
+            max-width: 1200px;
+            max-height: 90vh;
             overflow-y: auto;
-            padding: 3rem;
+            padding: 0;
             position: relative;
             border: 2px solid rgba(79, 209, 197, 0.3);
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.7);
-            animation: modalFadeIn 0.3s ease;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            animation: modalSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
         }
         
-        @keyframes modalFadeIn {
+        @keyframes modalSlideIn {
             from {
                 opacity: 0;
-                transform: translateY(-10px);
+                transform: translateY(30px) scale(0.95);
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
             }
         }
         
         .modal-close {
             position: absolute;
             top: 20px;
-            right: 25px;
-            background: none;
+            right: 20px;
+            background: rgba(15, 23, 42, 0.8);
             border: none;
             color: #4fd1c5;
-            font-size: 2rem;
+            font-size: 1.8rem;
             cursor: pointer;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
             width: 40px;
             height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
+            z-index: 10001;
+            backdrop-filter: blur(10px);
         }
         
         .modal-close:hover {
             transform: rotate(90deg);
-            background: rgba(79, 209, 197, 0.1);
+            background: rgba(79, 209, 197, 0.2);
+            color: #fff;
+        }
+        
+        .modal-image-container {
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(15, 23, 42, 0.7);
+            border-right: 1px solid rgba(79, 209, 197, 0.1);
         }
         
         .modal-image {
             width: 100%;
-            height: 500px;
+            height: 400px;
             border-radius: 12px;
             overflow: hidden;
-            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
         
         .modal-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .modal-info-container {
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
         }
         
         .modal-title {
             color: #4fd1c5;
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             margin-bottom: 1rem;
             font-weight: 900;
+            line-height: 1.2;
+        }
+        
+        .modal-subtitle {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            font-weight: 500;
         }
         
         .modal-description {
             color: #e2e8f0;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             line-height: 1.7;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(79, 209, 197, 0.1);
         }
         
         .modal-details {
-            background: rgba(15, 23, 42, 0.7);
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
         }
         
         .modal-details h4 {
             color: #4fd1c5;
             font-size: 1.3rem;
             margin-bottom: 1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .modal-details h4 i {
+            font-size: 1.2rem;
         }
         
         .modal-details ul {
@@ -472,9 +502,11 @@
         }
         
         .modal-details li {
-            margin-bottom: 0.7rem;
-            padding-left: 1.5rem;
+            margin-bottom: 0.8rem;
+            padding-left: 1.8rem;
             position: relative;
+            font-size: 1rem;
+            line-height: 1.5;
         }
         
         .modal-details li:before {
@@ -482,16 +514,25 @@
             color: #4fd1c5;
             position: absolute;
             left: 0;
+            font-weight: bold;
         }
         
         .modal-tech {
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
         }
         
         .modal-tech h4 {
             color: #4fd1c5;
             font-size: 1.3rem;
             margin-bottom: 1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .modal-tech h4 i {
+            font-size: 1.2rem;
         }
         
         .modal-tech-tags {
@@ -501,36 +542,49 @@
         }
         
         .modal-tech-tags span {
-            background: rgba(79, 209, 197, 0.15);
+            background: linear-gradient(135deg, rgba(79, 209, 197, 0.15), rgba(79, 209, 197, 0.25));
             color: #4fd1c5;
-            padding: 0.5rem 1rem;
+            padding: 0.6rem 1.2rem;
             border-radius: 25px;
             font-size: 0.9rem;
             font-weight: 600;
+            border: 1px solid rgba(79, 209, 197, 0.2);
         }
         
         .modal-links {
             display: flex;
             gap: 1rem;
-            margin-top: 2rem;
+            margin-top: auto;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(79, 209, 197, 0.1);
         }
         
         .modal-link {
-            background: rgba(79, 209, 197, 0.2);
+            flex: 1;
+            background: linear-gradient(135deg, rgba(79, 209, 197, 0.2), rgba(79, 209, 197, 0.3));
             color: #4fd1c5;
-            padding: 0.8rem 1.5rem;
-            border-radius: 8px;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
             text-decoration: none;
             font-weight: 600;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 0.5rem;
             transition: all 0.3s ease;
+            text-align: center;
+            border: 1px solid rgba(79, 209, 197, 0.3);
         }
         
         .modal-link:hover {
-            background: rgba(79, 209, 197, 0.3);
+            background: linear-gradient(135deg, rgba(79, 209, 197, 0.3), rgba(79, 209, 197, 0.4));
             transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(79, 209, 197, 0.2);
+            color: #fff;
+        }
+        
+        .modal-link i {
+            font-size: 1.2rem;
         }
 
         /* Responsive adjustments */
@@ -595,7 +649,41 @@
                 min-height: auto;
             }
             
-            /* Info panel untuk mobile - muncul di bawah */
+            /* Modal responsive untuk mobile */
+            .modal-content {
+                grid-template-columns: 1fr;
+                max-height: 85vh;
+                margin: 20px;
+                width: calc(100% - 40px);
+            }
+            
+            .modal-image-container {
+                padding: 1.5rem;
+                border-right: none;
+                border-bottom: 1px solid rgba(79, 209, 197, 0.1);
+            }
+            
+            .modal-image {
+                height: 250px;
+            }
+            
+            .modal-info-container {
+                padding: 2rem;
+            }
+            
+            .modal-title {
+                font-size: 1.8rem;
+            }
+            
+            .modal-description {
+                font-size: 1rem;
+            }
+            
+            .modal-links {
+                flex-direction: column;
+            }
+            
+            /* Info panel untuk mobile - muncul di tengah */
             .info-panel {
                 position: fixed;
                 width: 90%;
@@ -630,20 +718,6 @@
             .section-title {
                 font-size: 2rem;
             }
-            
-            .modal-content {
-                width: 98%;
-                padding: 1.5rem;
-                max-height: 90vh;
-            }
-            
-            .modal-title {
-                font-size: 1.8rem;
-            }
-            
-            .modal-image {
-                height: 200px;
-            }
         }
 
         @media (max-width: 480px) {
@@ -670,16 +744,16 @@
                 padding: 1.2rem;
             }
             
-            .modal-content {
-                padding: 1.2rem;
+            .modal-info-container {
+                padding: 1.5rem;
             }
             
             .modal-title {
                 font-size: 1.5rem;
             }
             
-            .modal-links {
-                flex-direction: column;
+            .modal-image {
+                height: 200px;
             }
         }
     </style>
@@ -722,8 +796,8 @@
                         </div>
                         
                         <div class="project-grid-image">
-                            <img src="images/Photo.jpg" 
-                                 alt="Poster Design">
+                            <img src="https://drive.google.com/uc?export=view&id=1ZHI9fqNd4TX4KutvyN_nVtvYHYOvNlXl" 
+                                 alt="Poster Design" onerror="this.src='https://images.unsplash.com/photo-1589206010359-0e42d6d2c954?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80'">
                         </div>
                         <div class="project-grid-info">
                             <h3>Poster Design</h3>
@@ -792,9 +866,7 @@
                             <div class="info-tech">
                                 <h4>Software:</h4>
                                 <div class="info-tech-tags">
-                                    <span>Illustrator</span>
-                                    <span>Photoshop</span>
-                                    <span>InDesign</span>
+                                    <span>Github</span>
                                     <span>Figma</span>
                                 </div>
                             </div>
@@ -803,16 +875,14 @@
                         </div>
                         
                         <div class="project-grid-image">
-                            <img src="images/WEBSITE.jpg" 
-                                 alt="Brand Identity">
+                            <img src="https://drive.google.com/uc?export=view&id=19Jp3fsRLj02qfIfZMZ_HYxHPt09H5faQ" 
+                                 alt="Website UKK" onerror="this.src='https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80'">
                         </div>
                         <div class="project-grid-info">
-                            <h3>Brand Identity</h3>
-                            <p>Desain sistem identitas merek yang komprehensif untuk perusahaan teknologi baru.</p>
+                            <h3>Website UKK</h3>
+                            <p>Website yang dibuat dengan HTML5 dan sudah memenuhi standar ukk.</p>
                             <div class="project-grid-tech">
-                                <span>Illustrator</span>
-                                <span>Photoshop</span>
-                                <span>InDesign</span>
+                                <span>Github</span>
                                 <span>Figma</span>
                             </div>
                         </div>
@@ -822,34 +892,48 @@
         </div>
     </section>
 
-    <!-- Modal untuk Detail Project -->
+    <!-- IMPROVED Modal untuk Detail Project -->
     <div class="modal-overlay" id="project-modal">
         <div class="modal-content">
             <button class="modal-close" id="modal-close">&times;</button>
             
-            <div class="modal-image">
-                <img id="modal-img" src="" alt="Project Image">
+            <div class="modal-image-container">
+                <div class="modal-image">
+                    <img id="modal-img" src="" alt="Project Image">
+                </div>
             </div>
             
-            <h2 class="modal-title" id="modal-title">Project Title</h2>
-            
-            <p class="modal-description" id="modal-description">
-                Project description will appear here...
-            </p>
-            
-            <div class="modal-details">
-                <h4>Fitur Utama</h4>
-                <ul id="modal-features">
-                    <li>Feature 1</li>
-                    <li>Feature 2</li>
-                    <li>Feature 3</li>
-                </ul>
-            </div>
-            
-            <div class="modal-tech">
-                <h4>Software yang Digunakan</h4>
-                <div class="modal-tech-tags" id="modal-tech">
-                    <!-- Tech tags will be inserted here -->
+            <div class="modal-info-container">
+                <h2 class="modal-title" id="modal-title">Project Title</h2>
+                <div class="modal-subtitle" id="modal-subtitle">Project Subtitle</div>
+                
+                <p class="modal-description" id="modal-description">
+                    Project description will appear here...
+                </p>
+                
+                <div class="modal-details">
+                    <h4><i class="fas fa-star"></i>Fitur Utama</h4>
+                    <ul id="modal-features">
+                        <li>Feature 1</li>
+                        <li>Feature 2</li>
+                        <li>Feature 3</li>
+                    </ul>
+                </div>
+                
+                <div class="modal-tech">
+                    <h4><i class="fas fa-code"></i>Software yang Digunakan</h4>
+                    <div class="modal-tech-tags" id="modal-tech">
+                        <!-- Tech tags will be inserted here -->
+                    </div>
+                </div>
+                
+                <div class="modal-links">
+                    <a href="#" target="_blank" class="modal-link" id="modal-link-live">
+                        <i class="fas fa-external-link-alt"></i> Live Demo
+                    </a>
+                    <a href="#" target="_blank" class="modal-link" id="modal-link-github">
+                        <i class="fab fa-github"></i> View Code
+                    </a>
                 </div>
             </div>
         </div>
@@ -881,14 +965,16 @@
         const projectsData = {
             1: {
                 title: "Poster Design",
-                // PERBAIKAN: Gunakan URL Google Drive yang benar untuk modal juga
+                subtitle: "Desain Grafis untuk Acara ILM",
                 image: "https://drive.google.com/uc?export=view&id=1ZHI9fqNd4TX4KutvyN_nVtvYHYOvNlXl",
-                description: "Desain poster untuk acara ILM dengan konsep yang kreatif dan informatif. Poster ini dirancang untuk menarik perhatian audiens muda dengan kombinasi warna yang vibrant dan layout yang mudah dipahami.",
+                description: "Desain poster untuk acara ILM dengan konsep yang kreatif dan informatif. Poster ini dirancang untuk menarik perhatian audiens muda dengan kombinasi warna yang vibrant dan layout yang mudah dipahami. Proyek ini melibatkan penelitian target audiens, pemilihan warna yang sesuai dengan tema, dan penyusunan informasi secara hierarkis.",
                 features: [
                     "Desain yang eye-catching dengan warna yang menarik",
                     "Layout yang informatif dengan hierarki visual yang jelas",
                     "Tipografi yang mudah dibaca dari berbagai jarak",
-                    "Grafik dan ilustrasi yang mendukung pesan utama"
+                    "Grafik dan ilustrasi yang mendukung pesan utama",
+                    "Kesesuaian dengan identitas acara ILM",
+                    "Optimasi untuk cetak dan digital"
                 ],
                 tech: ["CorelDraw", "Photoshop", "Canva", "Illustrator"],
                 liveLink: "#",
@@ -896,13 +982,16 @@
             },
             2: {
                 title: "Iklan Layanan Masyarakat",
+                subtitle: "Kampanye Anti-Bullying",
                 image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-                description: "Kampanye iklan layanan masyarakat tentang bullying yang bertujuan meningkatkan kesadaran akan dampak negatif bullying dan mendorong sikap empati di kalangan remaja.",
+                description: "Kampanye iklan layanan masyarakat tentang bullying yang bertujuan meningkatkan kesadaran akan dampak negatif bullying dan mendorong sikap empati di kalangan remaja. Proyek ini meliputi pembuatan video iklan, poster, dan materi kampanye lainnya yang dirancang untuk sekolah-sekolah dan media sosial.",
                 features: [
                     "Pesan sosial yang jelas dan mudah dipahami",
                     "Visual yang impactfull dan menarik perhatian",
                     "Narasi yang emotional dan relatable",
-                    "Call-to-action yang mendorong tindakan positif"
+                    "Call-to-action yang mendorong tindakan positif",
+                    "Kesesuaian dengan target audiens remaja",
+                    "Adaptasi untuk berbagai platform media"
                 ],
                 tech: ["Premiere Pro", "After Effects", "Photoshop", "Canva", "Audition"],
                 liveLink: "#",
@@ -910,15 +999,18 @@
             },
             3: {
                 title: "Website UKK",
+                subtitle: "Portfolio Website HTML5",
                 image: "https://drive.google.com/uc?export=view&id=19Jp3fsRLj02qfIfZMZ_HYxHPt09H5faQ",
-                description: "Desain sistem identitas merek lengkap untuk startup teknologi yang mencakup logo, palet warna, tipografi, dan panduan penggunaan yang konsisten.",
+                description: "Website portfolio yang dikembangkan menggunakan HTML5, CSS3, dan JavaScript murni sesuai dengan standar ujian kompetensi keahlian. Website ini menampilkan proyek-proyek desain dan multimedia, dengan desain responsif yang optimal di berbagai perangkat.",
                 features: [
-                    "Logo utama dan variasi logo untuk berbagai konteks",
-                    "Sistem warna yang konsisten dan memiliki makna",
-                    "Tipografi yang dipilih khusus untuk readability dan personality",
-                    "Panduan penggunaan brand untuk menjaga konsistensi"
+                    "Website responsif yang optimal di semua device",
+                    "Struktur HTML5 yang semantik dan valid",
+                    "Desain UI/UX yang modern dan user-friendly",
+                    "Animasi dan transisi yang smooth",
+                    "Kode yang bersih dan terstruktur dengan baik",
+                    "Optimasi performa dan SEO dasar"
                 ],
-                tech: ["Github", "Figma"],
+                tech: ["HTML5", "CSS3", "JavaScript", "GitHub", "Figma"],
                 liveLink: "#",
                 githubLink: "#"
             }
@@ -929,13 +1021,14 @@
         const modalClose = document.getElementById('modal-close');
         const modalImg = document.getElementById('modal-img');
         const modalTitle = document.getElementById('modal-title');
+        const modalSubtitle = document.getElementById('modal-subtitle');
         const modalDescription = document.getElementById('modal-description');
         const modalFeatures = document.getElementById('modal-features');
         const modalTech = document.getElementById('modal-tech');
         const modalLinkLive = document.getElementById('modal-link-live');
         const modalLinkGithub = document.getElementById('modal-link-github');
         
-        // Fungsi untuk membuka modal
+        // Fungsi untuk membuka modal dengan animasi
         function openModal(projectId) {
             const project = projectsData[projectId];
             
@@ -943,6 +1036,7 @@
             modalImg.src = project.image;
             modalImg.alt = project.title;
             modalTitle.textContent = project.title;
+            modalSubtitle.textContent = project.subtitle;
             modalDescription.textContent = project.description;
             
             // Isi fitur-fitur
@@ -961,26 +1055,48 @@
                 modalTech.appendChild(span);
             });
             
-            // Isi link
-            modalLinkLive.href = project.liveLink;
-            modalLinkGithub.href = project.githubLink;
+            // Atur link
+            if (project.liveLink && project.liveLink !== '#') {
+                modalLinkLive.href = project.liveLink;
+                modalLinkLive.style.display = 'flex';
+            } else {
+                modalLinkLive.style.display = 'none';
+            }
             
-            // Tampilkan modal
-            modalOverlay.style.display = 'flex';
-            document.body.style.overflow = 'hidden'; // Mencegah scroll di background
+            if (project.githubLink && project.githubLink !== '#') {
+                modalLinkGithub.href = project.githubLink;
+                modalLinkGithub.style.display = 'flex';
+            } else {
+                modalLinkGithub.style.display = 'none';
+            }
+            
+            // Tampilkan modal dengan animasi
+            modalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Tambahkan event listener untuk gambar error
+            modalImg.onerror = function() {
+                this.src = 'https://images.unsplash.com/photo-1589206010359-0e42d6d2c954?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80';
+            };
         }
         
-        // Fungsi untuk menutup modal
+        // Fungsi untuk menutup modal dengan animasi
         function closeModal() {
-            modalOverlay.style.display = 'none';
-            document.body.style.overflow = 'auto'; // Mengembalikan scroll
+            modalOverlay.classList.remove('active');
+            setTimeout(() => {
+                modalOverlay.style.display = 'none';
+            }, 300);
+            document.body.style.overflow = 'auto';
         }
         
         // Event listener untuk project cards
         document.querySelectorAll('.div1, .div2, .div3').forEach(card => {
-            card.addEventListener('click', function() {
-                const projectId = this.getAttribute('data-project');
-                openModal(projectId);
+            card.addEventListener('click', function(e) {
+                // Cegah trigger jika klik berasal dari info panel (sudah ada event listener sendiri)
+                if (!e.target.closest('.info-panel')) {
+                    const projectId = this.getAttribute('data-project');
+                    openModal(projectId);
+                }
             });
         });
         
@@ -1006,60 +1122,59 @@
         
         // Event listener untuk menutup modal dengan tombol ESC
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && modalOverlay.style.display === 'flex') {
+            if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
                 closeModal();
             }
         });
         
-        // Tambahkan event listener untuk info panel agar tidak trigger click pada box
-        document.querySelectorAll('.info-panel').forEach(panel => {
-            panel.addEventListener('click', function(e) {
-                e.stopPropagation(); // Mencegah event click bubble ke parent div
-            });
-        });
-
-        // Tambahkan animasi untuk gambar saat hover
-        document.querySelectorAll('.project-grid-image img').forEach(img => {
-            img.addEventListener('mouseenter', function() {
-                this.style.transform = 'scale(1.05)';
-            });
-            
-            img.addEventListener('mouseleave', function() {
-                this.style.transform = 'scale(1)';
-            });
-        });
-
-        // Tambahkan fallback untuk gambar yang error
-        document.querySelectorAll('img').forEach(img => {
-            img.addEventListener('error', function() {
-                console.log('Gambar tidak dapat dimuat:', this.src);
-                // Coba format alternatif Google Drive
-                if (this.src.includes('drive.google.com')) {
-                    const fileId = this.src.match(/id=([^&]+)/)?.[1];
-                    if (fileId) {
-                        // Coba format alternatif
-                        this.src = `https://lh3.googleusercontent.com/d/${fileId}=w1200`;
-                    } else {
-                        // Gunakan fallback gambar
-                        this.src = 'https://images.unsplash.com/photo-1589206010359-0e42d6d2c954?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80';
-                    }
-                }
-            });
-        });
-        
         // Tambahkan event untuk cek apakah gambar Google Drive dapat diakses
         document.addEventListener('DOMContentLoaded', function() {
-            const driveImage = document.querySelector('.div1 .project-grid-image img');
-            if (driveImage && driveImage.src.includes('drive.google.com')) {
-                // Coba format alternatif jika gambar tidak muncul
-                setTimeout(function() {
-                    const img = new Image();
-                    img.onerror = function() {
-                        console.log('Gambar Google Drive tidak dapat diakses, menggunakan fallback...');
-                        driveImage.src = 'https://images.unsplash.com/photo-1589206010359-0e42d6d2c954?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80';
-                    };
-                    img.src = driveImage.src;
-                }, 1000);
+            const driveImages = document.querySelectorAll('img[src*="drive.google.com"]');
+            
+            driveImages.forEach(img => {
+                // Tambahkan fallback untuk gambar yang error
+                img.onerror = function() {
+                    console.log('Gambar Google Drive tidak dapat diakses:', this.src);
+                    if (this.closest('.div1')) {
+                        this.src = 'https://images.unsplash.com/photo-1589206010359-0e42d6d2c954?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80';
+                    } else if (this.closest('.div3')) {
+                        this.src = 'https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80';
+                    }
+                };
+                
+                // Preload gambar untuk memastikan mereka tersedia
+                const tempImg = new Image();
+                tempImg.src = img.src;
+            });
+            
+            // Tambahkan hover effect untuk info panels di mobile
+            if (window.innerWidth <= 768) {
+                document.querySelectorAll('.div1, .div2, .div3').forEach(div => {
+                    let timeout;
+                    
+                    div.addEventListener('touchstart', function() {
+                        const infoPanel = this.querySelector('.info-panel');
+                        if (infoPanel) {
+                            timeout = setTimeout(() => {
+                                infoPanel.style.opacity = '1';
+                                infoPanel.style.visibility = 'visible';
+                                infoPanel.style.pointerEvents = 'auto';
+                            }, 500); // Long press untuk trigger
+                        }
+                    });
+                    
+                    div.addEventListener('touchend', function() {
+                        clearTimeout(timeout);
+                        const infoPanel = this.querySelector('.info-panel');
+                        if (infoPanel) {
+                            setTimeout(() => {
+                                infoPanel.style.opacity = '0';
+                                infoPanel.style.visibility = 'hidden';
+                                infoPanel.style.pointerEvents = 'none';
+                            }, 2000); // Auto close setelah 2 detik
+                        }
+                    });
+                });
             }
         });
     </script>
