@@ -136,7 +136,7 @@
             visibility: hidden;
             transition: all 0.3s ease;
             z-index: 1000;
-            pointer-events: auto;
+            pointer-events: none;
         }
         
         /* Positioning untuk info panels */
@@ -349,7 +349,6 @@
 
         /* IMPROVED Modal Styles */
         .modal-overlay {
-            display: none;
             position: fixed;
             top: 0;
             left: 0;
@@ -357,16 +356,19 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.95);
             z-index: 9999;
+            display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            overflow-y: auto;
         }
 
         .modal-overlay.active {
             opacity: 1;
-            display: flex;
+            visibility: visible;
         }
         
         .modal-content {
@@ -380,21 +382,15 @@
             position: relative;
             border: 2px solid rgba(79, 209, 197, 0.3);
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-            animation: modalSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(30px) scale(0.95);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 0;
         }
         
-        @keyframes modalSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(30px) scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
         }
         
         .modal-close {
@@ -1028,9 +1024,16 @@
         const modalLinkLive = document.getElementById('modal-link-live');
         const modalLinkGithub = document.getElementById('modal-link-github');
         
+        // Variabel untuk tracking modal state
+        let isModalOpen = false;
+        
         // Fungsi untuk membuka modal dengan animasi
         function openModal(projectId) {
+            if (isModalOpen) return;
+            
             const project = projectsData[projectId];
+            
+            if (!project) return;
             
             // Isi data ke modal
             modalImg.src = project.image;
@@ -1073,15 +1076,21 @@
             // Tampilkan modal dengan animasi
             modalOverlay.classList.add('active');
             document.body.style.overflow = 'hidden';
+            isModalOpen = true;
+            
+            // Focus pada tombol close untuk aksesibilitas
+            setTimeout(() => {
+                modalClose.focus();
+            }, 300);
         }
         
         // Fungsi untuk menutup modal dengan animasi
         function closeModal() {
+            if (!isModalOpen) return;
+            
             modalOverlay.classList.remove('active');
-            setTimeout(() => {
-                modalOverlay.style.display = 'none';
-            }, 300);
             document.body.style.overflow = 'auto';
+            isModalOpen = false;
         }
         
         // Event listener untuk project cards
@@ -1098,6 +1107,7 @@
         // Event listener untuk info panels
         document.querySelectorAll('.info-panel').forEach(panel => {
             panel.addEventListener('click', function(e) {
+                e.preventDefault();
                 e.stopPropagation();
                 const parentCard = this.closest('.div1, .div2, .div3');
                 const projectId = parentCard.getAttribute('data-project');
@@ -1117,44 +1127,74 @@
         
         // Event listener untuk menutup modal dengan tombol ESC
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+            if (e.key === 'Escape' && isModalOpen) {
                 closeModal();
             }
         });
         
-        // Tambahkan event untuk cek apakah gambar Google Drive dapat diakses
+        // Handle gambar yang gagal dimuat
         document.addEventListener('DOMContentLoaded', function() {
             const driveImages = document.querySelectorAll('img[src*="drive.google.com"]');
             
+            driveImages.forEach(img => {
+                img.addEventListener('error', function() {
+                    this.src = 'https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80';
+                });
+            });
+            
             // Tambahkan hover effect untuk info panels di mobile
             if (window.innerWidth <= 768) {
+                let activeInfoPanel = null;
+                
                 document.querySelectorAll('.div1, .div2, .div3').forEach(div => {
                     let timeout;
                     
                     div.addEventListener('touchstart', function() {
                         const infoPanel = this.querySelector('.info-panel');
                         if (infoPanel) {
+                            // Tutup info panel yang sedang aktif
+                            if (activeInfoPanel && activeInfoPanel !== infoPanel) {
+                                activeInfoPanel.style.opacity = '0';
+                                activeInfoPanel.style.visibility = 'hidden';
+                                activeInfoPanel.style.pointerEvents = 'none';
+                            }
+                            
                             timeout = setTimeout(() => {
                                 infoPanel.style.opacity = '1';
                                 infoPanel.style.visibility = 'visible';
                                 infoPanel.style.pointerEvents = 'auto';
+                                activeInfoPanel = infoPanel;
                             }, 500); // Long press untuk trigger
                         }
                     });
                     
                     div.addEventListener('touchend', function() {
                         clearTimeout(timeout);
-                        const infoPanel = this.querySelector('.info-panel');
-                        if (infoPanel) {
-                            setTimeout(() => {
-                                infoPanel.style.opacity = '0';
-                                infoPanel.style.visibility = 'hidden';
-                                infoPanel.style.pointerEvents = 'none';
-                            }, 2000); // Auto close setelah 2 detik
-                        }
+                    });
+                    
+                    div.addEventListener('touchmove', function() {
+                        clearTimeout(timeout);
                     });
                 });
+                
+                // Tutup info panel ketika tap di luar
+                document.addEventListener('touchstart', function(e) {
+                    if (activeInfoPanel && !e.target.closest('.info-panel') && !e.target.closest('.div1, .div2, .div3')) {
+                        activeInfoPanel.style.opacity = '0';
+                        activeInfoPanel.style.visibility = 'hidden';
+                        activeInfoPanel.style.pointerEvents = 'none';
+                        activeInfoPanel = null;
+                    }
+                });
             }
+            
+            // Preload modal untuk performa yang lebih baik
+            setTimeout(() => {
+                modalOverlay.style.display = 'flex';
+                setTimeout(() => {
+                    modalOverlay.style.display = '';
+                }, 100);
+            }, 1000);
         });
     </script>
 </body>
