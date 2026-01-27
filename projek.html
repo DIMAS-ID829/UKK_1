@@ -722,9 +722,11 @@
                         </div>
                         
                         <div class="project-grid-image">
-                            <img src="https://drive.google.com/file/d/1ZHI9fqNd4TX4KutvyN_nVtvYHYOvNlXl/view" 
-                                 alt="Poster Design">
-                         </div>
+                            <!-- PERBAIKAN: Gunakan URL Google Drive yang benar -->
+                            <img src="https://drive.google.com/uc?export=view&id=1ZHI9fqNd4TX4KutvyN_nVtvYHYOvNlXl" 
+                                 alt="Poster Design"
+                                 onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1589206010359-0e42d6d2c954?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80'">
+                        </div>
                         <div class="project-grid-info">
                             <h3>Poster Design</h3>
                             <p>Desain poster untuk acara ILM dengan konsep yang kreatif dan informatif.</p>
@@ -900,7 +902,8 @@
         const projectsData = {
             1: {
                 title: "Poster Design",
-                image: "https://drive.google.com/file/d/1ZHI9fqNd4TX4KutvyN_nVtvYHYOvNlXl/view",
+                // PERBAIKAN: Gunakan URL Google Drive yang benar untuk modal juga
+                image: "https://drive.google.com/uc?export=view&id=1ZHI9fqNd4TX4KutvyN_nVtvYHYOvNlXl",
                 description: "Desain poster untuk acara ILM dengan konsep yang kreatif dan informatif. Poster ini dirancang untuk menarik perhatian audiens muda dengan kombinasi warna yang vibrant dan layout yang mudah dipahami.",
                 features: [
                     "Desain yang eye-catching dengan warna yang menarik",
@@ -1050,8 +1053,35 @@
         // Tambahkan fallback untuk gambar yang error
         document.querySelectorAll('img').forEach(img => {
             img.addEventListener('error', function() {
-                this.src = 'https://images.unsplash.com/photo-1589206010359-0e42d6d2c954?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80';
+                console.log('Gambar tidak dapat dimuat:', this.src);
+                // Coba format alternatif Google Drive
+                if (this.src.includes('drive.google.com')) {
+                    const fileId = this.src.match(/id=([^&]+)/)?.[1];
+                    if (fileId) {
+                        // Coba format alternatif
+                        this.src = `https://lh3.googleusercontent.com/d/${fileId}=w1200`;
+                    } else {
+                        // Gunakan fallback gambar
+                        this.src = 'https://images.unsplash.com/photo-1589206010359-0e42d6d2c954?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80';
+                    }
+                }
             });
+        });
+        
+        // Tambahkan event untuk cek apakah gambar Google Drive dapat diakses
+        document.addEventListener('DOMContentLoaded', function() {
+            const driveImage = document.querySelector('.div1 .project-grid-image img');
+            if (driveImage && driveImage.src.includes('drive.google.com')) {
+                // Coba format alternatif jika gambar tidak muncul
+                setTimeout(function() {
+                    const img = new Image();
+                    img.onerror = function() {
+                        console.log('Gambar Google Drive tidak dapat diakses, menggunakan fallback...');
+                        driveImage.src = 'https://images.unsplash.com/photo-1589206010359-0e42d6d2c954?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80';
+                    };
+                    img.src = driveImage.src;
+                }, 1000);
+            }
         });
     </script>
 </body>
