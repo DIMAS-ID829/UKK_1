@@ -1073,11 +1073,6 @@
             // Tampilkan modal dengan animasi
             modalOverlay.classList.add('active');
             document.body.style.overflow = 'hidden';
-            
-            // Tambahkan event listener untuk gambar error
-            modalImg.onerror = function() {
-                this.src = 'https://images.unsplash.com/photo-1589206010359-0e42d6d2c954?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80';
-            };
         }
         
         // Fungsi untuk menutup modal dengan animasi
@@ -1130,22 +1125,6 @@
         // Tambahkan event untuk cek apakah gambar Google Drive dapat diakses
         document.addEventListener('DOMContentLoaded', function() {
             const driveImages = document.querySelectorAll('img[src*="drive.google.com"]');
-            
-            driveImages.forEach(img => {
-                // Tambahkan fallback untuk gambar yang error
-                img.onerror = function() {
-                    console.log('Gambar Google Drive tidak dapat diakses:', this.src);
-                    if (this.closest('.div1')) {
-                        this.src = 'https://images.unsplash.com/photo-1589206010359-0e42d6d2c954?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80';
-                    } else if (this.closest('.div3')) {
-                        this.src = 'https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80';
-                    }
-                };
-                
-                // Preload gambar untuk memastikan mereka tersedia
-                const tempImg = new Image();
-                tempImg.src = img.src;
-            });
             
             // Tambahkan hover effect untuk info panels di mobile
             if (window.innerWidth <= 768) {
