@@ -11,6 +11,33 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
+        /* Reset dan base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0f172a;
+            color: #f1f5f9;
+            min-height: 100vh;
+        }
+
+        .section {
+            padding: 100px 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
         /* Navigation Buttons Styles */
         .nav-buttons {
             position: fixed;
@@ -65,7 +92,7 @@
         .parent {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(2, 1fr);
+            grid-template-rows: 1fr;
             gap: 25px;
             margin-top: 2rem;
             min-height: 540px;
@@ -76,7 +103,7 @@
             background: rgba(26, 32, 44, 0.7);
             border-radius: 12px;
             overflow: visible; /* Diubah dari hidden menjadi visible */
-            transition: transform 0.1s ease, box-shadow 0.1s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             border: 1px solid rgba(79, 209, 197, 0.1);
             display: flex;
             flex-direction: column;
@@ -107,17 +134,14 @@
             backdrop-filter: blur(10px);
             opacity: 0;
             visibility: hidden;
-            transition: all 0.1s ease;
+            transition: all 0.3s ease;
             z-index: 1000;
             pointer-events: auto;
         }
         
-        /* Div 1: Kiri atas - Info panel muncul di kanan, agak ke tengah */
+        /* Div 1: Kiri atas - Info panel muncul di bawah */
         .div1 {
-            grid-column: span 1;
-            grid-row: span 1;
-            grid-column-start: 1;
-            grid-row-start: 1;
+            grid-column: 1;
         }
         
         .div1:hover .info-panel {
@@ -133,12 +157,9 @@
             transform: translateX(-50%) translateY(-10px);
         }
         
-        /* Div 2: Kanan tengah - Info panel muncul di kiri, agak ke tengah */
+        /* Div 2: Tengah - Info panel muncul di bawah */
         .div2 {
-            grid-column: span 1;
-            grid-row: span 1;
-            grid-column-start: 2;
-            grid-row-start: 1;
+            grid-column: 2;
         }
         
         .div2:hover .info-panel {
@@ -154,12 +175,9 @@
             transform: translateX(-50%) translateY(-10px);
         }
         
-        /* Div 3: Kiri bawah - Info panel muncul di kanan, agak ke atas */
+        /* Div 3: Kanan - Info panel muncul di bawah */
         .div3 {
-            grid-column: span 1;
-            grid-row: span 1;
-            grid-column-start: 3;
-            grid-row-start: 1;
+            grid-column: 3;
         }
         
         .div3:hover .info-panel {
@@ -277,7 +295,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.1s ease;
+            transition: transform 0.3s ease;
         }
 
         .div1:hover .project-grid-image img,
@@ -369,7 +387,7 @@
             position: relative;
             border: 2px solid rgba(79, 209, 197, 0.3);
             box-shadow: 0 15px 50px rgba(0, 0, 0, 0.7);
-            animation: modalFadeIn 0.1s ease;
+            animation: modalFadeIn 0.3s ease;
         }
         
         @keyframes modalFadeIn {
@@ -519,55 +537,25 @@
         @media (max-width: 1200px) {
             .parent {
                 grid-template-columns: repeat(3, 1fr);
-                grid-template-rows: repeat(2, 1fr);
                 min-height: 500px;
             }
             
-            .div1, .div2, .div3 {
-                grid-column: span 1;
-                grid-row: span 1;
-            }
-            
-            .div1 {
-                grid-column-start: 1;
-                grid-row-start: 1;
-            }
-            
-            .div2 {
-                grid-column-start: 2;
-                grid-row-start: 1;
-            }
-            
-            .div3 {
-                grid-column-start: 3;
-                grid-row-start: 1;
-            }
-            
-            /* Adjust info panel position for medium screens */
             .info-panel {
                 width: 300px;
-            }
-            
-            .div1 .info-panel {
-                left: calc(100% + 10px);
-                top: 40%;
-                transform: translateY(-40%) translateX(-10px);
-            }
-            
-            .div2 .info-panel {
-                right: calc(100% + 10px);
-                top: 40%;
-                transform: translateY(-40%) translateX(10px);
-            }
-            
-            .div3 .info-panel {
-                left: calc(100% + 10px);
-                top: 45%;
-                transform: translateY(-45%) translateX(-10px);
             }
         }
 
         @media (max-width: 992px) {
+            .parent {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(2, 1fr);
+            }
+            
+            .div3 {
+                grid-column: span 2;
+                grid-row: 2;
+            }
+            
             .info-panel {
                 width: 280px;
                 padding: 1.5rem;
@@ -591,11 +579,16 @@
             }
             
             .div1, .div2, .div3 {
-                grid-column: 1;
+                grid-column: 1 !important;
                 grid-row: auto !important;
                 height: 400px;
                 min-height: 400px;
-                overflow: hidden; /* Kembali ke hidden untuk mobile */
+                overflow: hidden;
+            }
+            
+            .div3 {
+                grid-column: 1 !important;
+                grid-row: auto !important;
             }
             
             .project-grid-info p {
@@ -699,18 +692,27 @@
             <h2 class="section-title">My Projects</h2>
             <div class="projects-content">
                 <div class="parent">
-                    <!-- Div 1 - KIRI ATAS -->
+                    <!-- Div 1 - Poster Design -->
                     <div class="div1" data-project="1">
-                        <!-- Info Panel akan muncul di kanan saat hover -->
+                        <!-- Info Panel akan muncul di bawah saat hover -->
                         <div class="info-panel" id="info-panel-1">
-                            <h3 class="info-title">Poster</h3>
-                            <p class="info-description">Postr ILM.</p>
+                            <h3 class="info-title">Poster Design</h3>
+                            <p class="info-description">Poster untuk acara ILM dengan desain yang menarik dan informatif.</p>
+                            
+                            <div class="info-features">
+                                <h4>Fitur Utama:</h4>
+                                <ul>
+                                    <li>Desain yang eye-catching</li>
+                                    <li>Layout yang informatif</li>
+                                    <li>Warna yang sesuai tema</li>
+                                    <li>Tipografi yang mudah dibaca</li>
+                                </ul>
                             </div>
                             
                             <div class="info-tech">
-                                <h4>Teknologi:</h4>
+                                <h4>Software:</h4>
                                 <div class="info-tech-tags">
-                                    <span>Corel</span>
+                                    <span>CorelDraw</span>
                                     <span>Photoshop</span>
                                     <span>Canva</span>
                                 </div>
@@ -720,39 +722,46 @@
                         </div>
                         
                         <div class="project-grid-image">
-                            <img src=images/Photo.jpg>
+                            <!-- Gunakan gambar placeholder jika images/Photo.jpg tidak tersedia -->
+                            <img src="https://images.unsplash.com/photo-1589206010359-0e42d6d2c954?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" 
+                                 alt="Poster Design" 
+                                 onerror="this.src='https://images.unsplash.com/photo-1589206010359-0e42d6d2c954?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80'">
                         </div>
                         <div class="project-grid-info">
-                            <h3></h3>
-                            <p>.</p>
+                            <h3>Poster Design</h3>
+                            <p>Desain poster untuk acara ILM dengan konsep yang kreatif dan informatif.</p>
                             <div class="project-grid-tech">
+                                <span>CorelDraw</span>
+                                <span>Photoshop</span>
+                                <span>Canva</span>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Div 2 - KANAN TENGAH -->
+                    <!-- Div 2 - Iklan Layanan Masyarakat -->
                     <div class="div2" data-project="2">
-                        <!-- Info Panel akan muncul di kiri saat hover -->
+                        <!-- Info Panel akan muncul di bawah saat hover -->
                         <div class="info-panel" id="info-panel-2">
-                            <h3 class="info-title">Iklan layanan masyarkat</h3>
-                            <p class="info-description">Iklan layanan masyrakat tentang bullying.</p>
+                            <h3 class="info-title">Iklan Layanan Masyarakat</h3>
+                            <p class="info-description">Iklan layanan masyarakat tentang bullying dengan pesan yang kuat dan visual yang impactfull.</p>
                             
                             <div class="info-features">
                                 <h4>Fitur Utama:</h4>
                                 <ul>
-                                    <li>Katalog produk dengan filter canggih</li>
-                                    <li>Keranjang belanja real-time</li>
-                                    <li>Sistem ulasan dan rating produk</li>
-                                    <li>Pelacakan pesanan otomatis</li>
+                                    <li>Pesan sosial yang jelas</li>
+                                    <li>Visual yang menarik perhatian</li>
+                                    <li>Call-to-action yang efektif</li>
+                                    <li>Target audience yang tepat</li>
                                 </ul>
                             </div>
                             
                             <div class="info-tech">
-                                <h4>Teknologi:</h4>
+                                <h4>Software:</h4>
                                 <div class="info-tech-tags">
-                                    <span>Vue.js</span>
-                                    <span>Express</span>
-                                    <span>PostgreSQL</span>
-                                    <span>Stripe API</span>
+                                    <span>Premiere Pro</span>
+                                    <span>After Effects</span>
+                                    <span>Photoshop</span>
+                                    <span>Canva</span>
                                 </div>
                             </div>
                             
@@ -761,44 +770,44 @@
                         
                         <div class="project-grid-image">
                             <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" 
-                                 alt="E-commerce Platform">
+                                 alt="Iklan Layanan Masyarakat">
                         </div>
                         <div class="project-grid-info">
-                            <h3>E-commerce Platform</h3>
-                            <p>Complete e-commerce solution with product management, shopping cart, user reviews, and order tracking. Built with Vue.js, Express, and PostgreSQL.</p>
+                            <h3>Iklan Layanan Masyarakat</h3>
+                            <p>Kampanye anti-bullying dengan pesan yang kuat dan visual yang impactfull untuk meningkatkan kesadaran masyarakat.</p>
                             <div class="project-grid-tech">
-                                <span>Vue.js</span>
-                                <span>Express</span>
-                                <span>PostgreSQL</span>
-                                <span>Stripe API</span>
+                                <span>Premiere Pro</span>
+                                <span>After Effects</span>
+                                <span>Photoshop</span>
+                                <span>Canva</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Div 3 - KIRI BAWAH -->
+                    <!-- Div 3 - Brand Identity -->
                     <div class="div3" data-project="3">
-                        <!-- Info Panel akan muncul di kanan saat hover -->
+                        <!-- Info Panel akan muncul di bawah saat hover -->
                         <div class="info-panel" id="info-panel-3">
-                            <h3 class="info-title">Task Management App</h3>
-                            <p class="info-description">Aplikasi manajemen tugas kolaboratif yang membantu tim bekerja lebih efisien dengan fitur real-time dan antarmuka intuitif.</p>
+                            <h3 class="info-title">Brand Identity</h3>
+                            <p class="info-description">Desain identitas merek lengkap untuk startup teknologi dengan logo, warna, dan tipografi yang konsisten.</p>
                             
                             <div class="info-features">
                                 <h4>Fitur Utama:</h4>
                                 <ul>
-                                    <li>Sinkronisasi real-time antar tim</li>
-                                    <li>Drag-and-drop untuk prioritas</li>
-                                    <li>Pemberitahuan dan reminder</li>
-                                    <li>Integrasi dengan Google Calendar</li>
+                                    <li>Logo dan sistem logo</li>
+                                    <li>Palet warna yang konsisten</li>
+                                    <li>Tipografi yang dipilih khusus</li>
+                                    <li>Panduan penggunaan brand</li>
                                 </ul>
                             </div>
                             
                             <div class="info-tech">
-                                <h4>Teknologi:</h4>
+                                <h4>Software:</h4>
                                 <div class="info-tech-tags">
-                                    <span>React</span>
-                                    <span>Firebase</span>
-                                    <span>Material-UI</span>
-                                    <span>Socket.io</span>
+                                    <span>Illustrator</span>
+                                    <span>Photoshop</span>
+                                    <span>InDesign</span>
+                                    <span>Figma</span>
                                 </div>
                             </div>
                             
@@ -807,16 +816,16 @@
                         
                         <div class="project-grid-image">
                             <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" 
-                                 alt="Task Management App">
+                                 alt="Brand Identity">
                         </div>
                         <div class="project-grid-info">
-                            <h3>Task Management App</h3>
-                            <p>Collaborative task management application with real-time updates, team collaboration features, and progress tracking. Built with React, Firebase, and Material-UI.</p>
+                            <h3>Brand Identity</h3>
+                            <p>Desain sistem identitas merek yang komprehensif untuk perusahaan teknologi baru.</p>
                             <div class="project-grid-tech">
-                                <span>React</span>
-                                <span>Firebase</span>
-                                <span>Material-UI</span>
-                                <span>Socket.io</span>
+                                <span>Illustrator</span>
+                                <span>Photoshop</span>
+                                <span>InDesign</span>
+                                <span>Figma</span>
                             </div>
                         </div>
                     </div>
@@ -850,7 +859,7 @@
             </div>
             
             <div class="modal-tech">
-                <h4>Teknologi yang Digunakan</h4>
+                <h4>Software yang Digunakan</h4>
                 <div class="modal-tech-tags" id="modal-tech">
                     <!-- Tech tags will be inserted here -->
                 </div>
@@ -858,10 +867,10 @@
             
             <div class="modal-links">
                 <a href="#" class="modal-link" id="modal-link-live" target="_blank">
-                    <i class="fas fa-external-link-alt"></i> Live Demo
+                    <i class="fas fa-external-link-alt"></i> Lihat Demo
                 </a>
                 <a href="#" class="modal-link" id="modal-link-github" target="_blank">
-                    <i class="fab fa-github"></i> GitHub
+                    <i class="fab fa-github"></i> Lihat File
                 </a>
             </div>
         </div>
@@ -883,59 +892,53 @@
     <script>
         // Initialize AOS
         AOS.init({
-            duration: 0,
+            duration: 800,
             easing: 'ease-in-out',
-            once: false,
-            delay: 0
+            once: true,
+            delay: 100
         });
         
         // Data untuk masing-masing project
         const projectsData = {
             1: {
-                title: "E-web Embed Editor",
-                image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-                description: "E-web Embed Editor adalah platform full-stack yang memungkinkan pengguna untuk membuat, mengedit, dan menyematkan konten web secara dinamis. Sistem ini dilengkapi dengan berbagai fitur canggih untuk memudahkan pengembangan dan deployment konten web.",
+                title: "Poster Design",
+                image: "https://images.unsplash.com/photo-1589206010359-0e42d6d2c954?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                description: "Desain poster untuk acara ILM dengan konsep yang kreatif dan informatif. Poster ini dirancang untuk menarik perhatian audiens muda dengan kombinasi warna yang vibrant dan layout yang mudah dipahami.",
                 features: [
-                    "Editor WYSIWYG (What You See Is What You Get) yang intuitif",
-                    "Autentikasi pengguna dengan OAuth2 dan JWT",
-                    "Sistem pembayaran terintegrasi dengan Stripe",
-                    "Dashboard admin dengan analitik real-time",
-                    "Optimasi performa dengan lazy loading dan caching",
-                    "Responsif di semua perangkat dan browser"
+                    "Desain yang eye-catching dengan warna yang menarik",
+                    "Layout yang informatif dengan hierarki visual yang jelas",
+                    "Tipografi yang mudah dibaca dari berbagai jarak",
+                    "Grafik dan ilustrasi yang mendukung pesan utama"
                 ],
-                tech: ["React", "Node.js", "MongoDB", "Stripe", "Express", "Redux", "JWT"],
+                tech: ["CorelDraw", "Photoshop", "Canva", "Illustrator"],
                 liveLink: "#",
                 githubLink: "#"
             },
             2: {
-                title: "E-commerce Platform",
+                title: "Iklan Layanan Masyarakat",
                 image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-                description: "Platform e-commerce komprehensif yang dibangun dengan teknologi terbaru. Menyediakan pengalaman belanja online yang mulus dengan berbagai fitur modern untuk pelanggan dan administrator.",
+                description: "Kampanye iklan layanan masyarakat tentang bullying yang bertujuan meningkatkan kesadaran akan dampak negatif bullying dan mendorong sikap empati di kalangan remaja.",
                 features: [
-                    "Katalog produk dengan filter dan pencarian canggih",
-                    "Keranjang belanja real-time dengan perhitungan otomatis",
-                    "Sistem ulasan dan rating produk",
-                    "Pelacakan pesanan dari pembelian hingga pengiriman",
-                    "Dashboard analitik untuk penjualan dan stok",
-                    "Integrasi dengan berbagai metode pembayaran"
+                    "Pesan sosial yang jelas dan mudah dipahami",
+                    "Visual yang impactfull dan menarik perhatian",
+                    "Narasi yang emotional dan relatable",
+                    "Call-to-action yang mendorong tindakan positif"
                 ],
-                tech: ["Vue.js", "Express", "PostgreSQL", "Stripe API", "Vuex", "JWT", "Redis"],
+                tech: ["Premiere Pro", "After Effects", "Photoshop", "Canva", "Audition"],
                 liveLink: "#",
                 githubLink: "#"
             },
             3: {
-                title: "Task Management App",
+                title: "Brand Identity",
                 image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-                description: "Aplikasi manajemen tugas kolaboratif yang memungkinkan tim untuk bekerja lebih efisien. Dengan antarmuka yang intuitif dan fitur real-time, aplikasi ini membantu tim menyelesaikan proyek tepat waktu.",
+                description: "Desain sistem identitas merek lengkap untuk startup teknologi yang mencakup logo, palet warna, tipografi, dan panduan penggunaan yang konsisten.",
                 features: [
-                    "Sinkronisasi real-time antar semua anggota tim",
-                    "Drag-and-drop untuk mengatur prioritas tugas",
-                    "Pemberitahuan dan reminder otomatis",
-                    "Laporan progres dengan grafik visual",
-                    "Integrasi dengan Google Calendar dan Slack",
-                    "Role-based access control (RBAC)"
+                    "Logo utama dan variasi logo untuk berbagai konteks",
+                    "Sistem warna yang konsisten dan memiliki makna",
+                    "Tipografi yang dipilih khusus untuk readability dan personality",
+                    "Panduan penggunaan brand untuk menjaga konsistensi"
                 ],
-                tech: ["React", "Firebase", "Material-UI", "Socket.io", "Redux Toolkit", "Chart.js"],
+                tech: ["Illustrator", "Photoshop", "InDesign", "Figma", "Xd"],
                 liveLink: "#",
                 githubLink: "#"
             }
@@ -1034,8 +1037,24 @@
                 e.stopPropagation(); // Mencegah event click bubble ke parent div
             });
         });
-    </script>
-    <script src="script.js"></script>
-</body>
 
+        // Tambahkan animasi untuk gambar saat hover
+        document.querySelectorAll('.project-grid-image img').forEach(img => {
+            img.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.05)';
+            });
+            
+            img.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+
+        // Tambahkan fallback untuk gambar yang error
+        document.querySelectorAll('img').forEach(img => {
+            img.addEventListener('error', function() {
+                this.src = 'https://images.unsplash.com/photo-1589206010359-0e42d6d2c954?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80';
+            });
+        });
+    </script>
+</body>
 </html>
