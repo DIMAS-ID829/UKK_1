@@ -32,7 +32,7 @@
         .content {
             position: relative;
             z-index: 1;
-            padding: 80px 20px 120px; /* Lebih banyak padding bawah untuk nav mobile */
+            padding: 80px 20px 130px; /* Sedikit dikurangi karena tombol lebih kecil */
         }
         .container {
             max-width: 1200px;
@@ -115,31 +115,33 @@
             color: #e2e8f0;
         }
 
-        /* Navigation Buttons */
+        /* Navigation Buttons - SATU DI KIRI, SATU DI KANAN (ukuran dikecilkan sedikit) */
         .nav-buttons {
             position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
+            bottom: 40px;
+            left: 25px;
+            right: 25px;
             display: flex;
-            gap: 30px;
+            justify-content: space-between;
             z-index: 1000;
+            pointer-events: none;
         }
         .nav-button {
-            width: 60px;
-            height: 60px;
+            width: 56px;   /* Dikecilkan dari 65px → 56px */
+            height: 56px;  /* Dikecilkan dari 65px → 56px */
             background: rgba(26, 32, 44, 0.95);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: #4fd1c5;
-            font-size: 26px;
+            font-size: 24px; /* Dikecilkan dari 28px → 24px */
             text-decoration: none;
             box-shadow: 0 0 25px rgba(79, 209, 197, 0.5);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(79, 209, 197, 0.25);
             transition: all 0.3s ease;
+            pointer-events: auto;
         }
         .nav-button:hover {
             background: rgba(45, 55, 72, 0.98);
@@ -147,7 +149,7 @@
             transform: scale(1.12);
         }
 
-        /* Responsif yang Lebih Baik untuk Mobile */
+        /* Responsif untuk Mobile (ukuran tombol juga disesuaikan lebih kecil secara bertahap) */
         @media (max-width: 1024px) {
             .project-section {
                 gap: 40px;
@@ -156,11 +158,21 @@
             .header h1 {
                 font-size: 2.5rem;
             }
+            .nav-buttons {
+                left: 20px;
+                right: 20px;
+                bottom: 35px;
+            }
+            .nav-button {
+                width: 54px;
+                height: 54px;
+                font-size: 23px;
+            }
         }
 
         @media (max-width: 768px) {
             .content {
-                padding: 60px 15px 100px;
+                padding: 60px 15px 110px;
             }
             .header {
                 margin-bottom: 60px;
@@ -181,8 +193,6 @@
             .project-title {
                 justify-content: center;
                 font-size: 1.8rem;
-                flex-direction: row;
-                gap: 14px;
             }
             .project-title i {
                 width: 50px;
@@ -197,19 +207,20 @@
                 width: 100%;
             }
             .nav-buttons {
-                gap: 20px;
-                bottom: 20px;
+                left: 18px;
+                right: 18px;
+                bottom: 28px;
             }
             .nav-button {
-                width: 55px;
-                height: 55px;
-                font-size: 24px;
+                width: 52px;
+                height: 52px;
+                font-size: 22px;
             }
         }
 
         @media (max-width: 480px) {
             .content {
-                padding: 50px 10px 90px;
+                padding: 50px 10px 100px;
             }
             .header h1 {
                 font-size: 1.9rem;
@@ -237,12 +248,14 @@
                 line-height: 1.7;
             }
             .nav-buttons {
-                gap: 15px;
+                left: 15px;
+                right: 15px;
+                bottom: 22px;
             }
             .nav-button {
                 width: 50px;
                 height: 50px;
-                font-size: 22px;
+                font-size: 21px;
             }
         }
     </style>
@@ -261,7 +274,7 @@
             <!-- Proyek 1: Poster -->
             <div class="project-section">
                 <div class="project-image">
-                    <img src="images/Poster.png" alt="Poster Iklan Layanan Masyarakat">
+                    <img src="images/Poster.jpg" alt="Poster Iklan Layanan Masyarakat">
                 </div>
                 <div class="project-content">
                     <h2 class="project-title">
@@ -269,7 +282,7 @@
                         Poster Iklan Layanan Masyarakat
                     </h2>
                     <p class="project-desc">
-                        Poster ini dirancang untuk menyampaikan pesan sosial kepada masyarakat dengan visual yang menarik dan informatif. Menggunakan prinsip desain yang jelas, pemilihan warna kontras, serta tipografi yang mudah dibaca agar pesan dapat tersampaikan secara efektif.
+                        Poster ini dirancang untuk menyampaikan pesan sosial kepada masyarakat dengan visual yang menarik dan informatif. Menggunakan princip desain yang jelas, pemilihan warna kontras, serta tipografi yang mudah dibaca agar pesan dapat tersampaikan secara efektif.
                     </p>
                 </div>
             </div>
@@ -308,7 +321,7 @@
         </div>
     </div>
 
-    <!-- Navigation Buttons -->
+    <!-- Navigation Buttons - Kiri dan Kanan (ukuran lebih kecil) -->
     <div class="nav-buttons">
         <a href="pendahuluan.html" class="nav-button">
             <i class="fas fa-arrow-left"></i>
