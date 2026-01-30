@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tentang Project</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -13,17 +12,14 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: 'Inter', sans-serif;
             color: #e2e8f0;
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
-            zoom: 0,50;
         }
-
-        /* Canvas untuk partikel background */
+        /* Canvas partikel background */
         #particle-canvas {
             position: fixed;
             top: 0;
@@ -33,337 +29,279 @@
             z-index: -1;
             background: black;
         }
-
-        /* Konten utama */
         .content {
             position: relative;
             z-index: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 60px 20px;
+            padding: 80px 20px 120px; /* Lebih banyak padding bawah untuk nav mobile */
         }
-
         .container {
-            max-width: 1000px;
-            width: 100%;
+            max-width: 1200px;
             margin: 0 auto;
         }
-
         .header {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 80px;
         }
-
         .header h1 {
             font-size: 2.8rem;
-            margin-bottom: 20px;
             font-weight: 900;
             color: #4fd1c5;
-            letter-spacing: -0.5px;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            margin-bottom: 16px;
         }
-
         .header p {
             font-size: 1.2rem;
             color: #a0aec0;
             max-width: 700px;
             margin: 0 auto;
             line-height: 1.7;
-            font-weight: 400;
-            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
         }
-
-        /* Box Container */
-        .boxes-container {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-            background: rgba(26, 32, 44, 0.85);
-            border-radius: 16px;
-            padding: 0;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(79, 209, 197, 0.2);
-            overflow: hidden;
-            backdrop-filter: blur(10px);
-        }
-
-        /* Box Item */
-        .box {
-            padding: 50px;
-            position: relative;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
-        }
-
-        .box:hover {
-            background: rgba(45, 55, 72, 0.4);
-            transform: translateY(-3px);
-        }
-
-        .box-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #4fd1c5;
-            margin-bottom: 25px;
-            text-align: center;
+        /* Project Section */
+        .project-section {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 15px;
+            gap: 60px;
+            margin-bottom: 100px;
+            background: rgba(26, 32, 44, 0.78);
+            border-radius: 16px;
+            padding: 50px;
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(79, 209, 197, 0.2);
+            transition: all 0.4s ease;
         }
-
-        .box-title i {
-            font-size: 1.6rem;
-            background: rgba(79, 209, 197, 0.15);
-            width: 50px;
-            height: 50px;
+        .project-section:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+        .project-image {
+            flex: 1;
+            max-width: 500px;
+        }
+        .project-image img {
+            width: 100%;
+            height: auto;
             border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            transition: transform 0.3s ease;
+        }
+        .project-image img:hover {
+            transform: scale(1.03);
+        }
+        .project-content {
+            flex: 1;
+        }
+        .project-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #4fd1c5;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .project-title i {
+            font-size: 1.8rem;
+            background: rgba(79, 209, 197, 0.15);
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
             border: 1px solid rgba(79, 209, 197, 0.3);
         }
-
-        .box-content {
+        .project-desc {
             font-size: 1.15rem;
-            line-height: 1.8;
+            line-height: 1.85;
             color: #e2e8f0;
-            text-align: center;
-            max-width: 750px;
-            margin: 0 auto;
-            font-weight: 400;
         }
 
-        /* Divider Styling */
-        .divider {
-            height: 1px;
-            background: linear-gradient(90deg, 
-                transparent 10%, 
-                rgba(79, 209, 197, 0.4) 30%, 
-                rgba(79, 209, 197, 0.7) 50%, 
-                rgba(79, 209, 197, 0.4) 70%, 
-                transparent 90%);
-            position: relative;
-            margin: 0 50px;
-        }
-
-        .divider::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 10px;
-            height: 10px;
-            background: #4fd1c5;
-            border-radius: 50%;
-            box-shadow: 0 0 20px rgba(79, 209, 197, 0.9);
-        }
-
-        /* Navigation Buttons Styles */
+        /* Navigation Buttons */
         .nav-buttons {
             position: fixed;
-            bottom: 20px;
-            left: 0;
-            right: 0;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
             display: flex;
-            justify-content: space-between;
-            padding: 0 40px;
+            gap: 30px;
             z-index: 1000;
-            pointer-events: none;
         }
-
         .nav-button {
-            width: 55px;
-            height: 55px;
+            width: 60px;
+            height: 60px;
             background: rgba(26, 32, 44, 0.95);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: #4fd1c5;
+            font-size: 26px;
             text-decoration: none;
-            font-size: 22px;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 20px rgba(79, 209, 197, 0.5);
+            box-shadow: 0 0 25px rgba(79, 209, 197, 0.5);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(79, 209, 197, 0.25);
-            pointer-events: auto;
+            transition: all 0.3s ease;
         }
-
         .nav-button:hover {
             background: rgba(45, 55, 72, 0.98);
-            box-shadow: 0 0 30px rgba(79, 209, 197, 0.8);
-            transform: scale(1.08);
-            border-color: rgba(79, 209, 197, 0.4);
+            box-shadow: 0 0 35px rgba(79, 209, 197, 0.8);
+            transform: scale(1.12);
         }
 
-        .nav-button i {
-            transition: transform 0.3s ease;
-        }
-
-        .nav-button.prev-button:hover i {
-            transform: translateX(-4px);
-        }
-
-        .nav-button.next-button:hover i {
-            transform: translateX(4px);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2.3rem;
+        /* Responsif yang Lebih Baik untuk Mobile */
+        @media (max-width: 1024px) {
+            .project-section {
+                gap: 40px;
+                padding: 40px;
             }
-            
+            .header h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 60px 15px 100px;
+            }
+            .header {
+                margin-bottom: 60px;
+            }
+            .header h1 {
+                font-size: 2.2rem;
+            }
             .header p {
                 font-size: 1.1rem;
-                padding: 0 15px;
             }
-            
-            .box {
-                padding: 35px 25px;
-            }
-            
-            .box-title {
-                font-size: 1.6rem;
+            .project-section {
                 flex-direction: column;
-                gap: 15px;
+                text-align: center;
+                padding: 35px 25px;
+                gap: 30px;
+                margin-bottom: 80px;
             }
-            
-            .box-title i {
-                width: 45px;
-                height: 45px;
-                font-size: 1.4rem;
+            .project-title {
+                justify-content: center;
+                font-size: 1.8rem;
+                flex-direction: row;
+                gap: 14px;
             }
-            
-            .box-content {
-                font-size: 1.05rem;
-                line-height: 1.7;
-            }
-            
-            .divider {
-                margin: 0 30px;
-            }
-            
-            .nav-buttons {
-                padding: 0 25px;
-            }
-            
-            .nav-button {
+            .project-title i {
                 width: 50px;
                 height: 50px;
-                font-size: 20px;
+                font-size: 1.6rem;
+            }
+            .project-desc {
+                font-size: 1.05rem;
+            }
+            .project-image {
+                max-width: 100%;
+                width: 100%;
+            }
+            .nav-buttons {
+                gap: 20px;
+                bottom: 20px;
+            }
+            .nav-button {
+                width: 55px;
+                height: 55px;
+                font-size: 24px;
             }
         }
 
         @media (max-width: 480px) {
             .content {
-                padding: 40px 15px;
+                padding: 50px 10px 90px;
             }
-            
             .header h1 {
                 font-size: 1.9rem;
-                margin-bottom: 15px;
             }
-            
             .header p {
                 font-size: 1rem;
+                padding: 0 10px;
             }
-            
-            .box {
+            .project-section {
                 padding: 30px 20px;
+                margin-bottom: 60px;
             }
-            
-            .box-title {
-                font-size: 1.4rem;
+            .project-title {
+                font-size: 1.6rem;
+                flex-direction: column;
+                gap: 12px;
             }
-            
-            .box-content {
+            .project-title i {
+                width: 48px;
+                height: 48px;
+                font-size: 1.5rem;
+            }
+            .project-desc {
                 font-size: 1rem;
+                line-height: 1.7;
             }
-        }
-
-        /* Animasi */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
+            .nav-buttons {
+                gap: 15px;
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+            .nav-button {
+                width: 50px;
+                height: 50px;
+                font-size: 22px;
             }
-        }
-
-        .box {
-            animation: fadeInUp 0.7s ease forwards;
-            opacity: 0;
-        }
-
-        .box:nth-child(1) {
-            animation-delay: 0.1s;
-        }
-
-        .box:nth-child(2) {
-            animation-delay: 0.25s;
-        }
-
-        .box:nth-child(3) {
-            animation-delay: 0.4s;
         }
     </style>
 </head>
 <body>
-    <!-- Canvas untuk partikel background -->
+    <!-- Canvas partikel background -->
     <canvas id="particle-canvas"></canvas>
-    
-    <!-- Konten utama -->
+
     <div class="content">
         <div class="container">
             <div class="header">
                 <h1>Tentang Project</h1>
-                <p>Penjelasan tentang project yang saya buat meliputi Poster,Website,Iklan layanan Masyarakat</p>
+                <p>Penjelasan tentang project yang saya buat meliputi Poster, Website, dan Iklan Layanan Masyarakat.</p>
             </div>
-            
-            <div class="boxes-container">
-                <!-- Box 1 -->
-                <div class="box">
-                    <h2 class="box-title">
+
+            <!-- Proyek 1: Poster -->
+            <div class="project-section">
+                <div class="project-image">
+                    <img src="https://via.placeholder.com/600x800/1e293b/4fd1c5?text=Poster+Iklan" alt="Poster Iklan Layanan Masyarakat">
+                </div>
+                <div class="project-content">
+                    <h2 class="project-title">
                         <i class="fas fa-palette"></i>
                         Poster Iklan Layanan Masyarakat
                     </h2>
-                    <p class="box-content">
-                        Crafting intuitive user experiences through thoughtful design principles. I focus on user-centered approaches to deliver interfaces that are both visually stunning and highly functional, ensuring seamless navigation and interaction across all devices and platforms.
+                    <p class="project-desc">
+                        Poster ini dirancang untuk menyampaikan pesan sosial kepada masyarakat dengan visual yang menarik dan informatif. Menggunakan prinsip desain yang jelas, pemilihan warna kontras, serta tipografi yang mudah dibaca agar pesan dapat tersampaikan secara efektif.
                     </p>
                 </div>
-                
-                <!-- Divider 1 -->
-                <div class="divider"></div>
-                
-                <!-- Box 2 -->
-                <div class="box">
-                    <h2 class="box-title">
-                        <i class="fas fa-brush"></i>
-                        Website Ukk
+            </div>
+
+            <!-- Proyek 2: Website UKK -->
+            <div class="project-section">
+                <div class="project-image">
+                    <img src="https://via.placeholder.com/600x800/1e293b/4fd1c5?text=Website+UKK" alt="Website UKK">
+                </div>
+                <div class="project-content">
+                    <h2 class="project-title">
+                        <i class="fas fa-laptop-code"></i>
+                        Website UKK
                     </h2>
-                    <p class="box-content">
-                        Developing cohesive brand identities that effectively communicate core values and resonate with target audiences. From comprehensive logo systems to detailed brand guidelines, I ensure consistent visual storytelling across all touchpoints to build strong brand recognition and trust.
+                    <p class="project-desc">
+                        Website ini dibuat sebagai bagian dari Uji Kompetensi Keahlian, menampilkan portofolio dan informasi proyek dengan tampilan responsif, navigasi yang intuitif, serta desain modern yang mendukung pengalaman pengguna di berbagai perangkat.
                     </p>
                 </div>
-                
-                <!-- Divider 2 -->
-                <div class="divider"></div>
-                
-                <!-- Box 3 -->
-                <div class="box">
-                    <h2 class="box-title">
+            </div>
+
+            <!-- Proyek 3: Iklan Layanan Masyarakat -->
+            <div class="project-section">
+                <div class="project-image">
+                    <img src="https://via.placeholder.com/600x800/1e293b/4fd1c5?text=Iklan+Video" alt="Iklan Layanan Masyarakat">
+                </div>
+                <div class="project-content">
+                    <h2 class="project-title">
                         <i class="fas fa-play-circle"></i>
                         Iklan Layanan Masyarakat
                     </h2>
-                    <p class="box-content">
-                        Bringing static designs to life with fluid animations and engaging motion graphics. I create captivating visual narratives that capture attention and enhance user engagement across digital platforms, from social media campaigns to interactive presentations and website animations.
+                    <p class="project-desc">
+                        Video iklan layanan masyarakat ini dibuat untuk meningkatkan kesadaran publik terhadap isu tertentu. Menggunakan teknik editing, narasi yang kuat, dan elemen visual yang emosional agar pesan dapat menyentuh hati penonton.
                     </p>
                 </div>
             </div>
@@ -372,34 +310,25 @@
 
     <!-- Navigation Buttons -->
     <div class="nav-buttons">
-        <a href="pendahuluan.html" class="nav-button prev-button">
+        <a href="pendahuluan.html" class="nav-button">
             <i class="fas fa-arrow-left"></i>
         </a>
-        <a href="projek.html" class="nav-button next-button">
+        <a href="projek.html" class="nav-button">
             <i class="fas fa-arrow-right"></i>
         </a>
     </div>
 
-    <!-- Scripts -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Script partikel (tetap optimal) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/simplex-noise/2.4.0/simplex-noise.min.js"></script>
-    
-    <!-- Utils dari Codepen -->
     <script src="https://codepen.io/seanfree/pen/LvrJWz.js"></script>
-    
-    <!-- Kode partikel utama - SAMA PERSIS DENGAN YANG ANDA BERIKAN -->
     <script>
         "use strict";
-
-        const particleCount = 2000;
+        const particleCount = 1200;
         const particlePropCount = 9;
         const particlePropsLength = particleCount * particlePropCount;
         const spawnRadius = rand(150) + 150;
         const noiseSteps = 6;
-        const { buffer, ctx } = createRenderingContext()
-
-        // Utils: https://codepen.io/seanfree/pen/LvrJWz
-
+        const { buffer, ctx } = createRenderingContext();
         let center;
         let tick;
         let simplex;
@@ -416,49 +345,37 @@
         function createParticles() {
             simplex = new SimplexNoise();
             particleProps = new Float32Array(particleCount * particlePropCount);
-            
-            let i;
-            
-            for (i = 0; i < particlePropsLength; i += particlePropCount) {
+            for (let i = 0; i < particlePropsLength; i += particlePropCount) {
                 initParticle(i);
             }
         }
 
         function initParticle(i) {
-            let iy, ih, rd, rt, cx, sy, x, y, s, rv, vx, vy, t, h, w, l, ttl;
-            
-            iy = i + 1;
-            ih = 0.5 * i | 0;
-            rd = rand(spawnRadius);
-            rt = rand(TAU);
-            cx = cos(rt);
-            sy = sin(rt);
-            x = center[0] + cx * rd;
-            y = center[1] + sy * rd;
-            rv = randIn(0.1, 1);
-            s = randIn(1, 8);
-            vx = rv * cx * 0.1;
-            vy = rv * sy * 0.1;
-            w = randIn(0.1, 2);
-            h = randIn(160,260);
-            l = 0;
-            ttl = randIn(50, 200);
-            
+            let rd = rand(spawnRadius);
+            let rt = rand(TAU);
+            let x = center[0] + cos(rt) * rd;
+            let y = center[1] + sin(rt) * rd;
+            let rv = randIn(0.1, 1);
+            let s = randIn(1, 8);
+            let vx = rv * cos(rt) * 0.1;
+            let vy = rv * sin(rt) * 0.1;
+            let w = randIn(0.1, 2);
+            let h = randIn(160, 260);
+            let l = 0;
+            let ttl = randIn(50, 200);
+
             particleProps.set([x, y, vx, vy, s, h, w, l, ttl], i);
         }
 
         function drawParticle(i) {
-            let n, dx, dy, dl, c;
-            let [x, y, vx, vy, s, h, w, l, ttl] = particleProps.get(i, particlePropCount);
-            
-            n = simplex.noise3D(x * 0.0025, y * 0.0025, tick * 0.0005) * TAU * noiseSteps;
+            let [x, y, vx, vy, s, h, w, l, ttl] = particleProps.slice(i, i + particlePropCount);
+            let n = simplex.noise3D(x * 0.0025, y * 0.0025, tick * 0.0005) * TAU * noiseSteps;
             vx = lerp(vx, cos(n), 0.05);
             vy = lerp(vy, sin(n), 0.05);
-            dx = x + vx * s;
-            dy = y + vy * s;
-            dl = fadeInOut(l, ttl);
-            c = `hsla(${h},50%,60%,${dl})`;
-
+            let dx = x + vx * s;
+            let dy = y + vy * s;
+            let dl = fadeInOut(l, ttl);
+            let c = `hsla(${h},50%,60%,${dl})`;
             l++;
 
             buffer.save();
@@ -468,104 +385,51 @@
             buffer.moveTo(x, y);
             buffer.lineTo(dx, dy);
             buffer.stroke();
-            buffer.closePath();
             buffer.restore();
-            
-            particleProps.set([dx, dy, vx, vy, s, h, w, l, ttl], i);
 
-            (checkBounds(x, y) || l > ttl) && initParticle(i);
+            particleProps.set([dx, dy, vx, vy, s, h, w, l, ttl], i);
+            if (checkBounds(x, y) || l > ttl) initParticle(i);
         }
 
         function checkBounds(x, y) {
-            return(
-                x > buffer.canvas.width ||
-                x < 0 ||
-                y > buffer.canvas.height ||
-                y < 0
-            );
+            return x > buffer.canvas.width || x < 0 || y > buffer.canvas.height || y < 0;
         }
 
         function resize() {
             buffer.canvas.width = innerWidth;
-          buffer.canvas.height = innerHeight;
-
-          buffer.drawImage(ctx.canvas, 0, 0);
-
+            buffer.canvas.height = innerHeight;
             ctx.canvas.width = innerWidth;
-          ctx.canvas.height = innerHeight;
-          
-          ctx.drawImage(buffer.canvas, 0, 0);
-
-          center[0] = 0.5 * innerWidth;
-          center[1] = 0.5 * innerHeight;
+            ctx.canvas.height = innerHeight;
+            center[0] = 0.5 * innerWidth;
+            center[1] = 0.5 * innerHeight;
         }
 
         function draw() {
             tick++;
-            buffer.clearRect(0,0,buffer.canvas.width,buffer.canvas.height);
-            
+            buffer.clearRect(0, 0, buffer.canvas.width, buffer.canvas.height);
             ctx.fillStyle = 'rgba(0,0,0,0.1)';
-            ctx.fillRect(0,0,buffer.canvas.width,buffer.canvas.height);
-            
-            let i = 0;
-            
-            for (; i < particlePropsLength; i += particlePropCount) {
+            ctx.fillRect(0, 0, buffer.canvas.width, buffer.canvas.height);
+
+            for (let i = 0; i < particlePropsLength; i += particlePropCount) {
                 drawParticle(i);
             }
-            
+
             ctx.save();
             ctx.filter = 'blur(8px)';
             ctx.globalCompositeOperation = 'lighten';
             ctx.drawImage(buffer.canvas, 0, 0);
             ctx.restore();
-            
+
             ctx.save();
             ctx.globalCompositeOperation = 'lighter';
             ctx.drawImage(buffer.canvas, 0, 0);
             ctx.restore();
-            
-            window.requestAnimationFrame(draw);
+
+            requestAnimationFrame(draw);
         }
 
         window.addEventListener("load", setup);
         window.addEventListener("resize", resize);
-    </script>
-    
-    <!-- Script untuk konten -->
-    <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 800,
-            once: true,
-            offset: 100
-        });
-
-        // Efek hover untuk box
-        document.querySelectorAll('.box').forEach(box => {
-            box.addEventListener('mouseenter', function() {
-                this.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.5)';
-                this.style.borderColor = 'rgba(79, 209, 197, 0.25)';
-            });
-            
-            box.addEventListener('mouseleave', function() {
-                this.style.boxShadow = 'none';
-                this.style.borderColor = 'rgba(79, 209, 197, 0.2)';
-            });
-        });
-
-        // Efek scroll untuk mengatur opacity button
-        window.addEventListener('scroll', function() {
-            const navButtons = document.querySelectorAll('.nav-button');
-            const scrollPosition = window.scrollY;
-            
-            navButtons.forEach(button => {
-                if (scrollPosition > 100) {
-                    button.style.opacity = '0.9';
-                } else {
-                    button.style.opacity = '1';
-                }
-            });
-        });
     </script>
 </body>
 </html>
