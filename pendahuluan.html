@@ -1215,6 +1215,86 @@
                 });
             }
         });
+
+        // === 1. Anti Klik Kanan ===
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            alert('Klik kanan dinonaktifkan untuk melindungi konten.');
+            return false;
+        }, { capture: true });
+
+        // === 2. Blokir Shortcut DevTools ===
+        document.addEventListener('keydown', function(e) {
+            // F12
+            if (e.keyCode === 123) {
+                e.preventDefault();
+                return false;
+            }
+            // Ctrl + Shift + I / J / C
+            if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) {
+                e.preventDefault();
+                return false;
+            }
+            // Ctrl + U (view source)
+            if (e.ctrlKey && e.keyCode === 85) {
+                e.preventDefault();
+                return false;
+            }
+            // Ctrl + S (save page)
+            if (e.ctrlKey && e.keyCode === 83) {
+                e.preventDefault();
+                return false;
+            }
+        }, { capture: true });
+
+        // === 3. Deteksi DevTools Terbuka & Langsung "Gagal" ===
+        (function() {
+            const devtoolsThreshold = 160; // Threshold ukuran DevTools
+            let devtoolsOpen = false;
+
+            function detectDevtools() {
+                // Metode 1: Perbedaan ukuran window
+                if (
+                    window.outerHeight - window.innerHeight > devtoolsThreshold ||
+                    window.outerWidth - window.innerWidth > devtoolsThreshold
+                ) {
+                    if (!devtoolsOpen) {
+                        devtoolsOpen = true;
+                        forceClose();
+                    }
+                } else {
+                    devtoolsOpen = false;
+                }
+
+                // Metode 2: Console object check (debugger trap)
+                const element = new Image();
+                Object.defineProperty(element, 'id', {
+                    get: function() {
+                        forceClose();
+                    }
+                });
+                console.log('%cStop!', element);
+            }
+
+            function forceClose() {
+                // Cara agresif: infinite loop + redirect + close tab
+                alert('DevTools tidak diizinkan! Halaman akan ditutup.');
+                while (true) {} // Crash tab (infinite loop)
+                document.body.innerHTML = ''; // Hapus konten
+                window.location.href = 'about:blank'; // Redirect
+                window.close(); // Coba tutup tab
+            }
+
+            // Jalankan deteksi setiap 300ms (sangat sering)
+            setInterval(detectDevtools, 300);
+
+            // Tambahan: Debugger trap berulang
+            setInterval(function() {
+                (function() {
+                    debugger;
+                })();
+            }, 1000);
+        })();
     </script>
 
 </body>
