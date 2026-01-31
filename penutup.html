@@ -125,127 +125,6 @@
             }
         }
 
-        .conclusion-header {
-            text-align: center;
-            margin-bottom: 80px;
-            animation: slideUp 1s ease 0.3s forwards;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        @keyframes slideUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .conclusion-title {
-            font-size: 3.5rem;
-            font-weight: 900;
-            background: linear-gradient(to right, #4fd1c5, #818cf8);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 20px;
-            letter-spacing: -0.5px;
-        }
-
-        .conclusion-subtitle {
-            font-size: 1.2rem;
-            color: #cbd5e0;
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        .conclusion-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-bottom: 80px;
-        }
-
-        .conclusion-card {
-            background: rgba(30, 41, 59, 0.7);
-            border-radius: 16px;
-            padding: 40px 30px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(79, 209, 197, 0.1);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(40px);
-            animation: cardAppear 0.8s ease forwards;
-        }
-
-        .conclusion-card:nth-child(1) {
-            animation-delay: 0.4s;
-        }
-
-        .conclusion-card:nth-child(2) {
-            animation-delay: 0.6s;
-        }
-
-        .conclusion-card:nth-child(3) {
-            animation-delay: 0.8s;
-        }
-
-        @keyframes cardAppear {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .conclusion-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: linear-gradient(to bottom, #4fd1c5, #818cf8);
-        }
-
-        .conclusion-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            border-color: rgba(79, 209, 197, 0.3);
-        }
-
-        .card-icon {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, rgba(79, 209, 197, 0.1), rgba(129, 140, 248, 0.1));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 25px;
-            font-size: 28px;
-            color: #4fd1c5;
-            transition: transform 0.3s ease;
-        }
-
-        .conclusion-card:hover .card-icon {
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        .card-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #f7fafc;
-            margin-bottom: 15px;
-        }
-
-        .card-text {
-            color: #cbd5e0;
-            line-height: 1.7;
-            font-size: 1.05rem;
-        }
-
         .final-message {
             text-align: center;
             background: rgba(30, 41, 59, 0.7);
@@ -441,18 +320,6 @@
         }
 
         @media (max-width: 768px) {
-            .conclusion-title {
-                font-size: 2.5rem;
-            }
-            
-            .conclusion-subtitle {
-                font-size: 1rem;
-            }
-            
-            .conclusion-content {
-                grid-template-columns: 1fr;
-            }
-            
             .nav-button {
                 width: 45px;
                 height: 45px;
@@ -465,10 +332,6 @@
             
             .final-message {
                 padding: 40px 20px;
-            }
-            
-            .conclusion-card {
-                padding: 30px 20px;
             }
         }
     </style>
@@ -485,43 +348,6 @@
         </div>
         
         <div class="conclusion-container">
-            <div class="conclusion-header">
-                <h1 class="conclusion-title">Refleksi & Penutup</h1>
-                <p class="conclusion-subtitle">Perjalanan pembelajaran, perkembangan kemampuan, dan visi untuk masa depan</p>
-            </div>
-            
-            <div class="conclusion-content">
-                <div class="conclusion-card">
-                    <div class="card-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3 class="card-title">Perjalanan Pembelajaran</h3>
-                    <p class="card-text">
-                        Sepanjang perjalanan ini, saya telah mengembangkan berbagai kemampuan teknis yang semakin matang. Pengalaman dalam menciptakan berbagai karya digital telah membentuk pemahaman yang mendalam tentang prinsip-prinsip desain, fungsionalitas, dan pengalaman pengguna yang optimal.
-                    </p>
-                </div>
-                
-                <div class="conclusion-card">
-                    <div class="card-icon">
-                        <i class="fas fa-lightbulb"></i>
-                    </div>
-                    <h3 class="card-title">Pemecahan Tantangan</h3>
-                    <p class="card-text">
-                        Saya telah belajar menghadapi berbagai tantangan dengan pendekatan yang sistematis dan kreatif. Setiap proyek memberikan kesempatan untuk menemukan solusi inovatif, mengoptimalkan kinerja, dan menciptakan hasil yang berdampak positif. Kemampuan berpikir analitis dan strategis terus berkembang melalui proses ini.
-                    </p>
-                </div>
-                
-                <div class="conclusion-card">
-                    <div class="card-icon">
-                        <i class="fas fa-eye"></i>
-                    </div>
-                    <h3 class="card-title">Visi ke Depan</h3>
-                    <p class="card-text">
-                        Saya berkomitmen untuk terus mengembangkan kemampuan dalam berbagai bidang terkini, dengan fokus pada penciptaan solusi yang bermakna dan mudah diakses. Tujuan jangka panjang adalah berkontribusi pada inisiatif-inisiatif inovatif yang memberikan nilai nyata, sambil tetap menjaga semangat belajar dan beradaptasi.
-                    </p>
-                </div>
-            </div>
-            
             <div class="final-message">
                 <h2 class="message-title">Penutup & Ucapan Terima Kasih</h2>
                 <p class="message-text">
@@ -571,20 +397,6 @@
             navButtons.forEach((button, index) => {
                 button.style.animationDelay = `${0.2 + index * 0.1}s`;
                 button.style.animation = 'fadeIn 0.8s ease forwards';
-            });
-            
-            // Efek hover tambahan untuk kartu
-            const cards = document.querySelectorAll('.conclusion-card');
-            cards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    const icon = this.querySelector('.card-icon');
-                    icon.style.transform = 'scale(1.1) rotate(5deg)';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    const icon = this.querySelector('.card-icon');
-                    icon.style.transform = 'scale(1) rotate(0deg)';
-                });
             });
             
             // Efek hover untuk tautan kontak
