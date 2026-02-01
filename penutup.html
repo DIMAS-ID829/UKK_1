@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Penutup & Kesimpulan - Dimas K UKK</title>
     <link rel="icon" type="image/png" href="/my-icon/favicon-96x96.png" sizes="96x96" />
-<link rel="icon" type="image/svg+xml" href="/my-icon/favicon.svg" />
-<link rel="shortcut icon" href="/my-icon/favicon.ico" />
-<link rel="apple-touch-icon" sizes="180x180" href="/my-icon/apple-touch-icon.png" />
-<link rel="manifest" href="/my-icon/site.webmanifest" />
+    <link rel="icon" type="image/svg+xml" href="/my-icon/favicon.svg" />
+    <link rel="shortcut icon" href="/my-icon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/my-icon/apple-touch-icon.png" />
+    <link rel="manifest" href="/my-icon/site.webmanifest" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -20,10 +20,11 @@
         }
         body {
             font-family: 'Inter', sans-serif;
-            background: #0f172a;
+            background: #000; /* Canvas akan menggambar hitam + trail */
             color: #f1f5f9;
             min-height: 100vh;
             overflow-x: hidden;
+            position: relative;
         }
 
         /* Navigation Buttons */
@@ -67,23 +68,8 @@
             align-items: center;
             justify-content: center;
             padding: 100px 20px;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             position: relative;
             overflow: hidden;
-        }
-        .conclusion-section::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(circle at 20% 30%, rgba(79, 209, 197, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(129, 140, 248, 0.1) 0%, transparent 50%);
-            animation: floatBackground 20s ease-in-out infinite alternate;
-        }
-        @keyframes floatBackground {
-            0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(-10px, 10px) scale(1.02); }
-            100% { transform: translate(10px, -10px) scale(1); }
         }
 
         .conclusion-container {
@@ -172,8 +158,21 @@
             border-top: 1px solid rgba(79, 209, 197, 0.1);
         }
 
-        /* Floating elements (dipertahankan) */
-        .floating-elements { /* ... tetap sama seperti kode Anda ... */ }
+        /* Floating elements (jika ada di proyek asli) */
+        .floating-elements {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+        .floating-element {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: rgba(79, 209, 197, 0.2);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+        }
+        /* Tambahkan animasi float jika diperlukan */
 
         /* Responsivitas */
         @media (max-width: 768px) {
@@ -253,6 +252,246 @@
         </a>
     </div>
 
-           <script src="script.js"></script>
+    <script>
+        /**
+         * Particle background dengan perubahan warna otomatis
+         * Diadaptasi dari kode Alex Andrix, dimodifikasi untuk:
+         * - Menjadi background full-screen (fixed, z-index -1)
+         * - Warna berubah otomatis (random hue + global shift)
+         * - Tanpa dependensi lodash
+         * - Tanpa counter UI
+         * - Support resize window
+         */
+        var App = {};
+        App.setup = function() {
+            var canvas = document.createElement('canvas');
+            canvas.style.position = 'fixed';
+            canvas.style.top = '0';
+            canvas.style.left = '0';
+            canvas.style.width = '100vw';
+            canvas.style.height = '100vh';
+            canvas.style.zIndex = '-10';
+            canvas.style.pointerEvents = 'none';
+
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            document.body.appendChild(canvas);
+
+            this.canvas = canvas;
+            this.ctx = canvas.getContext('2d');
+            this.width = canvas.width;
+            this.height = canvas.height;
+            this.xC = this.width / 2;
+            this.yC = this.height / 2;
+
+            this.stepCount = 0;
+            this.particles = [];
+            this.lifespan = 1000;
+            this.popPerBirth = 1;
+            this.maxPop = 300;
+            this.birthFreq = 2;
+
+            // Grid setup (sama seperti asli)
+            this.gridSize = 8;
+            this.gridSteps = Math.floor(1000 / this.gridSize);
+            this.grid = [];
+            var i = 0;
+            for (var xx = -500; xx < 500; xx += this.gridSize) {
+                for (var yy = -500; yy < 500; yy += this.gridSize) {
+                    var r = Math.sqrt(xx*xx + yy*yy),
+                        r0 = 100,
+                        field = (r < r0) ? 255 / r0 * r : 255 - Math.min(255, (r - r0)/2);
+
+                    this.grid.push({
+                        x: xx,
+                        y: yy,
+                        busyAge: 0,
+                        spotIndex: i,
+                        isEdge: (xx === -500 ? 'left' : (xx === (-500 + this.gridSize * (this.gridSteps-1)) ? 'right' : (yy === -500 ? 'top' : (yy === (-500 + this.gridSize *(this.gridSteps-1)) ? 'bottom' : false)))),
+                        field: field
+                    });
+                    i++;
+                }
+            }
+            this.gridMaxIndex = i;
+
+            this.deathCount = 0;
+            this.initDraw();
+        };
+
+        App.birth = function() {
+            var gridSpotIndex = Math.floor(Math.random() * this.gridMaxIndex);
+            var gridSpot = this.grid[gridSpotIndex];
+
+            var particle = {
+                hue: Math.floor(Math.random() * 360), // Random warna awal
+                sat: 90,
+                lum: 40 + Math.floor(30 * Math.random()), // Sedikit lebih terang
+                x: gridSpot.x, y: gridSpot.y,
+                xLast: gridSpot.x, yLast: gridSpot.y,
+                xSpeed: 0, ySpeed: 0,
+                age: 0,
+                ageSinceStuck: 0,
+                attractor: { oldIndex: gridSpotIndex, gridSpotIndex: gridSpotIndex },
+                name: 'seed-' + Math.ceil(10000000 * Math.random())
+            };
+            this.particles.push(particle);
+        };
+
+        App.kill = function(particleName) {
+            this.particles = this.particles.filter(function(p) {
+                return p.name !== particleName;
+            });
+            this.deathCount++;
+        };
+
+        App.move = function() {
+            for (var i = 0; i < this.particles.length; i++) {
+                var p = this.particles[i];
+                p.xLast = p.x; p.yLast = p.y;
+
+                var index = p.attractor.gridSpotIndex;
+                var gridSpot = this.grid[index];
+
+                if (Math.random() < 0.5 && !gridSpot.isEdge) {
+                    var topIndex = index - 1,
+                        bottomIndex = index + 1,
+                        leftIndex = index - this.gridSteps,
+                        rightIndex = index + this.gridSteps;
+
+                    var topSpot = this.grid[topIndex],
+                        bottomSpot = this.grid[bottomIndex],
+                        leftSpot = this.grid[leftIndex],
+                        rightSpot = this.grid[rightIndex];
+
+                    // Cari neighbor dengan field tertinggi (dengan sedikit chaos)
+                    var chaos = 30;
+                    var bestSpot = null;
+                    var bestValue = -Infinity;
+                    [topSpot, bottomSpot, leftSpot, rightSpot].forEach(function(spot) {
+                        if (spot) {
+                            var value = spot.field + chaos * Math.random();
+                            if (value > bestValue) {
+                                bestValue = value;
+                                bestSpot = spot;
+                            }
+                        }
+                    });
+
+                    if (bestSpot && (bestSpot.busyAge === 0 || bestSpot.busyAge > 15)) {
+                        p.ageSinceStuck = 0;
+                        p.attractor.oldIndex = index;
+                        p.attractor.gridSpotIndex = bestSpot.spotIndex;
+                        gridSpot = bestSpot;
+                        gridSpot.busyAge = 1;
+                    } else {
+                        p.ageSinceStuck++;
+                    }
+                } else {
+                    p.ageSinceStuck++;
+                }
+
+                if (p.ageSinceStuck >= 10) {
+                    this.kill(p.name);
+                    continue;
+                }
+
+                // Spring physics
+                var k = 8, visc = 0.4;
+                var dx = p.x - gridSpot.x,
+                    dy = p.y - gridSpot.y;
+                var xAcc = -k * dx,
+                    yAcc = -k * dy;
+
+                p.xSpeed += xAcc; p.ySpeed += yAcc;
+                p.xSpeed *= visc; p.ySpeed *= visc;
+
+                p.x += 0.1 * p.xSpeed;
+                p.y += 0.1 * p.ySpeed;
+
+                p.age++;
+                if (p.age > this.lifespan) {
+                    this.kill(p.name);
+                }
+            }
+        };
+
+        App.initDraw = function() {
+            this.ctx.fillStyle = 'black';
+            this.ctx.fillRect(0, 0, this.width, this.height);
+        };
+
+        App.draw = function() {
+            // Fade effect
+            this.ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+            this.ctx.fillRect(0, 0, this.width, this.height);
+
+            for (var i = 0; i < this.particles.length; i++) {
+                var p = this.particles[i];
+
+                // Warna berubah otomatis (shift global + random awal)
+                var h = (p.hue + this.stepCount / 15) % 360;
+                var s = p.sat;
+                var l = p.lum;
+                var a = 0.9;
+
+                var last = this.dataXYtoCanvasXY(p.xLast, p.yLast);
+                var now = this.dataXYtoCanvasXY(p.x, p.y);
+
+                this.ctx.beginPath();
+                this.ctx.strokeStyle = 'hsla(' + h + ', ' + s + '%, ' + l + '%, ' + a + ')';
+                this.ctx.lineWidth = 1.8;
+                this.ctx.moveTo(last.x, last.y);
+                this.ctx.lineTo(now.x, now.y);
+                this.ctx.stroke();
+            }
+        };
+
+        App.dataXYtoCanvasXY = function(x, y) {
+            var zoom = 1.6;
+            return {
+                x: this.xC + x * zoom,
+                y: this.yC + y * zoom
+            };
+        };
+
+        App.evolve = function() {
+            this.stepCount++;
+
+            this.grid.forEach(function(e) {
+                if (e.busyAge > 0) e.busyAge++;
+            });
+
+            if (this.stepCount % this.birthFreq === 0 && this.particles.length + this.popPerBirth < this.maxPop) {
+                this.birth();
+            }
+
+            this.move();
+            this.draw();
+        };
+
+        // Resize handler
+        function resizeCanvas() {
+            App.canvas.width = window.innerWidth;
+            App.canvas.height = window.innerHeight;
+            App.width = App.canvas.width;
+            App.height = App.canvas.height;
+            App.xC = App.width / 2;
+            App.yC = App.height / 2;
+            App.initDraw();
+        }
+        window.addEventListener('resize', resizeCanvas);
+
+        // Start
+        document.addEventListener('DOMContentLoaded', function() {
+            App.setup();
+            function frame() {
+                App.evolve();
+                requestAnimationFrame(frame);
+            }
+            frame();
+        });
+    </script>
 </body>
 </html>
