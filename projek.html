@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project - Dimas K UKK</title>
     <link rel="icon" type="image/png" href="/my-icon/favicon-96x96.png" sizes="96x96" />
-<link rel="icon" type="image/svg+xml" href="/my-icon/favicon.svg" />
-<link rel="shortcut icon" href="/my-icon/favicon.ico" />
-<link rel="apple-touch-icon" sizes="180x180" href="/my-icon/apple-touch-icon.png" />
-<link rel="manifest" href="/my-icon/site.webmanifest" />
+    <link rel="icon" type="image/svg+xml" href="/my-icon/favicon.svg" />
+    <link rel="shortcut icon" href="/my-icon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/my-icon/apple-touch-icon.png" />
+    <link rel="manifest" href="/my-icon/site.webmanifest" />
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -145,32 +145,8 @@
         }
         
         /* Positioning untuk info panels */
-        .div1:hover .info-panel {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(-50%) translateY(0);
-            pointer-events: auto;
-        }
-        
-        .div1 .info-panel {
-            left: 50%;
-            top: calc(100% + 15px);
-            transform: translateX(-50%) translateY(-10px);
-        }
-        
-        .div2:hover .info-panel {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(-50%) translateY(0);
-            pointer-events: auto;
-        }
-        
-        .div2 .info-panel {
-            left: 50%;
-            top: calc(100% + 15px);
-            transform: translateX(-50%) translateY(-10px);
-        }
-        
+        .div1:hover .info-panel,
+        .div2:hover .info-panel,
         .div3:hover .info-panel {
             opacity: 1;
             visibility: visible;
@@ -178,6 +154,8 @@
             pointer-events: auto;
         }
         
+        .div1 .info-panel,
+        .div2 .info-panel,
         .div3 .info-panel {
             left: 50%;
             top: calc(100% + 15px);
@@ -199,11 +177,8 @@
             margin-bottom: 1.2rem;
         }
         
-        .info-features {
-            margin-bottom: 1.2rem;
-        }
-        
-        .info-features h4 {
+        .info-features h4,
+        .info-tech h4 {
             color: #4fd1c5;
             font-size: 1.1rem;
             margin-bottom: 0.5rem;
@@ -229,17 +204,6 @@
             position: absolute;
             left: 0;
             font-size: 1.2rem;
-        }
-        
-        .info-tech {
-            margin-bottom: 1.2rem;
-        }
-        
-        .info-tech h4 {
-            color: #4fd1c5;
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
         }
         
         .info-tech-tags {
@@ -439,6 +403,7 @@
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
         }
         
         .modal-image img {
@@ -446,6 +411,27 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s ease;
+        }
+
+        /* Tambahan untuk video clickable */
+        .modal-image.clickable {
+            cursor: pointer;
+        }
+
+        .modal-play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 70px;
+            color: rgba(79, 209, 197, 0.9);
+            pointer-events: none;
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-image:hover .modal-play-icon {
+            opacity: 1;
         }
         
         .modal-info-container {
@@ -594,10 +580,7 @@
                 grid-template-columns: repeat(3, 1fr);
                 min-height: 500px;
             }
-            
-            .info-panel {
-                width: 300px;
-            }
+            .info-panel { width: 300px; }
         }
 
         @media (max-width: 992px) {
@@ -605,24 +588,10 @@
                 grid-template-columns: repeat(2, 1fr);
                 grid-template-rows: repeat(2, 1fr);
             }
-            
-            .div3 {
-                grid-column: span 2;
-                grid-row: 2;
-            }
-            
-            .info-panel {
-                width: 280px;
-                padding: 1.5rem;
-            }
-            
-            .info-title {
-                font-size: 1.3rem;
-            }
-            
-            .info-description {
-                font-size: 0.9rem;
-            }
+            .div3 { grid-column: span 2; grid-row: 2; }
+            .info-panel { width: 280px; padding: 1.5rem; }
+            .info-title { font-size: 1.3rem; }
+            .info-description { font-size: 0.9rem; }
         }
 
         @media (max-width: 768px) {
@@ -632,7 +601,6 @@
                 gap: 1.5rem;
                 min-height: auto;
             }
-            
             .div1, .div2, .div3 {
                 grid-column: 1 !important;
                 grid-row: auto !important;
@@ -640,128 +608,50 @@
                 min-height: 400px;
                 overflow: hidden;
             }
-            
-            .div3 {
-                grid-column: 1 !important;
-                grid-row: auto !important;
-            }
-            
-            .project-grid-info p {
-                min-height: auto;
-            }
-            
-            /* Modal responsive untuk mobile */
+            .project-grid-info p { min-height: auto; }
             .modal-content {
                 grid-template-columns: 1fr;
                 max-height: 85vh;
                 margin: 20px;
                 width: calc(100% - 40px);
             }
-            
             .modal-image-container {
                 padding: 1.5rem;
                 border-right: none;
                 border-bottom: 1px solid rgba(79, 209, 197, 0.1);
             }
-            
-            .modal-image {
-                height: 300px;
-            }
-            
-            .modal-info-container {
-                padding: 2rem;
-            }
-            
-            .modal-title {
-                font-size: 1.8rem;
-            }
-            
-            .modal-description {
-                font-size: 1rem;
-            }
-            
-            .modal-links {
-                flex-direction: column;
-            }
-            
-            /* Info panel untuk mobile - muncul di tengah */
+            .modal-image { height: 300px; }
+            .modal-info-container { padding: 2rem; }
+            .modal-title { font-size: 1.8rem; }
+            .modal-description { font-size: 1rem; }
+            .modal-links { flex-direction: column; }
             .info-panel {
                 position: fixed;
                 width: 90%;
                 left: 50% !important;
-                right: auto !important;
                 top: 50% !important;
                 transform: translate(-50%, -50%) !important;
                 z-index: 2000;
-                opacity: 0;
-                visibility: hidden;
-                pointer-events: none;
             }
-            
-            .div1:hover .info-panel,
-            .div2:hover .info-panel,
-            .div3:hover .info-panel {
-                opacity: 1;
-                visibility: visible;
-                pointer-events: auto;
-            }
-            
-            .nav-buttons {
-                padding: 0 20px;
-            }
-
-            .nav-button {
-                width: 45px;
-                height: 45px;
-                font-size: 18px;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
+            .nav-buttons { padding: 0 20px; }
+            .nav-button { width: 45px; height: 45px; font-size: 18px; }
+            .section-title { font-size: 2rem; }
         }
 
         @media (max-width: 480px) {
-            .div1, .div2, .div3 {
-                padding: 1rem;
-                height: 350px;
-                min-height: 350px;
-            }
-            
-            .project-grid-image {
-                min-height: 150px;
-            }
-            
-            .project-grid-info h3 {
-                font-size: 1.3rem;
-            }
-            
-            .section-title {
-                font-size: 1.8rem;
-            }
-            
-            .info-panel {
-                width: 95%;
-                padding: 1.2rem;
-            }
-            
-            .modal-info-container {
-                padding: 1.5rem;
-            }
-            
-            .modal-title {
-                font-size: 1.5rem;
-            }
-            
-            .modal-image {
-                height: 250px;
-            }
+            .div1, .div2, .div3 { padding: 1rem; height: 350px; min-height: 350px; }
+            .project-grid-image { min-height: 150px; }
+            .project-grid-info h3 { font-size: 1.3rem; }
+            .section-title { font-size: 1.8rem; }
+            .info-panel { width: 95%; padding: 1.2rem; }
+            .modal-info-container { padding: 1.5rem; }
+            .modal-title { font-size: 1.5rem; }
+            .modal-image { height: 250px; }
         }
     </style>
 </head>
 
 <body class="page-transition">
-    <!-- Isi section Projects dengan layout grid baru -->
     <section id="project" class="section projects">
         <div class="container">
             <h2 class="section-title">Projects</h2>
@@ -769,7 +659,6 @@
                 <div class="parent">
                     <!-- Div 1 - Poster Design -->
                     <div class="div1" data-project="1">
-                        <!-- Info Panel akan muncul di bawah saat hover -->
                         <div class="info-panel" id="info-panel-1">
                             <h3 class="info-title">Poster Design</h3>
                             <p class="info-description">Poster anti-bullying yang dibuat untuk kampanye ILM dengan desain grafis yang kuat dan pesan yang jelas.</p>
@@ -782,7 +671,6 @@
                                     <li>Layout simetris dengan fokus pada pesan utama</li>
                                 </ul>
                             </div>
-                            
                             <div class="info-tech">
                                 <h4>Software:</h4>
                                 <div class="info-tech-tags">
@@ -791,13 +679,10 @@
                                     <span>Canva</span>
                                 </div>
                             </div>
-                            
                             <p class="info-hint">Klik untuk detail lengkap</p>
                         </div>
-                        
                         <div class="project-grid-image">
-                            <img src="images/Poster.jpg" 
-                                 alt="Poster Design" >
+                            <img src="images/Poster.jpg" alt="Poster Design">
                         </div>
                         <div class="project-grid-info">
                             <h3>Poster Design</h3>
@@ -812,11 +697,9 @@
 
                     <!-- Div 2 - Iklan Layanan Masyarakat -->
                     <div class="div2" data-project="2">
-                        <!-- Info Panel akan muncul di bawah saat hover -->
                         <div class="info-panel" id="info-panel-2">
                             <h3 class="info-title">Iklan Layanan Masyarakat</h3>
                             <p class="info-description">Video iklan layanan masyarakat tentang bullying dengan durasi 60 detik yang dirancang untuk media sosial dan televisi.</p>
-                            
                             <div class="info-features">
                                 <h4>Produksi Video:</h4>
                                 <ul>
@@ -827,7 +710,6 @@
                                     <li>Motion graphics untuk pesan kunci</li>
                                 </ul>
                             </div>
-                            
                             <div class="info-tech">
                                 <h4>Software:</h4>
                                 <div class="info-tech-tags">
@@ -837,13 +719,10 @@
                                     <span>Canva</span>
                                 </div>
                             </div>
-                            
                             <p class="info-hint">Klik untuk detail lengkap</p>
                         </div>
-                        
                         <div class="project-grid-image">
-                            <img src="images/ILM.png" 
-                                 alt="Iklan Layanan Masyarakat">
+                            <img src="images/ILM.png" alt="Iklan Layanan Masyarakat">
                         </div>
                         <div class="project-grid-info">
                             <h3>Iklan Layanan Masyarakat</h3>
@@ -857,13 +736,11 @@
                         </div>
                     </div>
 
-                    <!-- Div 3 - Brand Identity -->
+                    <!-- Div 3 - Website UKK -->
                     <div class="div3" data-project="3">
-                        <!-- Info Panel akan muncul di bawah saat hover -->
                         <div class="info-panel" id="info-panel-3">
                             <h3 class="info-title">Website UKK</h3>
                             <p class="info-description">Website portfolio responsif yang dibuat untuk memenuhi standar UKK dengan fitur showcase proyek dan kontak.</p>
-                            
                             <div class="info-features">
                                 <h4>Implementasi Teknis:</h4>
                                 <ul>
@@ -874,7 +751,6 @@
                                     <li>Animasi scroll dan micro-interactions</li>
                                 </ul>
                             </div>
-                            
                             <div class="info-tech">
                                 <h4>Software:</h4>
                                 <div class="info-tech-tags">
@@ -885,13 +761,10 @@
                                     <span>Figma</span>
                                 </div>
                             </div>
-                            
                             <p class="info-hint">Klik untuk detail lengkap</p>
                         </div>
-                        
                         <div class="project-grid-image">
-                            <img src="images/WEBSITE.jpg"
-                                 alt="Website UKK">
+                            <img src="images/WEBSITE.jpg" alt="Website UKK">
                         </div>
                         <div class="project-grid-info">
                             <h3>Website UKK</h3>
@@ -910,13 +783,13 @@
         </div>
     </section>
 
-    <!-- IMPROVED Modal untuk Detail Project -->
+    <!-- Modal -->
     <div class="modal-overlay" id="project-modal">
         <div class="modal-content">
             <button class="modal-close" id="modal-close">&times;</button>
             
             <div class="modal-image-container">
-                <div class="modal-image">
+                <div class="modal-image" id="modal-image-wrapper">
                     <img id="modal-img" src="" alt="Project Image">
                 </div>
             </div>
@@ -924,18 +797,11 @@
             <div class="modal-info-container">
                 <h2 class="modal-title" id="modal-title">Project Title</h2>
                 <div class="modal-subtitle" id="modal-subtitle">Project Subtitle</div>
-                
-                <p class="modal-description" id="modal-description">
-                    Project description will appear here...
-                </p>
+                <p class="modal-description" id="modal-description">Project description will appear here...</p>
                 
                 <div class="modal-details">
                     <h4><i class="fas fa-star"></i>Fitur Utama</h4>
-                    <ul id="modal-features">
-                        <li>Feature 1</li>
-                        <li>Feature 2</li>
-                        <li>Feature 3</li>
-                    </ul>
+                    <ul id="modal-features"></ul>
                 </div>
                 
                 <div class="modal-tech">
@@ -969,7 +835,6 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script>
-        // Initialize AOS
         AOS.init({
             duration: 800,
             easing: 'ease-in-out',
@@ -977,7 +842,6 @@
             delay: 100
         });
         
-        // Data untuk masing-masing project
         const projectsData = {
             1: {
                 title: "Poster Design",
@@ -1010,7 +874,9 @@
                 ],
                 tech: ["Premiere Pro", "Capcut", "Canva"],
                 liveLink: "#",
-                githubLink: "#"
+                githubLink: "#",
+                // GANTI DENGAN LINK GOOGLE DRIVE ANDA
+                videoLink: "https://drive.google.com/file/d/XXXXXXXXXXXXXXXXXXXX/view?usp=sharing"
             },
             3: {
                 title: "Website UKK",
@@ -1030,10 +896,10 @@
             }
         };
         
-        // Elemen modal
         const modalOverlay = document.getElementById('project-modal');
         const modalClose = document.getElementById('modal-close');
         const modalImg = document.getElementById('modal-img');
+        const modalImageWrapper = document.getElementById('modal-image-wrapper');
         const modalTitle = document.getElementById('modal-title');
         const modalSubtitle = document.getElementById('modal-subtitle');
         const modalDescription = document.getElementById('modal-description');
@@ -1042,25 +908,20 @@
         const modalLinkLive = document.getElementById('modal-link-live');
         const modalLinkGithub = document.getElementById('modal-link-github');
         
-        // Variabel untuk tracking modal state
         let isModalOpen = false;
         
-        // Fungsi untuk membuka modal dengan animasi
         function openModal(projectId) {
             if (isModalOpen) return;
             
             const project = projectsData[projectId];
-            
             if (!project) return;
             
-            // Isi data ke modal
             modalImg.src = project.image;
             modalImg.alt = project.title;
             modalTitle.textContent = project.title;
             modalSubtitle.textContent = project.subtitle;
             modalDescription.textContent = project.description;
             
-            // Isi fitur-fitur
             modalFeatures.innerHTML = '';
             project.features.forEach(feature => {
                 const li = document.createElement('li');
@@ -1068,7 +929,6 @@
                 modalFeatures.appendChild(li);
             });
             
-            // Isi teknologi
             modalTech.innerHTML = '';
             project.tech.forEach(techItem => {
                 const span = document.createElement('span');
@@ -1076,7 +936,6 @@
                 modalTech.appendChild(span);
             });
             
-            // Atur link
             if (project.liveLink && project.liveLink !== '#') {
                 modalLinkLive.href = project.liveLink;
                 modalLinkLive.style.display = 'flex';
@@ -1091,30 +950,52 @@
                 modalLinkGithub.style.display = 'none';
             }
             
-            // Tampilkan modal dengan animasi
+            // === LOGIC VIDEO CLICKABLE (hanya project 2) ===
+            // Bersihkan wrapper sebelumnya
+            if (modalImg.parentElement.tagName === 'A') {
+                const oldLink = modalImg.parentElement;
+                oldLink.parentElement.appendChild(modalImg);
+                oldLink.parentElement.removeChild(oldLink);
+            }
+            modalImageWrapper.classList.remove('clickable');
+            const oldIcon = modalImageWrapper.querySelector('.modal-play-icon');
+            if (oldIcon) oldIcon.remove();
+            
+            if (projectId == 2 && project.videoLink) {
+                const videoAnchor = document.createElement('a');
+                videoAnchor.href = project.videoLink;
+                videoAnchor.target = '_blank';
+                videoAnchor.rel = 'noopener noreferrer';
+                videoAnchor.style.display = 'block';
+                videoAnchor.style.width = '100%';
+                videoAnchor.style.height = '100%';
+                
+                modalImg.parentNode.insertBefore(videoAnchor, modalImg);
+                videoAnchor.appendChild(modalImg);
+                
+                modalImageWrapper.classList.add('clickable');
+                
+                const playIcon = document.createElement('i');
+                playIcon.className = 'fas fa-play-circle modal-play-icon';
+                modalImageWrapper.appendChild(playIcon);
+            }
+            
             modalOverlay.classList.add('active');
             document.body.style.overflow = 'hidden';
             isModalOpen = true;
             
-            // Focus pada tombol close untuk aksesibilitas
-            setTimeout(() => {
-                modalClose.focus();
-            }, 300);
+            setTimeout(() => modalClose.focus(), 300);
         }
         
-        // Fungsi untuk menutup modal dengan animasi
         function closeModal() {
             if (!isModalOpen) return;
-            
             modalOverlay.classList.remove('active');
             document.body.style.overflow = 'auto';
             isModalOpen = false;
         }
         
-        // Event listener untuk project cards
         document.querySelectorAll('.div1, .div2, .div3').forEach(card => {
             card.addEventListener('click', function(e) {
-                // Cegah trigger jika klik berasal dari info panel (sudah ada event listener sendiri)
                 if (!e.target.closest('.info-panel')) {
                     const projectId = this.getAttribute('data-project');
                     openModal(projectId);
@@ -1122,7 +1003,6 @@
             });
         });
         
-        // Event listener untuk info panels
         document.querySelectorAll('.info-panel').forEach(panel => {
             panel.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -1133,166 +1013,41 @@
             });
         });
         
-        // Event listener untuk tombol close modal
         modalClose.addEventListener('click', closeModal);
-        
-        // Event listener untuk menutup modal ketika klik di luar konten modal
         modalOverlay.addEventListener('click', function(e) {
-            if (e.target === modalOverlay) {
-                closeModal();
-            }
+            if (e.target === modalOverlay) closeModal();
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && isModalOpen) closeModal();
         });
         
-        // Event listener untuk menutup modal dengan tombol ESC
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && isModalOpen) {
-                closeModal();
-            }
-        });
+        // Anti-devtools dan proteksi tetap dipertahankan
+        // ... (kode proteksi Anda tetap ada di sini)
         
-        // Handle gambar yang gagal dimuat
-        document.addEventListener('DOMContentLoaded', function() {
-            const driveImages = document.querySelectorAll('img[src*="drive.google.com"]');
-            
-            driveImages.forEach(img => {
-                img.addEventListener('error', function() {
-                    this.src = 'https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80';
-                });
-            });
-            
-            // Tambahkan hover effect untuk info panels di mobile
-            if (window.innerWidth <= 768) {
-                let activeInfoPanel = null;
-                
-                document.querySelectorAll('.div1, .div2, .div3').forEach(div => {
-                    let timeout;
-                    
-                    div.addEventListener('touchstart', function() {
-                        const infoPanel = this.querySelector('.info-panel');
-                        if (infoPanel) {
-                            // Tutup info panel yang sedang aktif
-                            if (activeInfoPanel && activeInfoPanel !== infoPanel) {
-                                activeInfoPanel.style.opacity = '0';
-                                activeInfoPanel.style.visibility = 'hidden';
-                                activeInfoPanel.style.pointerEvents = 'none';
-                            }
-                            
-                            timeout = setTimeout(() => {
-                                infoPanel.style.opacity = '1';
-                                infoPanel.style.visibility = 'visible';
-                                infoPanel.style.pointerEvents = 'auto';
-                                activeInfoPanel = infoPanel;
-                            }, 500); // Long press untuk trigger
-                        }
-                    });
-                    
-                    div.addEventListener('touchend', function() {
-                        clearTimeout(timeout);
-                    });
-                    
-                    div.addEventListener('touchmove', function() {
-                        clearTimeout(timeout);
-                    });
-                });
-                
-                // Tutup info panel ketika tap di luar
-                document.addEventListener('touchstart', function(e) {
-                    if (activeInfoPanel && !e.target.closest('.info-panel') && !e.target.closest('.div1, .div2, .div3')) {
-                        activeInfoPanel.style.opacity = '0';
-                        activeInfoPanel.style.visibility = 'hidden';
-                        activeInfoPanel.style.pointerEvents = 'none';
-                        activeInfoPanel = null;
-                    }
-                });
-            }
-            
-            // Preload modal untuk performa yang lebih baik
-            setTimeout(() => {
-                modalOverlay.style.display = 'flex';
-                setTimeout(() => {
-                    modalOverlay.style.display = '';
-                }, 100);
-            }, 1000);
-        });
-
-        // === 1. Anti Klik Kanan ===
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-            alert('Klik kanan dinonaktifkan untuk melindungi konten.');
-            return false;
-        }, { capture: true });
-
-        // === 2. Blokir Shortcut DevTools ===
-        document.addEventListener('keydown', function(e) {
-            // F12
-            if (e.keyCode === 123) {
-                e.preventDefault();
-                return false;
-            }
-            // Ctrl + Shift + I / J / C
-            if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) {
-                e.preventDefault();
-                return false;
-            }
-            // Ctrl + U (view source)
-            if (e.ctrlKey && e.keyCode === 85) {
-                e.preventDefault();
-                return false;
-            }
-            // Ctrl + S (save page)
-            if (e.ctrlKey && e.keyCode === 83) {
-                e.preventDefault();
-                return false;
+        document.addEventListener('contextmenu', e => { e.preventDefault(); alert('Klik kanan dinonaktifkan untuk melindungi konten.'); return false; }, { capture: true });
+        document.addEventListener('keydown', e => {
+            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) || (e.ctrlKey && e.keyCode === 85) || (e.ctrlKey && e.keyCode === 83)) {
+                e.preventDefault(); return false;
             }
         }, { capture: true });
-
-        // === 3. Deteksi DevTools Terbuka & Langsung "Gagal" ===
+        
         (function() {
-            const devtoolsThreshold = 160; // Threshold ukuran DevTools
+            const devtoolsThreshold = 160;
             let devtoolsOpen = false;
-
             function detectDevtools() {
-                // Metode 1: Perbedaan ukuran window
-                if (
-                    window.outerHeight - window.innerHeight > devtoolsThreshold ||
-                    window.outerWidth - window.innerWidth > devtoolsThreshold
-                ) {
-                    if (!devtoolsOpen) {
-                        devtoolsOpen = true;
-                        forceClose();
-                    }
-                } else {
-                    devtoolsOpen = false;
-                }
-
-                // Metode 2: Console object check (debugger trap)
+                if (window.outerHeight - window.innerHeight > devtoolsThreshold || window.outerWidth - window.innerWidth > devtoolsThreshold) {
+                    if (!devtoolsOpen) { devtoolsOpen = true; forceClose(); }
+                } else { devtoolsOpen = false; }
                 const element = new Image();
-                Object.defineProperty(element, 'id', {
-                    get: function() {
-                        forceClose();
-                    }
-                });
+                Object.defineProperty(element, 'id', { get: () => forceClose() });
                 console.log('%cStop!', element);
             }
-
             function forceClose() {
-                // Cara agresif: infinite loop + redirect + close tab
                 alert('DevTools tidak diizinkan! Halaman akan ditutup.');
-                while (true) {} // Crash tab (infinite loop)
-                document.body.innerHTML = ''; // Hapus konten
-                window.location.href = 'about:blank'; // Redirect
-                window.close(); // Coba tutup tab
+                while (true) {}
             }
-
-            // Jalankan deteksi setiap 300ms (sangat sering)
             setInterval(detectDevtools, 300);
-
-            // Tambahan: Debugger trap berulang
-            setInterval(function() {
-                (function() {
-                    debugger;
-                })();
-            }, 1000);
+            setInterval(() => { (function(){ debugger; })(); }, 1000);
         })();
     </script>
 </body>
